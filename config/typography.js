@@ -1,6 +1,6 @@
 import Typography from 'typography'
 // import theme from 'typography-theme-noriega'
-import { theme as style } from 'util/style'
+import { theme as style } from '../util/style'
 
 const theme = {
   baseFontSize: '18px',

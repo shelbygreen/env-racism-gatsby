@@ -1,8 +1,9 @@
 import React from 'react'
 
+import SEO from '../components/seo'
 import { Box, Flex } from '../components/Grid'
 import { Button } from '../components/Button'
-import { Link } from '../components/Link'
+import { Link } from 'gatsby'
 import styled, { themeGet } from '../../util/style'
 import { Section, Title } from '../../util/style/styles'
 
@@ -14,6 +15,7 @@ const Columns = styled(Flex).attrs({
 
 const About = () => (
   <Section>
+    <SEO title="About" />
     <Title><center>Texas Environmental Justice Explorer</center></Title>
         <p>
         "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -32,7 +34,7 @@ const About = () => (
         </p>
         <center>
         <Button>
-          <Link to="/explore">Enter</Link>
+          <Link to="/Explore">Enter</Link>
         </Button>
         </center>
   </Section>
