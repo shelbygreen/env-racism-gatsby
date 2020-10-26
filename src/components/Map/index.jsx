@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl/dist/mapbox-gl.js'
 import styled from '../../../util/style'
+// import { config } from '../../../config/map'
 import { siteMetadata } from '../../../gatsby-config'
 import { hasWindow } from '../../../util/dom'
 
@@ -27,6 +28,9 @@ const Map = () => {
         return null
     }
 
+    // importing accessToken and styles
+    // const { accessToken } = config
+
     // this ref holds the map DOM node so that we can pass it into Mapbox GL
     const mapNode = useRef(null)
 
@@ -45,9 +49,27 @@ const Map = () => {
             zoom: 5
         })
 
-        // navigation control on the top right
+        // navigation control
         map.addControl(new mapboxgl.NavigationControl())
-    })
+
+        map.on("load", () => {
+            map.resize();
+        })
+
+        // brings us to user location
+        map.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true,
+                },
+                trackUserLocation: true,
+            })
+        )
+
+        return () => {
+            map.remove()
+        }
+    }, [])
 
     return (
         <Wrapper>
