@@ -30,6 +30,11 @@ const About = () => (
         velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat
         quo voluptas nulla pariatur?"
         </p>
+        <center>
+        <Button>
+          <Link to="/explore">Enter</Link>
+        </Button>
+        </center>
   </Section>
 )
 
