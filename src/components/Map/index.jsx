@@ -50,9 +50,12 @@ const Map = () => {
         })
 
         // detect the map's new width and height and resize it
-    map.resize();
+        map.resize();
+
+        // navigation control on the top right
+        map.addControl(new mapboxgl.NavigationControl())
     })
-    
+
     return (
         <Wrapper>
             <div ref={mapNode} style={{ width: '100%', height: '100%' }} />
