@@ -4,7 +4,7 @@ import { Box, Flex } from '../components/Grid'
 import { Button } from '../components/Button'
 import { Link } from '../components/Link'
 import styled, { themeGet } from '../../util/style'
-import { Section, Title } from './styles'
+import { Section, Title } from '../../util/style/styles'
 
 const Columns = styled(Flex).attrs({
   flexWrap: 'wrap',

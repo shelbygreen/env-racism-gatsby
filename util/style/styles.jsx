@@ -1,7 +1,7 @@
 import { Text } from 'rebass'
 
-import { Container } from '../components/Grid'
-import styled, { themeGet } from '../../util/style'
+import { Container } from '../../src/components/Grid'
+import styled, { themeGet } from '.'
 
 export const Section = styled(Container).attrs({
   py: '3rem',
