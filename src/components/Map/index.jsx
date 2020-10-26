@@ -48,8 +48,11 @@ const Map = () => {
             center: [-99.514301, 31.616819],
             zoom: 5
         })
-    })
 
+        // detect the map's new width and height and resize it
+    map.resize();
+    })
+    
     return (
         <Wrapper>
             <div ref={mapNode} style={{ width: '100%', height: '100%' }} />
