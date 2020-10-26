@@ -36,7 +36,7 @@ const Explore = () => {
                     and zoom in if you want to less.
                     </Help>
             </Sidebar>
-            <Map />
+            {/* <Map /> */}
         </Wrapper>
     </Layout>
     )
