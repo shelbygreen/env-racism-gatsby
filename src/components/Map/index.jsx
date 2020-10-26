@@ -3,7 +3,6 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl/dist/mapbox-gl.js'
 import styled from '../../../util/style'
-// import { config } from '../../../config/map'
 import { siteMetadata } from '../../../gatsby-config'
 import { hasWindow } from '../../../util/dom'
 
@@ -12,6 +11,8 @@ const Wrapper = styled.div`
   position: relative;
   flex: 1 0 auto;
   z-index: 1;
+  width: 100%;
+  height: 100%;
 `
 
 const Map = () => {
@@ -27,9 +28,6 @@ const Map = () => {
     if (!hasWindow) {
         return null
     }
-
-    // importing accessToken and styles
-    // const { accessToken } = config
 
     // this ref holds the map DOM node so that we can pass it into Mapbox GL
     const mapNode = useRef(null)
@@ -58,7 +56,7 @@ const Map = () => {
 
     return (
         <Wrapper>
-            <div ref={mapNode} style={{ width: '100%', height: '100%' }} />
+            <div ref={mapNode} style={{ width: '100vw', height: '100vh' }} />
         </Wrapper>
     )
 }
