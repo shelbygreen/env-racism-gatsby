@@ -73,7 +73,7 @@ const Map = () => {
 
     return (
         <Wrapper>
-            <div ref={mapNode} style={{ width: '100%', height: '100%' }} />
+            <div ref={mapNode} style={{ width: '100%', height: '100%' }} containerStyle={{height: '100%', weight: '100%'}} />
         </Wrapper>
     )
 }
