@@ -8,16 +8,9 @@ export const config = {
 export const sources = {
   counties: {
     type: 'geojson',
-    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-gatsby/master/data/geocounty_cumulative_score.json',
+    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/geocounty_cumulative_score.json',
     // generateId: true
-  },
-  // counties2: {
-  //   type: 'vector',
-  //   tiles: "mapbox://styles/shelby-green.3opb1hj8",
-  //   minzoom: 7,
-  //   maxzoom: 15,
-  //   tileSize: 512,
-  // },
+  }
 }
 
 export const layers = [
@@ -27,7 +20,7 @@ export const layers = [
     type: 'fill',
     paint: {
       "fill-color": {
-        property: 'cml_score', // colors coded by the 'score' attribute
+        property: 'cmlscore', // colors coded by the 'score' attribute
           stops: [
             [1, "rgb(253,231,37)"],
             [10, "rgb(180,222,44)"],
@@ -41,41 +34,7 @@ export const layers = [
             [90, "rgb(68,1,84)"]
           ]
         },
-      'fill-opacity': [
-        'case',
-        ['boolean', ['feature-state', 'hover'], false],
-        0.7,
-        0.7
-      ]
+      'fill-opacity': 0.7
     },
-  },
-  // {
-  //   id: "counties2-fill",
-  //   source: "counties2",
-  //   type: 'fill',
-  //   paint: {
-  //     "fill-color": {
-  //       property: 'score', // colors coded by the 'score' attribute
-  //         stops: [
-  //           [0, "#ffffff"],
-  //           [10, "rgb(253,231,37)"],
-  //           [20, "rgb(180,222,44)"],
-  //           [30, "rgb(109,205,89)"],
-  //           [40, "rgb(53,183,121)"],
-  //           [50, "rgb(31,158,137)"],
-  //           [60, "rgb(38,130,142)"],
-  //           [70, "rgb(49,104,142)"],
-  //           [80, "rgb(62,74,137)"],
-  //           [90, "rgb(72,40,120)"],
-  //           [100, "rgb(68,1,84)"]
-  //         ]
-  //       },
-  //     'fill-opacity': [
-  //       'case',
-  //       ['boolean', ['feature-state', 'hover'], false],
-  //       0.7,
-  //       0.7
-  //     ]
-  //   },
-  // },
+  }
 ]
