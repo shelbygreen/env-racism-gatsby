@@ -19,8 +19,8 @@ const sortOptions = [
       label: "name",
       sortFunc: (a, b) => (a.get("name") > b.get("name") ? 1 : -1)
     },
-    // { label: "population", sortFunc: (a, b) => b.get("population") - a.get("population") },
-    // { label: "risk score", sortFunc: (a, b) => b.get("cmlscore") - a.get("cmlscore") }
+    { label: "population", sortFunc: (a, b) => b.get("population") - a.get("population") },
+    { label: "risk score", sortFunc: (a, b) => b.get("cmlscore") - a.get("cmlscore") }
 ]
   
 export const Wrapper = styled(Flex).attrs({

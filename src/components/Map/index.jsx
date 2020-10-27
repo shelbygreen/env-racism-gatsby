@@ -1,9 +1,12 @@
-import React, { useEffect, useRef } from "react"
-import mapboxgl from 'mapbox-gl'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
+import PropTypes from 'prop-types'
 import { List, fromJS } from 'immutable'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl/dist/mapbox-gl.js'
 import styled from '../../../util/style'
+import { indexBy } from '../../../util/data'
 import { sources, layers } from '../../../config/map'
 import { siteMetadata } from '../../../gatsby-config'
 import { hasWindow } from '../../../util/dom'
@@ -15,7 +18,7 @@ const Wrapper = styled.div`
   z-index: 1;
 `
 
-const Map = () => {
+const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange }) => {
     const { mapboxToken } = siteMetadata
 
     if (!mapboxToken) {
@@ -40,7 +43,11 @@ const Map = () => {
     const mapRef = useRef(null)
 
     const baseStyleRef = useRef(null)
+
+    const selectedFeatureRef = useRef(selectedFeature)
     
+    const index = useMemo(() => indexBy(data.toJS(), 'id'), [data])
+
     useEffect(() => {
         // mapboxgl access token
         mapboxgl.accessToken = 'pk.eyJ1IjoicGFzaWgiLCJhIjoiY2pybzJqdTVjMHJzeDQ0bW80aGdzaXV3ayJ9.yxD8Nqu7FLnf8-lBo7F1zQ'
@@ -92,6 +99,27 @@ const Map = () => {
             <div ref={mapNode} style={{ width: '100%', height: '100%' }} containerStyle={{height: '100%', weight: '100%'}} />
         </Wrapper>
     )
+}
+
+Map.propTypes = {
+  data: ImmutablePropTypes.listOf(
+    ImmutablePropTypes.mapContains({
+      id: PropTypes.number.isRequired,
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  bounds: ImmutablePropTypes.listOf(PropTypes.number),
+  selectedFeature: PropTypes.number,
+  onSelectFeature: PropTypes.func,
+  onBoundsChange: PropTypes.func,
+}
+
+Map.defaultProps = {
+  bounds: List(),
+  selectedFeature: null,
+  onSelectFeature: () => {},
+  onBoundsChange: () => {},
 }
 
 export default Map

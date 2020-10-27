@@ -13,6 +13,7 @@ import ExpandableParagraph from '../components/Elements/ExpandableParagraph'
 import styled, { themeGet } from '../../util/style'
 import Map from '../components/Map/index'
 import RegionsList from '../components/RegionsList'
+import { filters } from '../../config/filters'
 
 const Wrapper = styled(Flex)`
   height: 100%;
@@ -25,46 +26,47 @@ const Help = styled(ExpandableParagraph)`
 `
 
 const Explore = () => {
-  // const [data, index] = useData()
-  // const [selectedId, setSelectedId] = useState(null)
+  const [data, index] = useData()
+  const [selectedId, setSelectedId] = useState(null)
+  const boundsRef = useRef([-100.116672, 30.710365999999997, -99.483808, 31.087994]) // store bounds so they are updated without rerendering
+  const [{ prevBounds, nextBounds }, setBounds] = useState({
+    prevBounds: List([-100.116672, 30.710365999999997, -99.483808, 31.087994]),
+  })
+  const [showZoom, setShowZoom] = useState(true)
 
-  // const [{ prevBounds, nextBounds }, setBounds] = useState({
-  //   prevBounds: List([-100.116672, 30.710365999999997, -99.483808, 31.087994]),
-  // })
-  // const [showZoom, setShowZoom] = useState(true)
+  const handleSelect = id => {
+    console.log('onSelect', id)
+    setSelectedId(id)
+  }
 
-  // const handleSelect = id => {
-  //   console.log('onSelect', id)
-  //   setSelectedId(id)
-  // }
+  const handleSelectFromList = id => {
+    handleSelect(id)
+    setBounds({
+      prevBounds: List(boundsRef.current),
+      nextBounds: index.get(id.toString()).get('bounds'),
+    })
+    setShowZoom(false)
+  }
 
-  // const handleSelectFromList = id => {
-  //   handleSelect(id)
-  //   setBounds({
-  //     prevBounds: List(boundsRef.current),
-  //     nextBounds: index.get(id.toString()).get('bounds'),
-  //   })
-  //   setShowZoom(false)
-  // }
+  const handleZoomTo = () => {
+    setBounds({
+      prevBounds: List(boundsRef.current),
+      nextBounds: index.get(selectedId.toString()).get('bounds'),
+    })
+  }
 
-  // const handleZoomTo = () => {
-  //   setBounds({
-  //     prevBounds: List(boundsRef.current),
-  //     nextBounds: index.get(selectedId.toString()).get('bounds'),
-  //   })
-  // }
+  const handleBack = () => {
+    setSelectedId(null)
+    setBounds({ nextBounds: List(prevBounds), prevBounds: List() })
+    setShowZoom(true)
+  }
 
-  // const handleBack = () => {
-  //   setSelectedId(null)
-  //   setBounds({ nextBounds: List(prevBounds), prevBounds: List() })
-  //   setShowZoom(true)
-  // }
-
-  // const handleBoundsChange = bounds => {
-  //   boundsRef.current = bounds
-  // }
+  const handleBoundsChange = bounds => {
+    boundsRef.current = bounds
+  }
 
   return (
+    <CrossfilterProvider data={data} filters={filters}>
     <Layout>
         <SEO title="Explore" />
         <Wrapper>
@@ -80,11 +82,17 @@ const Explore = () => {
                     regions visible on the map. Zoom out if you want to see more regions, 
                     and zoom in if you want to less.
                     </Help>
-                    {/* <RegionsList onSelect={handleSelectFromList} /> */}
+                    <RegionsList onSelect={handleSelectFromList} />
             </Sidebar>
-            <Map />
+            <FilteredMap
+              bounds={nextBounds}
+              selectedFeature={selectedId}
+              onSelectFeature={handleSelect}
+              onBoundsChange={handleBoundsChange}
+            />
         </Wrapper>
     </Layout>
+    </CrossfilterProvider>
   )
 }
 export default Explore

@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@mapbox/geo-viewport": "^0.4.1",
     "@rebass/grid": "^6.1.0",
     "@styled-system/theme-get": "^5.1.2",
     "acorn": "^8.0.4",

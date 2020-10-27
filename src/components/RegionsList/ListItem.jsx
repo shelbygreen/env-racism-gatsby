@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Text } from 'rebass'
 import { Columns, Column } from '../Grid'
 import styled, { themeGet, theme } from '../../../util/style'
-import { formatNumber, readibleNumber } from '../../../util/format'
+import { readibleNumber } from '../../../util/format'
 
 const Wrapper = styled(Text).attrs({
     fontSize: ['0.9rem', '0.8rem', '0.9rem'],
@@ -31,21 +31,19 @@ const Name = styled.div`
     font-weight: normal;
 `
   
-const ListItem = ({ name, county, ...props }) => (
+const ListItem = ({ name, cmlscore, population, ...props }) => (
     <Wrapper {...props}>
       <Columns>
         <Column>
-        {/* Add County to the end in the python file */}
         {/* Add CD numbers to each county/tract */}
-          <Name>{county}</Name>
-          {name}
+          <Name>{name}</Name>
           {/* Congressional District */}
         </Column>
         <Column>
           <Text textAlign="right">
-          Risk Score:
+          Risk Score: {cmlscore}
           <br />
-          residents
+          {readibleNumber(population, 0)} residents
           </Text>
         </Column>
       </Columns>
@@ -54,8 +52,9 @@ const ListItem = ({ name, county, ...props }) => (
   
 ListItem.propTypes = {
     id: PropTypes.number.isRequired,
-    county: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
+    cmlscore: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    population: PropTypes.number.isRequired,
 }
   
 // only rerender on ID change

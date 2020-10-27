@@ -14,7 +14,8 @@ export const useData = () => {
             node {
                 id
                 name
-                county
+                cmlscore
+                population
                 bounds
             }
           }
