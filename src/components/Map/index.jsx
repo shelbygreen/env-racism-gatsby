@@ -40,7 +40,7 @@ const Map = () => {
     
     useEffect(() => {
         // mapboxgl access token
-        mapboxgl.accessToken = mapboxToken
+        mapboxgl.accessToken = 'pk.eyJ1IjoicGFzaWgiLCJhIjoiY2pybzJqdTVjMHJzeDQ0bW80aGdzaXV3ayJ9.yxD8Nqu7FLnf8-lBo7F1zQ'
 
         const map = new mapboxgl.Map({
             container: mapNode.current,
@@ -66,9 +66,9 @@ const Map = () => {
             })
         )
 
-        return () => {
-            map.remove()
-        }
+        // return () => {
+        //     map.remove()
+        // }
     }, [])
 
     return (
