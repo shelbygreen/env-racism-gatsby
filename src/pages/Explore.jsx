@@ -13,6 +13,7 @@ import ExpandableParagraph from '../components/Elements/ExpandableParagraph'
 import styled, { themeGet } from '../../util/style'
 import Map from '../components/Map/index'
 import RegionsList from '../components/RegionsList'
+import RegionDetails from '../components/RegionDetails'
 import { filters } from '../../config/filters'
 
 const Wrapper = styled(Flex)`
@@ -71,19 +72,30 @@ const Explore = () => {
         <SEO title="Explore" />
         <Wrapper>
             <Sidebar allowScroll={false}>
-                <SidebarHeader title="Explore Regions" icon="map" />
-                    <Help
-                    snippet="Click on a region in the list below or on the map for more
-                    detailed information."
-                    >
-                    Click on a region in the list below or on the map for more
-                    detailed information. Use the buttons to toggle between displaying 
-                    counties and census tracts. The list below only shows
-                    regions visible on the map. Zoom out if you want to see more regions, 
-                    and zoom in if you want to less.
-                    </Help>
-                    <RegionsList onSelect={handleSelectFromList} />
-            </Sidebar>
+              {selectedId !== null ? (
+                <RegionDetails
+                  {...index.get(selectedId.toString()).toJS()}
+                  showZoom={showZoom}
+                  onBack={handleBack}
+                  onZoomTo={handleZoomTo}
+                />
+              ) : (
+                <>
+                  <SidebarHeader title="Explore Regions" icon="map" />
+                      <Help
+                      snippet="Click on a region in the list below or on the map for more
+                      detailed information."
+                      >
+                      Click on a region in the list below or on the map for more
+                      detailed information. Use the buttons to toggle between displaying 
+                      counties and census tracts. The list below only shows
+                      regions visible on the map. Zoom out if you want to see more regions, 
+                      and zoom in if you want to less.
+                      </Help>
+                      <RegionsList onSelect={handleSelectFromList} />
+                </>
+              )}
+              </Sidebar>
             <FilteredMap
               bounds={nextBounds}
               selectedFeature={selectedId}

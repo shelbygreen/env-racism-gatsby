@@ -17,6 +17,24 @@ export const useData = () => {
                 cmlscore
                 population
                 bounds
+                pollution_score
+                o3_max_pred
+                pm_mean_pred
+                SFcount
+                TRIcount
+                population_score
+                nwpopulation_p
+                poverty_p
+                educational_attainment_p
+                housing_burden_p
+                age_0to9
+                age_65
+                age_0to9_p
+                age_65_p
+                cardiovascular_disease
+                low_birth_weight
+                o3_max_pred
+                pm_mean_pred
             }
           }
         }
