@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react"
 import mapboxgl from 'mapbox-gl'
+import { List, fromJS } from 'immutable'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl/dist/mapbox-gl.js'
 import styled from '../../../util/style'
-// import { config } from '../../../config/map'
+import { sources, layers } from '../../../config/map'
 import { siteMetadata } from '../../../gatsby-config'
 import { hasWindow } from '../../../util/dom'
 
@@ -37,6 +38,8 @@ const Map = () => {
     // this ref holds the map object once we have instantiated it, so that we
     // can use it in other hooks
     const mapRef = useRef(null)
+
+    const baseStyleRef = useRef(null)
     
     useEffect(() => {
         // mapboxgl access token
@@ -53,6 +56,19 @@ const Map = () => {
         map.addControl(new mapboxgl.NavigationControl())
 
         map.on("load", () => {
+            // snapshot existing map config
+            baseStyleRef.current = fromJS(map.getStyle())
+            window.baseStyle = baseStyleRef.current
+
+            // add every source
+            Object.entries(sources).forEach(([id, source]) => {
+                map.addSource(id, source)
+            })
+
+            // add every layer
+            layers.forEach(layer => {
+                map.addLayer(layer)
+            })
             map.resize();
         })
 
