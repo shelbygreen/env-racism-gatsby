@@ -62,6 +62,17 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         // navigation control
         map.addControl(new mapboxgl.NavigationControl())
 
+        // locate and zoom to user location
+        map.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true,
+                },
+                trackUserLocation: true,
+            })
+        )
+
+        // adding layers to the map
         map.on("load", () => {
             // snapshot existing map config
             baseStyleRef.current = fromJS(map.getStyle())
@@ -79,19 +90,44 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             map.resize();
         })
 
-        // brings us to user location
-        map.addControl(
-            new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true,
-                },
-                trackUserLocation: true,
-            })
-        )
+        // styling for tooltip
+        const tooltip = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false,
+            anchor: 'left',
+            offset: 20,
+        })
 
-        // return () => {
-        //     map.remove()
-        // }
+        // show tooltip for counties
+        map.on('mousemove', 'counties-fill', function (e) {
+            map.getCanvas().style.cursor = 'pointer'
+            
+            // contents of the tooltip
+            const name = e.features[0].properties.name
+            const score = e.features[0].properties.cmlscore
+    
+            tooltip
+                .setLngLat(e.lngLat)
+                .setHTML(`<b>${name}</b><br /><b>Cumulative Risk Score: </b>${score}`)
+                .addTo(map)
+    
+        })
+    
+        // on click, zoom in for counties
+        // map.on('click', 'counties-fill', function (e) {
+        //     map.getCanvas().style.cursor = 'pointer'
+            
+        //     map.flyTo({ 
+        //     center: e.lngLat, 
+        //     zoom: 9,
+        //     bearing: 0, 
+        //     speed: 0.8, 
+        //     curve: 1 })
+        // })
+
+        return () => {
+            map.remove()
+        }
     }, [])
 
     return (
