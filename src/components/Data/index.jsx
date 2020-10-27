@@ -8,14 +8,14 @@ import { isDebug } from '../../../util/dom'
  */
 export const useData = () => {
     const data = useStaticQuery(graphql`
-      query CountyCumulativeScoresDataQuery {
-        allCountyCumulativeScoreJson {
+      query CountiesDataQuery {
+        allCountiesJson {
           edges {
             node {
                 id
-                state
                 name
                 county
+                bounds
             }
           }
         }

@@ -8,7 +8,8 @@ export const config = {
 export const sources = {
   counties: {
     type: 'geojson',
-    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/county_population_score.json'
+    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-gatsby/master/data/geocounty_cumulative_score.geojson',
+    generateId: true
   },
 }
 
@@ -21,16 +22,17 @@ export const layers = [
       "fill-color": {
         property: 'score', // colors coded by the 'score' attribute
           stops: [
-            [1, "rgb(253,231,37)"],
-            [2, "rgb(180,222,44)"],
-            [3, "rgb(109,205,89)"],
-            [4, "rgb(53,183,121)"],
-            [5, "rgb(31,158,137)"],
-            [6, "rgb(38,130,142)"],
-            [7, "rgb(49,104,142)"],
-            [8, "rgb(62,74,137)"],
-            [9, "rgb(72,40,120)"],
-            [10, "rgb(68,1,84)"]
+            [0, "#ffffff"],
+            [10, "rgb(253,231,37)"],
+            [20, "rgb(180,222,44)"],
+            [30, "rgb(109,205,89)"],
+            [40, "rgb(53,183,121)"],
+            [50, "rgb(31,158,137)"],
+            [60, "rgb(38,130,142)"],
+            [70, "rgb(49,104,142)"],
+            [80, "rgb(62,74,137)"],
+            [90, "rgb(72,40,120)"],
+            [100, "rgb(68,1,84)"]
           ]
         },
       'fill-opacity': [
