@@ -11,6 +11,7 @@ import { getCenterAndZoom } from '../../../util/map'
 import { sources, layers,  config } from '../../../config/map'
 import { siteMetadata } from '../../../gatsby-config'
 import { hasWindow } from '../../../util/dom'
+import FullExtentButton from './FullExtentButton'
 
 // container for the map component
 const Wrapper = styled.div`
@@ -113,6 +114,25 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             map.resize();
         })
 
+        // not sure what this does?
+        map.on('click', e => {
+        const [feature] = map.queryRenderedFeatures(e.point, {
+            layers: ['counties-fill'],
+            })
+    
+            if (!feature) return
+            const {
+                layer: { id: layerId },
+                properties,
+            } = feature
+    
+            if (layerId === 'counties-fill') {
+            onSelectFeature(properties.id)
+            } else {
+            onSelectFeature(properties[boundaryLayer.idProperty])
+            }
+        })
+
         // styling for tooltip
         const tooltip = new mapboxgl.Popup({
             closeButton: false,
@@ -135,6 +155,12 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
                 .addTo(map)
     
         })
+
+        // remove tooltip
+        map.on('mouseleave', 'counties-fill', () => {
+            map.getCanvas().style.cursor = ''
+            tooltip.remove()
+        })
     
         // on click, highling and zoom in for counties
         map.on('click', 'counties-fill', function (e) {
@@ -151,24 +177,26 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             map.fitBounds(e.features[0].properties.bounds.split(','), {padding:20, maxZoom: 14, duration: 2000 })
         })
 
+        // updates the list to show what regions are visible
+        map.on('moveend', () => {
+            const [lowerLeft, upperRight] = map.getBounds().toArray()
+            onBoundsChange(lowerLeft.concat(upperRight))
+        })
+
         return () => {
             map.remove()
         }
     }, [])
 
     // Update selected point / polygon
-    // useEffect(() => {
-    //     selectedFeatureRef.current = selectedFeature
+    useEffect(() => {
+        selectedFeatureRef.current = selectedFeature
 
-    //     const { current: map } = mapRef
-    //     if (!(map && map.isStyleLoaded())) return
+        const { current: map } = mapRef
+        if (!(map && map.isStyleLoaded())) return
 
-    //     map.setFilter('counties-outline-highlight', [
-    //     'in',
-    //     'name',
-    //     selectedFeature || Infinity,
-    //     ])
-    // }, [selectedFeature])
+        map.setFilter('counties-outline-highlight', ['==', 'id', selectedFeature || Infinity])
+    }, [selectedFeature])
 
     // update bounds to match incoming bounds
     useEffect(() => {
@@ -179,11 +207,26 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             
             map.fitBounds(bounds.toJS(), { padding: 20, maxZoom: 14, duration: 2000 })
         }
-    })
+    }, [bounds])
+
+    // full extent button
+    const goToFullExtent = () => {
+        const { current: map } = mapRef
+
+        if (!(map && map.isStyleLoaded)) return
+
+        map.fitBounds(config.bounds, { padding: 20, duration: 1000 })
+    }
 
     return (
         <Wrapper>
             <div ref={mapNode} style={{ width: '100%', height: '100%' }} containerStyle={{height: '100%', weight: '100%'}} />
+
+            {mapRef.current && mapRef.current.isStyleLoaded && (
+                <>
+                    <FullExtentButton onClick={goToFullExtent} />
+                </>
+            )}
         </Wrapper>
     )
 }
