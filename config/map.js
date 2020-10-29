@@ -2,7 +2,10 @@
  * Map configuration information used to construct map and populate layers
  */
 export const config = {
-    accessToken: "pk.eyJ1IjoicGFzaWgiLCJhIjoiY2pybzJqdTVjMHJzeDQ0bW80aGdzaXV3ayJ9.yxD8Nqu7FLnf8-lBo7F1zQ"
+    accessToken: "pk.eyJ1IjoicGFzaWgiLCJhIjoiY2pybzJqdTVjMHJzeDQ0bW80aGdzaXV3ayJ9.yxD8Nqu7FLnf8-lBo7F1zQ",
+    bounds: [-100.116672, 30.710365999999997, -99.483808, 31.087994],
+    minZoom: 2,
+    padding: 0.1
   }
 
 export const sources = {
@@ -34,7 +37,19 @@ export const layers = [
             [90, "rgb(68,1,84)"]
           ]
         },
-      'fill-opacity': 0.7
+      'fill-opacity': 0.75
+    }, 
+  },
+  {
+    id: 'counties-outline-highlight',
+    source: 'counties',
+    minzoom: 4,
+    maxzoom: 22,
+    type: 'line',
+    filter: ['in', 'name', ''],
+    paint: {
+      'line-color': '#ffffff', 
+      'line-width': 2
     },
-  }
+  },
 ]

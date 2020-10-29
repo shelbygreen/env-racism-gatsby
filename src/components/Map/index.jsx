@@ -7,7 +7,8 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl/dist/mapbox-gl.js'
 import styled from '../../../util/style'
 import { indexBy } from '../../../util/data'
-import { sources, layers } from '../../../config/map'
+import { getCenterAndZoom } from '../../../util/map'
+import { sources, layers,  config } from '../../../config/map'
 import { siteMetadata } from '../../../gatsby-config'
 import { hasWindow } from '../../../util/dom'
 
@@ -49,6 +50,28 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     const index = useMemo(() => indexBy(data.toJS(), 'id'), [data])
 
     useEffect(() => {
+        const { padding, bounds: initBounds } = config
+
+        let { center, zoom } = config
+
+        const targetBounds = bounds.isEmpty() ? initBounds : bounds.toJS()
+
+        // If bounds are available, use these to establish center and zoom when map first loads
+        if (targetBounds && targetBounds.length === 4) {
+            const {
+            current: { offsetWidth, offsetHeight },
+            } = mapNode
+  
+            const { center: boundsCenter, zoom: boundsZoom } = getCenterAndZoom(
+            targetBounds,
+            offsetWidth,
+            offsetHeight,
+            padding
+            )
+            center = boundsCenter
+            zoom = boundsZoom
+        }
+
         // mapboxgl access token
         mapboxgl.accessToken = 'pk.eyJ1IjoicGFzaWgiLCJhIjoiY2pybzJqdTVjMHJzeDQ0bW80aGdzaXV3ayJ9.yxD8Nqu7FLnf8-lBo7F1zQ'
 
@@ -113,22 +136,50 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     
         })
     
-        // on click, zoom in for counties
-        // map.on('click', 'counties-fill', function (e) {
-        //     map.getCanvas().style.cursor = 'pointer'
+        // on click, highling and zoom in for counties
+        map.on('click', 'counties-fill', function (e) {
+            map.getCanvas().style.cursor = 'pointer'
+
+            // highlight on click
+            map.setFilter('counties-outline-highlight', [
+                'in', 
+                'name', 
+                e.features[0].properties.name
+            ])
             
-        //     map.flyTo({ 
-        //     center: e.lngLat, 
-        //     zoom: 9,
-        //     bearing: 0, 
-        //     speed: 0.8, 
-        //     curve: 1 })
-        // })
+            // zoom on click
+            map.fitBounds(e.features[0].properties.bounds.split(','), {padding:20, maxZoom: 14, duration: 2000 })
+        })
 
         return () => {
             map.remove()
         }
     }, [])
+
+    // Update selected point / polygon
+    // useEffect(() => {
+    //     selectedFeatureRef.current = selectedFeature
+
+    //     const { current: map } = mapRef
+    //     if (!(map && map.isStyleLoaded())) return
+
+    //     map.setFilter('counties-outline-highlight', [
+    //     'in',
+    //     'name',
+    //     selectedFeature || Infinity,
+    //     ])
+    // }, [selectedFeature])
+
+    // update bounds to match incoming bounds
+    useEffect(() => {
+        if (!bounds.isEmpty()) {
+            const { current: map } = mapRef
+
+            if (!map) return
+            
+            map.fitBounds(bounds.toJS(), { padding: 20, maxZoom: 14, duration: 2000 })
+        }
+    })
 
     return (
         <Wrapper>
