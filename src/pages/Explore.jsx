@@ -29,9 +29,9 @@ const Help = styled(ExpandableParagraph)`
 const Explore = () => {
   const [data, index] = useData()
   const [selectedId, setSelectedId] = useState(null)
-  const boundsRef = useRef([-100.116672, 30.710365999999997, -99.483808, 31.087994]) // store bounds so they are updated without rerendering
+  const boundsRef = useRef([-106.645646,25.837377,-93.508292,36.500704]) // store bounds so they are updated without rerendering
   const [{ prevBounds, nextBounds }, setBounds] = useState({
-    prevBounds: List([-100.116672, 30.710365999999997, -99.483808, 31.087994]),
+    prevBounds: List([-106.645646,25.837377,-93.508292,36.500704]),
   })
   const [showZoom, setShowZoom] = useState(true)
 

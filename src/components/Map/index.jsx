@@ -7,11 +7,12 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import 'mapbox-gl/dist/mapbox-gl.js'
 import styled from '../../../util/style'
 import { indexBy } from '../../../util/data'
-import { getCenterAndZoom } from '../../../util/map'
+import { getCenterAndZoom, groupByLayer } from '../../../util/map'
 import { sources, layers,  config } from '../../../config/map'
 import { siteMetadata } from '../../../gatsby-config'
 import { hasWindow } from '../../../util/dom'
 import FullExtentButton from './FullExtentButton'
+import Legend from './Legend'
 
 // container for the map component
 const Wrapper = styled.div`
@@ -47,6 +48,8 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     const baseStyleRef = useRef(null)
 
     const selectedFeatureRef = useRef(selectedFeature)
+
+    const [legendEntries, setLegendEntries] = useState([])
     
     const index = useMemo(() => indexBy(data.toJS(), 'id'), [data])
 
@@ -79,9 +82,13 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         const map = new mapboxgl.Map({
             container: mapNode.current,
             style: `mapbox://styles/mapbox/light-v10`,
-            center: [-99.514301, 31.616819],
-            zoom: 5
+            center: center || [0,0],
+            zoom: zoom || 0, 
+            minZoom: config.minZoom || 0
         })
+
+        mapRef.current = map
+        window.map = map
 
         // navigation control
         map.addControl(new mapboxgl.NavigationControl())
@@ -183,6 +190,11 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             onBoundsChange(lowerLeft.concat(upperRight))
         })
 
+        map.on('idle', () => {
+            // update legend after drawing layers
+            setLegendEntries(getLegendEntries())
+        })
+
         return () => {
             map.remove()
         }
@@ -209,6 +221,40 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         }
     }, [bounds])
 
+    // updating layer hightlighting and legends
+    const getLegendEntries = () => {
+        const { current: map } = mapRef
+        if (!(map && map.isStyleLoaded())) return []
+
+        const queryLayers = [
+            'counties-fill', 
+            'counties-outline-highlight'
+        ]
+
+        // create an index that preserves the above order for sorting
+        const visibleFeatures = map.queryRenderedFeatures({ layers: queryLayers })
+        const grouped = groupByLayer(visibleFeatures)
+
+        // only show point or boundary for estuaries when in view, not both
+        // if fill is visible, show that
+        // if (grouped.points && grouped['counties-fill']) {
+        //     delete grouped.points
+        // }
+
+        // let entries = []
+        // Object.entries(grouped)
+        //     .sort(([leftLayer], [rightLayer]) =>
+        //         layerIndex[leftLayer] > layerIndex[rightLayer] ? -1 : 1
+        //      )
+        //     .forEach(([layer, features]) => {
+        //         if (legends[layer]) {
+        //             entries = entries.concat(legends[layer].getLegend(features))
+        //         }
+        //     })
+
+        // return entries
+    }
+
     // full extent button
     const goToFullExtent = () => {
         const { current: map } = mapRef
@@ -221,7 +267,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     return (
         <Wrapper>
             <div ref={mapNode} style={{ width: '100%', height: '100%' }} containerStyle={{height: '100%', weight: '100%'}} />
-
+            <Legend entries={legendEntries} />
             {mapRef.current && mapRef.current.isStyleLoaded && (
                 <>
                     <FullExtentButton onClick={goToFullExtent} />

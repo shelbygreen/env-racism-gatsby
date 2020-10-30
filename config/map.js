@@ -3,7 +3,7 @@
  */
 export const config = {
     accessToken: "pk.eyJ1IjoicGFzaWgiLCJhIjoiY2pybzJqdTVjMHJzeDQ0bW80aGdzaXV3ayJ9.yxD8Nqu7FLnf8-lBo7F1zQ",
-    bounds: [-100.116672, 30.710365999999997, -99.483808, 31.087994],
+    bounds: [-106.645646,25.837377,-93.508292,36.500704],
     minZoom: 2,
     padding: 0.1
   }
@@ -43,8 +43,8 @@ export const layers = [
   {
     id: 'counties-outline-highlight',
     source: 'counties',
-    minzoom: 4,
-    maxzoom: 22,
+    // minzoom: 4,
+    // maxzoom: 22,
     type: 'line',
     filter: ['in', 'name', ''],
     paint: {

@@ -11,14 +11,14 @@ const Wrapper = styled(Flex).attrs({
 })`
   cursor: pointer;
   position: absolute;
-  right: 8px;
-  top: 110px;
-  width: 34px;
-  height: 34px;
+  right: 10px;
+  top: 145px;
+  width: 30px;
+  height: 30px;
   z-index: 999;
   background-color: #fff;
   border-radius: 5px;
-  border: 2px solid rgb(216, 216, 216);
+  border: 1px solid rgb(216, 216, 216);
 `
 
 const Icon = styled(FaExternalLinkAlt)`
