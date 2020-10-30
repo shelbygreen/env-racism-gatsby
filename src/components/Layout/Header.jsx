@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Text, Image } from 'rebass'
 import { FaMarker } from 'react-icons/fa'
 
-import { Link } from '../Link'
+import { Link } from 'gatsby'
 
 import { Flex } from '../Grid'
 import styled, { themeGet } from '../../../util/style'
@@ -71,7 +71,7 @@ const Header = ({ siteTitle }) => (
     </Title>
     <Text as="h2" fontSize={['1.25rem']} m={0}>
       <Flex>
-        <NavLink to="/share">
+        <NavLink to="/Share">
           <NavItem>
             <ShareIcon />
             Share Your Story
