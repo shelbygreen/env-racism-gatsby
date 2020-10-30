@@ -89,13 +89,55 @@ const CaretRight = styled(FaCaretRight).attrs({
 })``
 
 const InfoIcon = styled(FaInfoCircle)`
-    width: 0.7em;
-    height: 0.7em;
-    opacity: 0.5;
-    text-align: end;
-    &:hover {
-        opacity: 1;
-    }
+  width: 0.7em;
+  height: 0.7em;
+  opacity: 0.5;
+  text-align: end;
+  &:hover {
+      opacity: 1;
+  }
+`
+
+const Tooltip = styled.span`
+  color: black;
+  margin: 0;
+  padding: 0;
+  color: $tooltip - activ;
+  position: relative;
+  display: inline-block;
+  :hover {
+    color: black;
+  }
+`
+
+const TooltipText = styled.span`
+  font-size: 0.3rem;
+  width: 200px;
+  visibility: hidden;
+  background-color: ${themeGet('colors.grey.700')};
+  color: white; 
+  text-align: center;
+  padding: 7px 7px;
+  border-radius: 6px;
+  bottom: 0%;
+  left: 0%;
+  margin-left: 0px;
+  position: absolute;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 300ms;
+}
+${Tooltip}:hover & {
+  visibility: visible;
+  opacity: 1;
+}
+&::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  margin-left: 5px;
+  }
 `
 
 const PollutionListItem = ({ 
@@ -124,16 +166,16 @@ const PollutionListItem = ({
             <HelpText>
             {/* Ozone Concentration */}
             <Labels>
-              <Column>Ozone Concentration <InfoIcon /> </Column>
+              <Column>Ozone Concentration <Tooltip><TooltipText>Ground-level ozone is an air pollutant and the main constituent of smog. Ozone is emitted into the atmosphere by oil refineries and plants, as well as by cars, trucks, and trains. The EPA 8-hour ozone standard is 70 ppb. Above this point, air quality becomes unhealthy and potentially hazardous. </TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.4}>{(o3_max_pred).toFixed(1)} ppb</Column>
             </Labels>
             <IndicatorWrapper>
                 <Indicator width={o3_max_pred}/>
-                    <Filler width={65-(o3_max_pred)} />
+                    <Filler width={70-(o3_max_pred)} />
             </IndicatorWrapper>
             {/* PM2.5 concentration */}
             <Labels>
-              <Column>PM2.5 Concentration <InfoIcon /> </Column>
+              <Column>PM2.5 Concentration <Tooltip><TooltipText>Fine particulate matter, or PM2.5, are microscopic, inhalable particles. PM2.5 is an air pollutant that is emitted into the atmosphere from sources like vehicles, power plants, and operations involving the burning of fuels. The EPA annual average PM2.5 standard is 12 micrograms/cubic meters.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.6}>{pm_mean_pred.toFixed(1)} ug/m3</Column>
             </Labels>
             <IndicatorWrapper>
@@ -142,12 +184,12 @@ const PollutionListItem = ({
             </IndicatorWrapper>
             {/* SF sites */}
             <Labels>
-              <Column>Superfund Sites <InfoIcon /> </Column>
+              <Column>Superfund Sites <Tooltip><TooltipText>Superfund sites are contaminated sites such as manufacturing facilities, processing plants, landfills, and mining sites that are in the process of being remediated by the EPA.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0}>{SFcount}</Column>
             </Labels>
             {/* TRI sites */}
             <Labels>
-              <Column>Toxic Release Inventory Facilities <InfoIcon /> </Column>
+              <Column>Toxic Release Inventory Facilities <Tooltip><TooltipText>Toxic Release Facilities (TRI) are industrial facilities that release chemicals into the air, waster, and land.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0}>{TRIcount}</Column>
             </Labels>
             </HelpText>
