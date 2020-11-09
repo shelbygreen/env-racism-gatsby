@@ -19,16 +19,24 @@ const Wrapper = styled(Flex)`
 const Question = styled(Box)`
   font-size: 1.0rem;
   margin: 0 1rem 0rem;
-  color: ${themeGet("colors.grey.700")};
+  color: ${themeGet("colors.primary.500")};
+`
+
+const Info = styled.div`
+  display: block;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  width: 91%;
+  margin: 10px 0px 5px 0px;
 `
 
 const SubmitBox = styled(Box)`
-font-size: 0.5rem;
-margin: 0 1rem 0rem;
-color: ${themeGet("colors.grey.800")}
-padding: 0.75rem 0.5rem;
-flex: 0 0 auto;
-border-top: 1px solid ${themeGet('colors.grey.900')};
+  font-size: 0.8rem;
+  margin: 0 1rem 1rem;
+  color: ${themeGet("colors.grey.700")};
+  border-top: 1px solid ${themeGet('colors.grey.800')};
+  border-padding: 1px;
+  line-height: 1;
 `
 
 const Input = styled(Field)`
@@ -39,12 +47,11 @@ const Input = styled(Field)`
   padding: 0.1em 0.5em;
   color: ${themeGet("colors.grey.800")};
   display: block;
-  width: 90%;
+  width: 91%;
   height: 40px;
   border-radius: 4px;
   border: 1px solid #dbdbdb;
   margin: 0 1rem 1rem;
-  font-size: 14px;
 `
 
 const Select = styled.label`
@@ -125,9 +132,35 @@ const Feedback = () => (
               <Question>What programs or structures would you like to see in your community?</Question>
               <Input name="programs" component="textarea" placeholder="" />
             <SubmitBox>
-              
-              We'll moderate then post your story, first name, and rough location publicly alongside others, if you
-              consent.
+            <Info>
+            <Field
+              name="firstName"
+              component="input"
+              type="text"
+              placeholder="First Name"
+              />
+            <Field
+              name="lastName"
+              component="input"
+              type="text"
+              placeholder="Last Name"
+            />
+            </Info>
+              <Field
+                  name="email"
+                  component="input"
+                  type="text"
+                  placeholder="Email"
+                /> 
+              <Field
+                name="zipcode"
+                component="input"
+                type="text"
+                placeholder="Zipcode"
+              />
+            <br /> <br />
+            <Field name="post" component="input" type="checkbox" /> Post my story <br />
+            <Field name="cta" component="input" type="checkbox" /> Email me about advocacy efforts happening in my area <br />
             </SubmitBox>
             <center><div className="buttons">
               <button type="submit" disabled={submitting || pristine}>
