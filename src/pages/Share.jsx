@@ -20,6 +20,10 @@ const Help = styled(Flex)`
   color: ${themeGet('colors.grey.700')};
 `
 
+const BoldText = styled.div`
+  font-weight: bold;
+`
+
 const Wrapper = styled(Flex)`
   height: 100%;
 `
@@ -30,8 +34,14 @@ const Share = () => {
         <Layout>
             <SEO title="Share" />
             <Wrapper>
-                <Sidebar allowScroll={false}>
-                    <Feedback />
+                <Sidebar allowScroll={true}>
+                  <SidebarHeader title="Data is abstract." icon=""/>
+                    <Help>Especially data that summarizes humans and their social conditions. Without the added layer of emotion and urgency, data is weightless. 
+                      We need your voice to add a human element to numbers. To understand how harmful it is to surround neighborhoods with highways.
+                      To realize how irresponsible it is to site landfills in predominantly low-income communities. To agree that it's unacceptable to allow
+                      waste and pollution to accumulate in any community, yet alone vulnerable ones.
+                    </Help>
+                    <Feedback allowScroll={true} />
                 </Sidebar>
                 <ShareMap/>
             </Wrapper>

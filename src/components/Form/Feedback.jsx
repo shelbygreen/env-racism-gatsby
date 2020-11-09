@@ -15,10 +15,20 @@ const onSubmit = async values => {
 const Wrapper = styled(Flex)`
   height: 100%;
 `
+
 const Question = styled(Box)`
   font-size: 1.0rem;
   margin: 0 1rem 0rem;
   color: ${themeGet("colors.grey.700")};
+`
+
+const SubmitBox = styled(Box)`
+font-size: 0.5rem;
+margin: 0 1rem 0rem;
+color: ${themeGet("colors.grey.800")}
+padding: 0.75rem 0.5rem;
+flex: 0 0 auto;
+border-top: 1px solid ${themeGet('colors.grey.900')};
 `
 
 const Input = styled(Field)`
@@ -54,10 +64,9 @@ const Feedback = () => (
         onSubmit={onSubmit}
         render={({ handleSubmit, form, submitting, pristine, values }) => (
           <form onSubmit={handleSubmit}>
-            <br/>
-            <Question>How has environmental (in)justice affected your community?</Question>
-              <Input name="ej" component="textarea" placeholder="" />
-            <Question>I'm concerned about the ____ in my community:</Question>
+            <Question>How has environmental injustice affected your community?</Question>
+            <Input name="ej" component="textarea" placeholder="" />
+            <Question>What environmental concerns do you have about your community?</Question>
                 <Select>
                   <Field
                     name="concerns"
@@ -65,7 +74,15 @@ const Feedback = () => (
                     type="checkbox"
                     value="air"
                   />{' '}
-                  air quality
+                  smog and air pollution
+                  <br/>
+                  <Field
+                    name="concerns"
+                    component="input"
+                    type="checkbox"
+                    value="chemicals"
+                  />{' '}
+                  chemical spills
                   <br/>
                   <Field
                     name="concerns"
@@ -73,7 +90,7 @@ const Feedback = () => (
                     type="checkbox"
                     value="water"
                   />{' '}
-                  water quality
+                  water pollution
                   <br/>
                   <Field
                     name="concerns"
@@ -81,38 +98,37 @@ const Feedback = () => (
                     type="checkbox"
                     value="parks"
                   />{' '}
-                  lack of parks and open spaces
+                  lack of trees, parks and/or open spaces
                   <br/>
                   <Field
                     name="concerns"
                     component="input"
                     type="checkbox"
-                    value="grocery"
+                    value="floods"
                   />{' '}
-                  lack of quality and affordable grocery stores
+                  flooding
                   <br/>
                   <Field
                     name="concerns"
                     component="input"
                     type="checkbox"
-                    value="transit"
+                    value="waste"
                   />{' '}
-                  public transportation options
-                  <br/>
-                  <Field
-                    name="concerns"
-                    component="input"
-                    type="checkbox"
-                    value="vacant"
-                  />{' '}
-                  number of vacant lots
+                  illegal dumping and waste sites
                   <br/>
                 </Select>
                 <br/>
-              <Question>What do you enjoy about your community?</Question>
-              <Input name="enjoy" component="textarea" placeholder="" />
-              <Question>What do you want your community to look like 5 years from now?</Question>
-              <Input name="want" component="textarea" placeholder="" />
+              <Question>Has your community voiced these concerns? If so, to whom and what was the result?</Question>
+              <Input name="voice" component="textarea" placeholder="" />
+              <Question>What visions do you have for your community and its environment?</Question>
+              <Input name="visions" component="textarea" placeholder="" />
+              <Question>What programs or structures would you like to see in your community?</Question>
+              <Input name="programs" component="textarea" placeholder="" />
+            <SubmitBox>
+              
+              We'll moderate then post your story, first name, and rough location publicly alongside others, if you
+              consent.
+            </SubmitBox>
             <center><div className="buttons">
               <button type="submit" disabled={submitting || pristine}>
                 Submit
