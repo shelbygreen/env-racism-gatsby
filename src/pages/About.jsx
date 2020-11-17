@@ -2,41 +2,51 @@ import React from 'react'
 
 import SEO from '../components/seo'
 import { Box, Flex } from '../components/Grid'
-import { Button } from '../components/Button'
+// import { Button } from '../components/Button'
+import { Text } from 'rebass'
 import { Link } from 'gatsby'
 import styled, { themeGet } from '../../util/style'
 import { Section, Title } from '../../util/style/styles'
 
-const Columns = styled(Flex).attrs({
-  flexWrap: 'wrap',
+const Wrapper = styled(Box).attrs({
+  alignItems: 'center',
   justifyContent: 'space-between',
-})``
+})`
+  padding: 0.75rem 0.5rem;
+  flex: 0 0 auto;
+  width: 400px;
+  border: 1px solid ${themeGet('colors.grey.900')};
+`
 
+const Button = styled.div`
+  color: ${themeGet('colors.grey.900')};
+  border-bottom-color: transparent;
+  background-color: #fff !important;
+  border: 1px solid ${themeGet('colors.grey.900')}
+`
 
 const About = () => (
   <Section>
     <SEO title="About" />
-    <Title><center>Texas Environmental Justice Explorer</center></Title>
-        <p>
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-        quae ab illo inventore veritatis et quasi architecto beatae vitae
-        dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-        aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-        eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-        qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-        sed quia non numquam eius modi tempora incidunt ut labore et dolore
-        magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-        exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
-        commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate
-        velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat
-        quo voluptas nulla pariatur?"
-        </p>
+    <Wrapper>
+    <Title><center>The Texas Environmental Justice Explorer</center></Title>
+      <Text fontSize={'0.8rem'}>
+        <i>Which communities in Texas are disproportionately exposed to, and burdened by, environmental pollutants and hazards?</i>
+        <br/>
+        <br/>
+        The <b>Texas Environmental Justice Explorer</b> answers this question by aggregating data on pollution, demographics, and health to estimate environmental inequality.
+        Using that data, we've made our own environmental justice score to capture how unequal the disparate polluation impacts are across Texas communities.
+        <br/>
+        <br/>
+        With evidence of the gap between light and dark, upper and lower, valuable and disposable, we can work together to bridge the divide and bring resources to the communities that need it most.
+      </Text>
+      <br/>
         <center>
         <Button>
-          <Link to="/Explore">Enter</Link>
+          <Link to="/Explore">BEGIN EXPLORING</Link>
         </Button>
         </center>
+    </Wrapper>
   </Section>
 )
 

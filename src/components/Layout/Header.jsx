@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Text, Image } from 'rebass'
-import { FaMarker } from 'react-icons/fa'
+import { FaMarker, FaBinoculars } from 'react-icons/fa'
 
 import { Link } from 'gatsby'
 
@@ -52,6 +52,13 @@ const NavItem = styled(Flex).attrs({
   px: ['0.5em', '0.5rem', '1rem'],
 })``
 
+const ExploreIcon = styled(FaBinoculars)`
+  width: 1em;
+  height: 1em;
+  margin-right: 0.25em;
+  opacity: 0.6;
+`
+
 const ShareIcon = styled(FaMarker)`
   width: 1em;
   height: 1em;
@@ -71,6 +78,12 @@ const Header = ({ siteTitle }) => (
     </Title>
     <Text as="h2" fontSize={['1.25rem']} m={0}>
       <Flex>
+      <NavLink to="/Explore">
+          <NavItem>
+            <ExploreIcon />
+            <div>Explore</div>
+          </NavItem>
+        </NavLink>
         <NavLink to="/Share">
           <NavItem>
             <ShareIcon />
