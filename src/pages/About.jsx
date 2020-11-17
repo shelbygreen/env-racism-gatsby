@@ -26,6 +26,7 @@ const Button = styled.div`
 `
 
 const About = () => (
+  <center>
   <Section>
     <SEO title="About" />
     <Wrapper>
@@ -48,6 +49,7 @@ const About = () => (
         </center>
     </Wrapper>
   </Section>
+  </center>
 )
 
 export default About
