@@ -111,7 +111,7 @@ const Tooltip = styled.span`
 `
 
 const TooltipText = styled.span`
-  font-size: 0.3rem;
+  font-size: 0.8rem;
   width: 200px;
   visibility: hidden;
   background-color: ${themeGet('colors.grey.700')};

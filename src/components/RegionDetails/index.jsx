@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Text } from 'rebass'
 import { FaRegTimesCircle } from 'react-icons/fa'
 
-import { Columns, Column } from '../Grid'
+import { Columns, Column, Flex } from '../Grid'
 import ExpandableParagraph from '../Elements/ExpandableParagraph'
 import Tabs, { Tab as BaseTab } from '../Tabs'
 import styled, { themeGet } from '../../../util/style'
@@ -46,8 +46,7 @@ const BackIcon = styled(FaRegTimesCircle).attrs({ size: "1.5rem" })`
 `
 
 const Score = styled(Text).attrs({ textAlign: "right" })`
-  color: ${themeGet("colors.grey.700")};
-  font-size: 0.8rem;
+  font-size: 1.25rem;
 `
 
 const ZoomButton = styled(Button)`
@@ -56,9 +55,12 @@ const ZoomButton = styled(Button)`
   padding: 0.1rem 0.5rem;
 `
 
-const TabHeader = styled.div`
+const TabHeader = styled(Flex).attrs({
+  justifyContent: 'space-between',
+})`
   font-size: 1.25rem;
 `
+
 const Value = styled.div`
   padding-left: 0rem;
   color: ${themeGet("colors.grey.900")};
@@ -141,14 +143,13 @@ const RegionDetails = ({
             and {readibleNumber(age_65, 0)} are seniors. 
           </Section>
           <Section>
-            <TabHeader>Cumulative Risk Score:</TabHeader>
+            <TabHeader>Cumulative Risk Score:<Score>{cmlscore}</Score></TabHeader>
             <Progress done={cmlscore}/>
             <Help
                   snippet="What does this mean?  "
                 >
                   The cumulative risk score models the spatial concentration of chemical and nonchemical environmental 
-                  stressors, as well as genetic susceptibilities and health conditions and social vulnerability factors that are
-                  assumed to exacerbate the effects of environmental stessors. This score was calculated by following the methodology
+                  stressors, as well as health conditions and social vulnerability factors that are assumed to exacerbate the effects of environmental stessors. This score was calculated by following the methodology
                   set by CalEnviroScreen, which involves combining the indicators that make up the Pollution Burden Score and the 
                   Population Characteristics Score into a composite cumulative risk score. 
             </Help>

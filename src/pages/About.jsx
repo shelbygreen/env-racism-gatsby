@@ -36,7 +36,7 @@ const About = () => (
         <br/>
         <br/>
         The <b>Texas Environmental Justice Explorer</b> answers this question by aggregating data on pollution, demographics, and health to estimate environmental inequality.
-        Using that data, we've made our own environmental justice score to capture how unequal the disparate polluation impacts are across Texas communities.
+        Using that data, we've made our own cumulative risk score to capture how unequal the polluation impacts are across Texas communities.
         <br/>
         <br/>
         With evidence of the gap between light and dark, upper and lower, valuable and disposable, we can work together to bridge the divide and bring resources to the communities that need it most.
