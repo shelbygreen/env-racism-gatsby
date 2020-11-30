@@ -13,6 +13,10 @@ export const sources = {
     type: 'geojson',
     data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/geocounty_cumulative_score.json',
     // generateId: true
+  },
+  tracts: {
+    type: 'vector',
+    data: 'mapbox://shelby-green.txejtracts'
   }
 }
 
@@ -51,5 +55,32 @@ export const layers = [
       'line-color': '#ffffff', 
       'line-width': 2
     },
+  },
+  {
+    id: "tracts-fill",
+    source: "tracts",
+    'source-layer': 'txej_ct',
+    type: 'fill',
+    layout: {
+      visibility: 'none',
+    },
+    paint: {
+      "fill-color": {
+        property: 'final_scor', // colors coded by the EJ score 
+          stops: [
+            [1, "rgb(253,231,37)"],
+            [10, "rgb(180,222,44)"],
+            [20, "rgb(109,205,89)"],
+            [30, "rgb(53,183,121)"],
+            [40, "rgb(31,158,137)"],
+            [50, "rgb(38,130,142)"],
+            [60, "rgb(49,104,142)"],
+            [70, "rgb(62,74,137)"],
+            [80, "rgb(72,40,120)"],
+            [90, "rgb(68,1,84)"]
+          ]
+        },
+      'fill-opacity': 0.75
+    }, 
   },
 ]

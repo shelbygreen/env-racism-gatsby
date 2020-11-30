@@ -13,6 +13,7 @@ import { siteMetadata } from '../../../gatsby-config'
 import { hasWindow } from '../../../util/dom'
 import FullExtentButton from './FullExtentButton'
 import Legend from './Legend'
+import LayerToggle from './LayerToggle'
 
 // container for the map component
 const Wrapper = styled.div`
@@ -52,6 +53,8 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     const [legendEntries, setLegendEntries] = useState([])
     
     const index = useMemo(() => indexBy(data.toJS(), 'id'), [data])
+
+    const [activeLayer, setActiveLayer] = useState('counties')
 
     useEffect(() => {
         const { padding, bounds: initBounds } = config
@@ -264,15 +267,44 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         map.fitBounds(config.bounds, { padding: 20, duration: 1000 })
     }
 
+    // layer toggle button for counties and census tracts
+    const handleLayerToggle = newLayer => {
+        const { current: map } = mapRef
+
+        if (!(map && map.isStyleLoaded)) return
+
+        setActiveLayer(newLayer)
+
+        const isCounty = newLayer === 'counties'
+        map.setLayoutProperty(
+            'counties-fill',
+            'visibility',
+            isCounty ? 'visible' : 'none'
+        )
+        map.setLayoutProperty(
+            'tracts-fill',
+            'visibility',
+            isCounty ? 'none' : 'visible'
+        )
+    }
+
     return (
         <Wrapper>
             <div ref={mapNode} style={{ width: '100%', height: '100%' }} containerStyle={{height: '100%', weight: '100%'}} />
-            <Legend entries={legendEntries} />
-            {mapRef.current && mapRef.current.isStyleLoaded && (
-                <>
+            {/* <Legend entries={legendEntries} /> */}
+            {/* {mapRef.current && mapRef.current.isStyleLoaded && ( */}
+                {/* <> */}
+                    <LayerToggle
+                        value={activeLayer}
+                        options={[
+                            {value:'counties', label: 'Counties'},
+                            {value:'tracts', label:'Tracts'},
+                        ]}
+                        onChange={handleLayerToggle}
+                    />
                     <FullExtentButton onClick={goToFullExtent} />
-                </>
-            )}
+                {/* </> */}
+            {/* )} */}
         </Wrapper>
     )
 }
