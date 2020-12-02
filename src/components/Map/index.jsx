@@ -294,14 +294,14 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             {/* <Legend entries={legendEntries} /> */}
             {/* {mapRef.current && mapRef.current.isStyleLoaded && ( */}
                 {/* <> */}
-                    <LayerToggle
+                    {/* <LayerToggle
                         value={activeLayer}
                         options={[
                             {value:'counties', label: 'Counties'},
                             {value:'tracts', label:'Tracts'},
                         ]}
                         onChange={handleLayerToggle}
-                    />
+                    /> */}
                     <FullExtentButton onClick={goToFullExtent} />
                 {/* </> */}
             {/* )} */}
