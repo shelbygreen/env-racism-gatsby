@@ -119,7 +119,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
 
             // add every layer
             layers.forEach(layer => {
-                map.addLayer(layer)
+                map.addLayer(layer, 'waterway-label')
             })
             map.resize();
         })
@@ -292,19 +292,19 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         <Wrapper>
             <div ref={mapNode} style={{ width: '100%', height: '100%' }} containerStyle={{height: '100%', weight: '100%'}} />
             {/* <Legend entries={legendEntries} /> */}
-            {/* {mapRef.current && mapRef.current.isStyleLoaded && ( */}
-                {/* <> */}
-                    {/* <LayerToggle
+            {mapRef.current && mapRef.current.isStyleLoaded && (
+                <>
+                    <LayerToggle
                         value={activeLayer}
                         options={[
                             {value:'counties', label: 'Counties'},
                             {value:'tracts', label:'Tracts'},
                         ]}
                         onChange={handleLayerToggle}
-                    /> */}
+                    />
                     <FullExtentButton onClick={goToFullExtent} />
-                {/* </> */}
-            {/* )} */}
+                </>
+            )}
         </Wrapper>
     )
 }
