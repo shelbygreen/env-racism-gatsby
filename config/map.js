@@ -17,6 +17,14 @@ export const sources = {
   tracts: {
     type: 'vector',
     url: 'mapbox://shelby-green.txejtracts'
+  },
+  sfsites: {
+    type: 'geojson', 
+    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/SFsites.geojson',
+    cluster: true, 
+    // clusterMaxZoom: 12,
+    clusterRadius: 45,
+    generateId: true
   }
 }
 
@@ -87,4 +95,47 @@ export const layers = [
       'fill-opacity': 0.75
     }, 
   },
+  {
+    id: 'sfsites-clusters', // clustered sf sites
+    source: 'sfsites', 
+    type: 'circle', 
+    filter: ['has', 'point_count'], // double check this
+    paint: {
+      'circle-color': "#0D909C",
+      'circle-radius': 12, 
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#FFFFFF'
+    }
+  },
+  {
+    id: 'sfsites-points', // unclustered sf sites
+    source: 'sfsites',
+    type: 'circle',
+    maxZoom: 15,
+    filter: ['!', ['has', 'point_count']],
+    paint: {
+      'circle-color': '#FFC527', 
+      'circle-radius': 5,
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#FFFFFF'
+    }
+  },
+  {
+    id: 'sfsites-clusters-label',
+    type: 'symbol',
+    source: 'sfsites',
+    filter: ['has', 'point_count'],
+    layout: {
+      'text-field': '{point_count_abbreviated}',
+      'text-size': 12,
+      'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+    },
+    paint: {
+      'text-color': '#FFFFFF',
+      'text-opacity': 1,
+      'text-halo-color': '#000',
+      'text-halo-blur': 1,
+      'text-halo-width': 0.5,
+    }
+  }
 ]

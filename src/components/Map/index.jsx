@@ -119,15 +119,16 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
 
             // add every layer
             layers.forEach(layer => {
-                map.addLayer(layer, 'waterway-label')
+                map.addLayer(layer)
             })
+            
             map.resize();
         })
 
         // not sure what this does?
         map.on('click', e => {
-        const [feature] = map.queryRenderedFeatures(e.point, {
-            layers: ['counties-fill'],
+            const [feature] = map.queryRenderedFeatures(e.point, {
+            layers: ['counties-fill', 'sfsites-points'],
             })
     
             if (!feature) return
@@ -139,8 +140,33 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             if (layerId === 'counties-fill') {
             onSelectFeature(properties.id)
             } else {
-            onSelectFeature(properties[boundaryLayer.idProperty])
+            onSelectFeature(properties.GEOID)
             }
+
+            // filter SF sites?
+            // map.setFilter('sfsites-clusters', ['==', ['get', 'GEOID'], '48439'])
+            map.setFilter('sfsites-points', ['==', ['get', 'GEOID'], properties.GEOID])
+            // map.setFilter('sfsites-clusters-label', ['==', ['get', 'GEOID'], feature.properties.GEOID])
+        })
+
+        // clicking on clusters zooms in
+        map.on('click', 'sfsites-clusters', e => {
+            const [feature] = map.queryRenderedFeatures(e.point, {
+                layers: ['sfsites-clusters'],
+            })
+            map
+                .getSource('sfsites')
+                .getClusterExpansionZoom(
+                    feature.properties.cluster_id,
+                    (err, targetZoom) => {
+                        if (err) return
+  
+                        map.easeTo({
+                            center: feature.geometry.coordinates,
+                            zoom: targetZoom + 1,
+                        })
+                    }
+                )
         })
 
         // styling for tooltip
