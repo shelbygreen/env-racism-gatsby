@@ -8,7 +8,7 @@ import { isDebug } from '../../../util/dom'
  */
 export const useData = () => {
     const data = useStaticQuery(graphql`
-      query CountiesDataQuery {
+      query {
         allCountiesJson {
           edges {
             node {

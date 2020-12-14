@@ -8,6 +8,7 @@ export const config = {
     padding: 0.1
   }
 
+// sources for vector tiles
 export const sources = {
   counties: {
     type: 'geojson',
@@ -18,16 +19,60 @@ export const sources = {
     type: 'vector',
     url: 'mapbox://shelby-green.txejtracts'
   },
-  sfsites: {
+  sf: {
     type: 'geojson', 
-    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/SFsites.geojson',
+    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/sf_county.geojson',
     cluster: true, 
-    // clusterMaxZoom: 12,
+    clusterMaxZoom: 10,
     clusterRadius: 45,
     generateId: true
-  }
+  },
+  tri: {
+    type: 'geojson', 
+    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/tri_county.geojson',
+    cluster: true, 
+    clusterMaxZoom: 10,
+    clusterRadius: 45,
+    generateId: true
+  },
+  hw: {
+    type: 'geojson', 
+    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/hw_county.geojson',
+    cluster: true, 
+    clusterMaxZoom: 10,
+    clusterRadius: 45,
+    generateId: true
+  },
+
 }
 
+// cluster information
+// const clusters = [
+//   {
+//     threshold: 10,
+//     label: '< 10 estuaries',
+//     color: '#74a9cf',
+//     borderColor: '#2b8cbe',
+//     radius: defaultRadius,
+//   },
+//   {
+//     threshold: 100,
+//     label: '10 - 100 estuaries',
+//     color: '#2b8cbe',
+//     borderColor: '#045a8d',
+//     radius: 20,
+//   },
+//   {
+//     threshold: Infinity,
+//     label: '> 100 estuaries',
+//     color: '#045a8d',
+//     borderColor: '#000',
+//     radius: 25,
+//   },
+// ]
+// const clusterRadii = createSteps(clusters, 'radius')
+
+// styled layers
 export const layers = [
   {
     id: "counties-fill",
@@ -72,7 +117,7 @@ export const layers = [
     source: "tracts",
     'source-layer': 'txej_ct',
     type: 'fill',
-    minzoom: 8,
+    // minzoom: 8,
     layout: {
       visibility: 'none',
     },
@@ -96,38 +141,124 @@ export const layers = [
     }, 
   },
   {
-    id: 'sfsites-clusters', // clustered sf sites
-    source: 'sfsites', 
+    id: 'sf-clusters', // clustered sf sites
+    source: 'sf', 
     type: 'circle', 
     filter: ['has', 'point_count'], // double check this
     paint: {
-      'circle-color': "#0D909C",
+      'circle-color': "#FFC527",
       'circle-radius': 12, 
       'circle-stroke-width': 1,
       'circle-stroke-color': '#FFFFFF'
     }
   },
   {
-    id: 'sfsites-points', // unclustered sf sites
-    source: 'sfsites',
+    id: 'sf-points', // unclustered sf sites
+    source: 'sf',
     type: 'circle',
     maxZoom: 15,
     filter: ['!', ['has', 'point_count']],
     paint: {
       'circle-color': '#FFC527', 
-      'circle-radius': 5,
+      'circle-radius': 3,
       'circle-stroke-width': 1,
       'circle-stroke-color': '#FFFFFF'
     }
   },
   {
-    id: 'sfsites-clusters-label',
+    id: 'sf-clusters-label',
     type: 'symbol',
-    source: 'sfsites',
+    source: 'sf',
     filter: ['has', 'point_count'],
     layout: {
       'text-field': '{point_count_abbreviated}',
-      'text-size': 12,
+      'text-size': 10,
+      'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+    },
+    paint: {
+      'text-color': '#FFFFFF',
+      'text-opacity': 1,
+      'text-halo-color': '#000',
+      'text-halo-blur': 1,
+      'text-halo-width': 0.5,
+    }
+  },
+  {
+    id: 'tri-clusters', // clustered tri sites
+    source: 'tri', 
+    type: 'circle', 
+    filter: ['has', 'point_count'], 
+    paint: {
+      'circle-color': "#008000",
+      'circle-radius': 12, 
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#FFFFFF'
+    }
+  },
+  {
+    id: 'tri-points', // unclustered tri sites
+    source: 'tri',
+    type: 'circle',
+    maxZoom: 15,
+    filter: ['!', ['has', 'point_count']],
+    paint: {
+      'circle-color': '#008000', 
+      'circle-radius': 3,
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#FFFFFF'
+    }
+  },
+  {
+    id: 'tri-clusters-label',
+    type: 'symbol',
+    source: 'tri',
+    filter: ['has', 'point_count'],
+    layout: {
+      'text-field': '{point_count_abbreviated}',
+      'text-size': 10,
+      'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+    },
+    paint: {
+      'text-color': '#FFFFFF',
+      'text-opacity': 1,
+      'text-halo-color': '#000',
+      'text-halo-blur': 1,
+      'text-halo-width': 0.5,
+    }
+  },
+  {
+    id: 'hw-clusters', // clustered hw sites
+    source: 'hw', 
+    type: 'circle', 
+    filter: ['has', 'point_count'], 
+    paint: {
+      'circle-color': "#FF5733",
+      'circle-radius': 12, 
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#FFFFFF'
+    }
+  },
+  {
+    id: 'hw-points', // unclustered hw sites
+    source: 'hw',
+    type: 'circle',
+    maxZoom: 15,
+    filter: ['!', ['has', 'point_count']],
+    paint: {
+      'circle-color': '#FF5733', 
+      'circle-radius': 3,
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#FFFFFF'
+    }
+  },
+  {
+    id: 'hw-clusters-label',
+    type: 'symbol',
+    source: 'hw',
+    filter: ['has', 'point_count'],
+    layout: {
+      'text-field': '{point_count_abbreviated}',
+      'text-size': 10,
       'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
     },
     paint: {
