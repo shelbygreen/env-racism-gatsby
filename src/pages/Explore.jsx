@@ -86,7 +86,7 @@ const Explore = () => {
                       snippet="Click on a region in the list below or on the map for more
                       detailed information."
                       >
-                      Click !on a region in the list below or on the map for more
+                      Click on a region in the list below or on the map for more
                       detailed information. Use the buttons to toggle between displaying 
                       counties and census tracts. The list below only shows
                       regions visible on the map. Zoom out if you want to see more regions, 
