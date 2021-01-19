@@ -5,7 +5,7 @@ module.exports = {
     title: `Texas Environmental Justice Explorer`,
     description: `A simple tool to explore the EJ hotspots in Texas.`,
     author: `@shelbygreen`,
-    mapboxToken: process.env.GATSBY_MAPBOX_API_TOKEN,
+    mapboxToken: `pk.eyJ1IjoicGFzaWgiLCJhIjoiY2pybzJqdTVjMHJzeDQ0bW80aGdzaXV3ayJ9.yxD8Nqu7FLnf8-lBo7F1zQ`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
