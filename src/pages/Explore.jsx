@@ -81,10 +81,9 @@ const Explore = () => {
                 />
               ) : (
                 <>
-                  <SidebarHeader title="Explore Regions" icon="map" />
+                  <SidebarHeader title="Explore Environmental Justice Hotspots" icon="map" />
                       <Help
-                      snippet="~!~!!Click on a region in the list below or on the map for more
-                      detailed information."
+                      snippet="Click on a region in the list below or on the map to learn more about the environmental indicators contributing to the region's cumulative EJ score."
                       >
                       Click on a region in the list below or on the map for more
                       detailed information. Use the buttons to toggle between displaying 
