@@ -1,7 +1,6 @@
 const config = require('./config/meta')
 
 module.exports = {
-  pathPrefix: `/public`,
   siteMetadata: {
     title: `Texas Environmental Justice Explorer`,
     description: `A simple tool to explore the EJ hotspots in Texas.`,
