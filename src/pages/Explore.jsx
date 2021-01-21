@@ -83,7 +83,7 @@ const Explore = () => {
                 <>
                   <SidebarHeader title="Explore Regions" icon="map" />
                       <Help
-                      snippet=":-) Click on a region in the list below or on the map for more
+                      snippet=":-)) Click on a region in the list below or on the map for more
                       detailed information."
                       >
                       Click on a region in the list below or on the map for more
