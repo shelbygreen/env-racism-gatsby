@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: `Texas Environmental Justice Explorer`,
     description: `A simple tool to explore the EJ hotspots in Texas.`,
-    author: `@shelbygreen`,
+    author: `Climate Cabinet`,
     mapboxToken: `pk.eyJ1IjoicGFzaWgiLCJhIjoiY2pybzJqdTVjMHJzeDQ0bW80aGdzaXV3ayJ9.yxD8Nqu7FLnf8-lBo7F1zQ`,
   },
   plugins: [
