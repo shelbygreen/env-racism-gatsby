@@ -6,7 +6,7 @@ export const config = {
     bounds: [-106.645646,25.837377,-93.508292,36.500704],
     minZoom: 2,
     padding: 0.1
-  }
+}
 
 // sources for vector tiles
 export const sources = {
@@ -19,30 +19,14 @@ export const sources = {
     type: 'vector',
     url: 'mapbox://shelby-green.txejtracts'
   },
-  sf: {
+  facilities: {
     type: 'geojson', 
-    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/sf_county.geojson',
+    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/facility_county.geojson',
     cluster: true, 
     clusterMaxZoom: 10,
     clusterRadius: 45,
     generateId: true
-  },
-  tri: {
-    type: 'geojson', 
-    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/tri_county.geojson',
-    cluster: true, 
-    clusterMaxZoom: 10,
-    clusterRadius: 45,
-    generateId: true
-  },
-  hw: {
-    type: 'geojson', 
-    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/hw_county.geojson',
-    cluster: true, 
-    clusterMaxZoom: 10,
-    clusterRadius: 45,
-    generateId: true
-  },
+  }
 
 }
 
@@ -141,34 +125,56 @@ export const layers = [
     }, 
   },
   {
-    id: 'sf-clusters', // clustered sf sites
-    source: 'sf', 
+    id: 'clusters', // clustered sf sites
+    source: 'facilities', 
     type: 'circle', 
-    filter: ['has', 'point_count'], // double check this
+    filter: ['has', 'point_count'],
     paint: {
-      'circle-color': "#FFC527",
+      'circle-color': [
+        'match',
+        ['get', 'site_type'],
+        'superfund',
+        '#FFC527', 
+        'toxic release inventory', 
+        '#006fbe', 
+        'hazardous waste',
+        "#d2202f",
+        /*other*/ "#000"
+      ],
+      // 'circle-color': "#FFC527",
       'circle-radius': 12, 
       'circle-stroke-width': 1,
       'circle-stroke-color': '#FFFFFF'
     }
   },
   {
-    id: 'sf-points', // unclustered sf sites
-    source: 'sf',
+    id: 'points', // unclustered sf sites
+    source: 'facilities',
     type: 'circle',
     maxZoom: 15,
     filter: ['!', ['has', 'point_count']],
     paint: {
-      'circle-color': '#FFC527', 
+      'circle-color': [
+        'match',
+        ['get', 'site_type'],
+        'superfund',
+        '#FFC527', 
+        'toxic release inventory', 
+        '#006fbe', 
+        'hazardous waste',
+        "#d2202f",
+        /*other*/ "#000"
+      ],
+      // 'circle-color': '#FFC527', 
       'circle-radius': 3,
       'circle-stroke-width': 1,
       'circle-stroke-color': '#FFFFFF'
     }
   },
   {
-    id: 'sf-clusters-label',
+    id: 'clusters-label',
     type: 'symbol',
-    source: 'sf',
+    source: 'facilities',
     filter: ['has', 'point_count'],
     layout: {
       'text-field': '{point_count_abbreviated}',
@@ -183,90 +189,4 @@ export const layers = [
       'text-halo-width': 0.5,
     }
   },
-  {
-    id: 'tri-clusters', // clustered tri sites
-    source: 'tri', 
-    type: 'circle', 
-    filter: ['has', 'point_count'], 
-    paint: {
-      'circle-color': "#008000",
-      'circle-radius': 12, 
-      'circle-stroke-width': 1,
-      'circle-stroke-color': '#FFFFFF'
-    }
-  },
-  {
-    id: 'tri-points', // unclustered tri sites
-    source: 'tri',
-    type: 'circle',
-    maxZoom: 15,
-    filter: ['!', ['has', 'point_count']],
-    paint: {
-      'circle-color': '#008000', 
-      'circle-radius': 3,
-      'circle-stroke-width': 1,
-      'circle-stroke-color': '#FFFFFF'
-    }
-  },
-  {
-    id: 'tri-clusters-label',
-    type: 'symbol',
-    source: 'tri',
-    filter: ['has', 'point_count'],
-    layout: {
-      'text-field': '{point_count_abbreviated}',
-      'text-size': 10,
-      'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-    },
-    paint: {
-      'text-color': '#FFFFFF',
-      'text-opacity': 1,
-      'text-halo-color': '#000',
-      'text-halo-blur': 1,
-      'text-halo-width': 0.5,
-    }
-  },
-  {
-    id: 'hw-clusters', // clustered hw sites
-    source: 'hw', 
-    type: 'circle', 
-    filter: ['has', 'point_count'], 
-    paint: {
-      'circle-color': "#FF5733",
-      'circle-radius': 12, 
-      'circle-stroke-width': 1,
-      'circle-stroke-color': '#FFFFFF'
-    }
-  },
-  {
-    id: 'hw-points', // unclustered hw sites
-    source: 'hw',
-    type: 'circle',
-    maxZoom: 15,
-    filter: ['!', ['has', 'point_count']],
-    paint: {
-      'circle-color': '#FF5733', 
-      'circle-radius': 3,
-      'circle-stroke-width': 1,
-      'circle-stroke-color': '#FFFFFF'
-    }
-  },
-  {
-    id: 'hw-clusters-label',
-    type: 'symbol',
-    source: 'hw',
-    filter: ['has', 'point_count'],
-    layout: {
-      'text-field': '{point_count_abbreviated}',
-      'text-size': 10,
-      'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-    },
-    paint: {
-      'text-color': '#FFFFFF',
-      'text-opacity': 1,
-      'text-halo-color': '#000',
-      'text-halo-blur': 1,
-      'text-halo-width': 0.5,
-    }
-  }
 ]
