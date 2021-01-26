@@ -8,7 +8,7 @@ import 'mapbox-gl/dist/mapbox-gl.js'
 import styled from '../../../util/style'
 import { indexBy } from '../../../util/data'
 import { getCenterAndZoom, groupByLayer } from '../../../util/map'
-import { sources, layers,  config } from '../../../config/map'
+import { sources, layers, legends, config } from '../../../config/map'
 import { siteMetadata } from '../../../gatsby-config'
 import { hasWindow } from '../../../util/dom'
 import FullExtentButton from './FullExtentButton'
@@ -21,6 +21,19 @@ const Wrapper = styled.div`
   flex: 1 0 auto;
   z-index: 1;
 `
+
+// container for the legend component
+// STOPPING POINT: DYNAMIC LEGEND, FOR BLACK POINTS, AND RED/BLUE/YELLOW POINTS DEPENDING ON ZOOM.
+// const Legend = styled.div`
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+//     background: rgba(255, 255, 255, 0.8);
+//     margin-right: 20px;
+//     overflow: auto;
+//     border-radius: 3px;
+// `
+
 
 const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange }) => {
     const { mapboxToken } = siteMetadata
@@ -128,7 +141,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         // not sure what this does?
         map.on('click', e => {
             const [feature] = map.queryRenderedFeatures(e.point, {
-            layers: ['counties-fill', 'sfsites-points'],
+            layers: ['counties-fill', 'points'],
             })
     
             if (!feature) return
@@ -142,20 +155,15 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             } else {
             onSelectFeature(properties.GEOID)
             }
-
-            // filter SF sites?
-            // map.setFilter('sfsites-clusters', ['==', ['get', 'GEOID'], '48439'])
-            map.setFilter('sfsites-points', ['==', ['get', 'GEOID'], properties.GEOID])
-            // map.setFilter('sfsites-clusters-label', ['==', ['get', 'GEOID'], feature.properties.GEOID])
         })
 
         // clicking on clusters zooms in
-        map.on('click', 'sfsites-clusters', e => {
+        map.on('click', 'clusters', e => {
             const [feature] = map.queryRenderedFeatures(e.point, {
-                layers: ['sfsites-clusters'],
+                layers: ['clusters'],
             })
             map
-                .getSource('sfsites')
+                .getSource('facilities')
                 .getClusterExpansionZoom(
                     feature.properties.cluster_id,
                     (err, targetZoom) => {
@@ -198,7 +206,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             tooltip.remove()
         })
     
-        // on click, highling and zoom in for counties
+        // on click, highlight and zoom in for counties
         map.on('click', 'counties-fill', function (e) {
             map.getCanvas().style.cursor = 'pointer'
 
@@ -256,32 +264,31 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         if (!(map && map.isStyleLoaded())) return []
 
         const queryLayers = [
-            'counties-fill', 
-            'counties-outline-highlight'
+            'clusters',
+            'points'
         ]
 
         // create an index that preserves the above order for sorting
+        const layerIndex = { ...queryLayers }
+
+        // Group layers with visible features
         const visibleFeatures = map.queryRenderedFeatures({ layers: queryLayers })
         const grouped = groupByLayer(visibleFeatures)
 
-        // only show point or boundary for estuaries when in view, not both
-        // if fill is visible, show that
-        // if (grouped.points && grouped['counties-fill']) {
-        //     delete grouped.points
-        // }
+        // show points and clusters, when in view
 
-        // let entries = []
-        // Object.entries(grouped)
-        //     .sort(([leftLayer], [rightLayer]) =>
-        //         layerIndex[leftLayer] > layerIndex[rightLayer] ? -1 : 1
-        //      )
-        //     .forEach(([layer, features]) => {
-        //         if (legends[layer]) {
-        //             entries = entries.concat(legends[layer].getLegend(features))
-        //         }
-        //     })
+        let entries = []
+        Object.entries(grouped)
+            .sort(([leftLayer], [rightLayer]) =>
+                layerIndex[leftLayer] > layerIndex[rightLayer] ? -1 : 1
+             )
+            .forEach(([layer, features]) => {
+                if (legends[layer]) {
+                    entries = entries.concat(legends[layer].getLegend(features))
+                }
+            })
 
-        // return entries
+        return entries
     }
 
     // full extent button
@@ -316,8 +323,8 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
 
     return (
         <Wrapper>
-            <div ref={mapNode} style={{ width: '100%', height: '100%' }} containerStyle={{height: '100%', weight: '100%'}} />
-            {/* <Legend entries={legendEntries} /> */}
+            <div ref={mapNode} style={{ width: '100%', height: '100%' }}/>
+            <Legend entries={legendEntries} />
             {mapRef.current && mapRef.current.isStyleLoaded && (
                 <>
                     <LayerToggle

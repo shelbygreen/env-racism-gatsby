@@ -96,7 +96,7 @@ const EntryWrapper = styled(Flex).attrs({
 const Entry = ({ type, label, ...entry }) => (
   <EntryWrapper>
     {type === 'circle' ? (
-      <Circle scale={0.5} {...entry} />
+      <Circle scale={0.75} {...entry} />
     ) : (
       <Patch {...entry} />
     )}
@@ -112,17 +112,17 @@ Entry.propTypes = {
 const Legend = ({ title, entries }) => {
   if (!entries.length) return null
 
-  const [isClosed, setIsClosed] = useState(false)
+  const [isClosed, setIsClosed] = useState(true)
   const toggle = () => setIsClosed(prevIsClosed => !prevIsClosed)
 
   const cols = []
-  // if (entries.length > 6) {
-  //   const numCols = entries.length / 4
-  //   for (let i = 0; i < numCols; i += 1) {
-  //     cols.push(entries.slice(i * 4, i * 4 + 4))
-  //   }
-  //   console.log(entries, cols)
-  // }
+  if (entries.length > 6) {
+    const numCols = entries.length / 4
+    for (let i = 0; i < numCols; i += 1) {
+      cols.push(entries.slice(i * 4, i * 4 + 4))
+    }
+    console.log(entries, cols)
+  }
 
   return (
     <Wrapper
@@ -142,7 +142,7 @@ const Legend = ({ title, entries }) => {
                   ))}
                 </Column>
               ))}
-              {/* <Column>
+              <Column>
                 {entries.slice(0, Math.round(entries.length / 2)).map(entry => (
                   <Entry key={entry.label} {...entry} />
                 ))}
@@ -153,7 +153,7 @@ const Legend = ({ title, entries }) => {
                   .map(entry => (
                     <Entry key={entry.label} {...entry} />
                   ))}
-              </Column> */}
+              </Column>
             </>
           ) : (
             <Column>

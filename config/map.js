@@ -30,32 +30,6 @@ export const sources = {
 
 }
 
-// cluster information
-// const clusters = [
-//   {
-//     threshold: 10,
-//     label: '< 10 estuaries',
-//     color: '#74a9cf',
-//     borderColor: '#2b8cbe',
-//     radius: defaultRadius,
-//   },
-//   {
-//     threshold: 100,
-//     label: '10 - 100 estuaries',
-//     color: '#2b8cbe',
-//     borderColor: '#045a8d',
-//     radius: 20,
-//   },
-//   {
-//     threshold: Infinity,
-//     label: '> 100 estuaries',
-//     color: '#045a8d',
-//     borderColor: '#000',
-//     radius: 25,
-//   },
-// ]
-// const clusterRadii = createSteps(clusters, 'radius')
-
 // styled layers
 export const layers = [
   {
@@ -125,7 +99,7 @@ export const layers = [
     }, 
   },
   {
-    id: 'clusters', // clustered sf sites
+    id: 'clusters', // clustered facilities
     source: 'facilities', 
     type: 'circle', 
     filter: ['has', 'point_count'],
@@ -148,7 +122,7 @@ export const layers = [
     }
   },
   {
-    id: 'points', // unclustered sf sites
+    id: 'points', // unclustered facilities
     source: 'facilities',
     type: 'circle',
     maxZoom: 15,
@@ -165,14 +139,13 @@ export const layers = [
         "#d2202f",
         /*other*/ "#000"
       ],
-      // 'circle-color': '#FFC527', 
       'circle-radius': 3,
       'circle-stroke-width': 1,
       'circle-stroke-color': '#FFFFFF'
     }
   },
   {
-    id: 'clusters-label',
+    id: 'clusters-label', // label for facilities clusters
     type: 'symbol',
     source: 'facilities',
     filter: ['has', 'point_count'],
@@ -190,3 +163,47 @@ export const layers = [
     }
   },
 ]
+
+// legends
+export const legends = {
+  clusters: {
+    getLegend: () => [
+    {
+      type: 'circle',
+      radius: 12,
+      label: 'Sites & Facilities Cluster',
+      color: '#000000',
+      borderColor: '#FFF',
+      borderWidth: 1,
+    }
+  ],
+  },
+  points: {
+    getLegend: () => [
+      {
+        type: 'circle',
+        radius: 12,
+        label: 'Hazardous Waste Site',
+        color: '#d2202f',
+        borderColor: '#FFF',
+        borderWidth: 1,
+      },
+      {
+        type: 'circle',
+        radius: 12,
+        label: 'Industrial TRI Facility',
+        color: '#006fbe',
+        borderColor: '#FFF',
+        borderWidth: 1,
+      },
+      {
+        type: 'circle',
+        radius: 12,
+        label: 'Superfund Site',
+        color: '#FFC527', 
+        borderColor: '#FFF',
+        borderWidth: 1,
+      },
+    ],
+  },
+}
