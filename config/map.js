@@ -4,6 +4,7 @@
 export const config = {
     accessToken: "pk.eyJ1IjoicGFzaWgiLCJhIjoiY2pybzJqdTVjMHJzeDQ0bW80aGdzaXV3ayJ9.yxD8Nqu7FLnf8-lBo7F1zQ",
     bounds: [-106.645646,25.837377,-93.508292,36.500704],
+    styles: ['light-v10', 'satellite-streets-v11'],
     minZoom: 2,
     padding: 0.1
 }

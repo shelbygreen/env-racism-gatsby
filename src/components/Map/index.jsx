@@ -14,6 +14,7 @@ import { hasWindow } from '../../../util/dom'
 import FullExtentButton from './FullExtentButton'
 import Legend from './Legend'
 import LayerToggle from './LayerToggle'
+import StyleSelector from './StyleSelector'
 
 // container for the map component
 const Wrapper = styled.div`
@@ -21,20 +22,6 @@ const Wrapper = styled.div`
   flex: 1 0 auto;
   z-index: 1;
 `
-
-// container for the legend component
-// STOPPING POINT: DYNAMIC LEGEND, FOR BLACK POINTS, AND RED/BLUE/YELLOW POINTS DEPENDING ON ZOOM.
-// const Legend = styled.div`
-//     position: absolute;
-//     bottom: 0;
-//     right: 0;
-//     background: rgba(255, 255, 255, 0.8);
-//     margin-right: 20px;
-//     overflow: auto;
-//     border-radius: 3px;
-// `
-
-
 const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange }) => {
     const { mapboxToken } = siteMetadata
 
@@ -49,8 +36,8 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         return null
     }
 
-    // importing accessToken and styles
-    // const { accessToken } = config
+    // importing styles
+    const { styles } = config
 
     // this ref holds the map DOM node so that we can pass it into Mapbox GL
     const mapNode = useRef(null)
@@ -97,7 +84,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
 
         const map = new mapboxgl.Map({
             container: mapNode.current,
-            style: `mapbox://styles/mapbox/light-v10`,
+            style: `mapbox://styles/mapbox/${styles[0]}`,
             center: center || [0,0],
             zoom: zoom || 0, 
             minZoom: config.minZoom || 0
@@ -153,7 +140,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             if (layerId === 'counties-fill') {
             onSelectFeature(properties.id)
             } else {
-            onSelectFeature(properties.GEOID)
+            onSelectFeature(properties.geoid)
             }
         })
 
@@ -200,8 +187,27 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     
         })
 
+        // show tooltip for points
+        map.on('click', 'points', function (e) {
+            map.getCanvas().style.cursor = 'pointer'
+            
+            // contents of the tooltip
+            const name = e.features[0].properties.name
+    
+            tooltip
+                .setLngLat(e.lngLat)
+                .setHTML(`<b>${name}</b>`)
+                .addTo(map)
+    
+        })
+
         // remove tooltip
         map.on('mouseleave', 'counties-fill', () => {
+            map.getCanvas().style.cursor = ''
+            tooltip.remove()
+        })
+
+        map.on('mouseleave', 'points', () => {
             map.getCanvas().style.cursor = ''
             tooltip.remove()
         })
@@ -291,6 +297,43 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         return entries
     }
 
+    // change map styles
+    const handleBasemapChange = styleID => {
+        const { current: map } = mapRef
+        const { current: baseStyle } = baseStyleRef
+    
+        const snapshot = fromJS(map.getStyle())
+        const baseSources = baseStyle.get('sources')
+        const baseLayers = baseStyle.get('layers')
+    
+        // diff the sources and layers to find those added by the user
+        const userSources = snapshot
+          .get('sources')
+          .filter((_, key) => !baseSources.has(key))
+        const userLayers = snapshot
+          .get('layers')
+          .filter(layer => !baseLayers.includes(layer))
+    
+        map.setStyle(`mapbox://styles/mapbox/${styleID}`)
+    
+        map.once('style.load', () => {
+          // after new style has loaded
+          // save it so that we can diff with it on next change
+          // and re-add the sources / layers back on it
+    
+          // save base for new style
+          baseStyleRef.current = fromJS(map.getStyle())
+    
+          userSources.forEach((source, id) => {
+            map.addSource(id, source.toJS())
+          })
+    
+          userLayers.forEach(layer => {
+            map.addLayer(layer.toJS())
+          })
+        })
+      }    
+
     // full extent button
     const goToFullExtent = () => {
         const { current: map } = mapRef
@@ -334,6 +377,11 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
                             {value:'tracts', label:'Tracts'},
                         ]}
                         onChange={handleLayerToggle}
+                    />
+                    <StyleSelector
+                        styles={styles}
+                        // token={accessToken}
+                        onChange={handleBasemapChange}
                     />
                     <FullExtentButton onClick={goToFullExtent} />
                 </>
