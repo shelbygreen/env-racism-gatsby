@@ -54,7 +54,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     
     const index = useMemo(() => indexBy(data.toJS(), 'id'), [data])
 
-    const [activeLayer, setActiveLayer] = useState('counties')
+    // const [activeLayer, setActiveLayer] = useState('counties')
 
     useEffect(() => {
         const { padding, bounds: initBounds } = config
@@ -128,7 +128,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         // not sure what this does?
         map.on('click', e => {
             const [feature] = map.queryRenderedFeatures(e.point, {
-            layers: ['counties-fill', 'points'],
+                layers: ['counties-fill', 'clusters', 'points'],
             })
     
             if (!feature) return
@@ -138,9 +138,9 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             } = feature
     
             if (layerId === 'counties-fill') {
-            onSelectFeature(properties.id)
+                onSelectFeature(properties.id)
             } else {
-            onSelectFeature(properties.geoid)
+                onSelectFeature(properties.geoid)
             }
         })
 
@@ -178,7 +178,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             
             // contents of the tooltip
             const name = e.features[0].properties.name
-            const score = e.features[0].properties.cmlscore
+            const score = e.features[0].properties.final_score
     
             tooltip
                 .setLngLat(e.lngLat)
@@ -196,9 +196,8 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     
             tooltip
                 .setLngLat(e.lngLat)
-                .setHTML(`<b>${name}</b>`)
+                .setHTML(`<b>${name}</b><br/><b>Click <a href="'${url}'">here</a> to navigate to the EPA Database for more information about the site.</b>`)
                 .addTo(map)
-    
         })
 
         // remove tooltip
@@ -344,25 +343,25 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     }
 
     // layer toggle button for counties and census tracts
-    const handleLayerToggle = newLayer => {
-        const { current: map } = mapRef
+    // const handleLayerToggle = newLayer => {
+    //     const { current: map } = mapRef
 
-        if (!(map && map.isStyleLoaded)) return
+    //     if (!(map && map.isStyleLoaded)) return
 
-        setActiveLayer(newLayer)
+    //     setActiveLayer(newLayer)
 
-        const isCounty = newLayer === 'counties'
-        map.setLayoutProperty(
-            'counties-fill',
-            'visibility',
-            isCounty ? 'visible' : 'none'
-        )
-        map.setLayoutProperty(
-            'tracts-fill',
-            'visibility',
-            isCounty ? 'none' : 'visible'
-        )
-    }
+    //     const isCounty = newLayer === 'counties'
+    //     map.setLayoutProperty(
+    //         'counties-fill',
+    //         'visibility',
+    //         isCounty ? 'visible' : 'none'
+    //     )
+    //     map.setLayoutProperty(
+    //         'tracts-fill',
+    //         'visibility',
+    //         isCounty ? 'none' : 'visible'
+    //     )
+    // }
 
     return (
         <Wrapper>
@@ -370,14 +369,14 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             <Legend entries={legendEntries} />
             {mapRef.current && mapRef.current.isStyleLoaded && (
                 <>
-                    <LayerToggle
+                    {/* <LayerToggle
                         value={activeLayer}
                         options={[
                             {value:'counties', label: 'Counties'},
                             {value:'tracts', label:'Tracts'},
                         ]}
                         onChange={handleLayerToggle}
-                    />
+                    /> */}
                     <StyleSelector
                         styles={styles}
                         // token={accessToken}

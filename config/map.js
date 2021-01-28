@@ -14,15 +14,19 @@ export const sources = {
   counties: {
     type: 'geojson',
     data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/geocounty_cumulative_score.json',
+    // data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-gatsby/master/georegions.json'
     // generateId: true
   },
-  tracts: {
-    type: 'vector',
-    url: 'mapbox://shelby-green.txejtracts'
-  },
+  // tracts: {
+  //   // type: 'vector',
+  //   // url: 'mapbox://shelby-green.txejtracts'
+  //   type: 'geojson',
+  //   // data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-gatsby/master/georegions.json'
+  //   // generateId: true
+  // },
   facilities: {
     type: 'geojson', 
-    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/facility_county.geojson',
+    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/facility.geojson',
     cluster: true, 
     clusterMaxZoom: 10,
     clusterRadius: 45,
@@ -40,9 +44,10 @@ export const layers = [
     layout: {
       visibility: 'visible',
     },
+    // filter: ["==", "type", "county"],
     paint: {
       "fill-color": {
-        property: 'cmlscore', // colors coded by the 'score' attribute
+        property: 'final_score', // colors coded by the 'score' attribute
           stops: [
             [1, "rgb(253,231,37)"],
             [10, "rgb(180,222,44)"],
@@ -71,34 +76,35 @@ export const layers = [
       'line-width': 2
     },
   },
-  {
-    id: "tracts-fill",
-    source: "tracts",
-    'source-layer': 'txej_ct',
-    type: 'fill',
-    // minzoom: 8,
-    layout: {
-      visibility: 'none',
-    },
-    paint: {
-      "fill-color": {
-        property: 'final_rank', // colors coded by the EJ score 
-          stops: [
-            [1, "rgb(253,231,37)"],
-            [10, "rgb(180,222,44)"],
-            [20, "rgb(109,205,89)"],
-            [30, "rgb(53,183,121)"],
-            [40, "rgb(31,158,137)"],
-            [50, "rgb(38,130,142)"],
-            [60, "rgb(49,104,142)"],
-            [70, "rgb(62,74,137)"],
-            [80, "rgb(72,40,120)"],
-            [90, "rgb(68,1,84)"]
-          ]
-        },
-      'fill-opacity': 0.75
-    }, 
-  },
+  // {
+  //   id: "tracts-fill",
+  //   source: "tracts",
+  //   // 'source-layer': 'txej_ct',
+  //   type: 'fill',
+  //   // minzoom: 8,
+  //   layout: {
+  //     visibility: 'none',
+  //   },
+  //   filter: ["==", "type", "tract"],
+  //   paint: {
+  //     "fill-color": {
+  //       property: 'final_rank', // colors coded by the EJ score 
+  //         stops: [
+  //           [1, "rgb(253,231,37)"],
+  //           [10, "rgb(180,222,44)"],
+  //           [20, "rgb(109,205,89)"],
+  //           [30, "rgb(53,183,121)"],
+  //           [40, "rgb(31,158,137)"],
+  //           [50, "rgb(38,130,142)"],
+  //           [60, "rgb(49,104,142)"],
+  //           [70, "rgb(62,74,137)"],
+  //           [80, "rgb(72,40,120)"],
+  //           [90, "rgb(68,1,84)"]
+  //         ]
+  //       },
+  //     'fill-opacity': 0.75
+  //   }, 
+  // },
   {
     id: 'clusters', // clustered facilities
     source: 'facilities', 
@@ -112,11 +118,8 @@ export const layers = [
         '#FFC527', 
         'toxic release inventory', 
         '#006fbe', 
-        'hazardous waste',
-        "#d2202f",
         /*other*/ "#000"
       ],
-      // 'circle-color': "#FFC527",
       'circle-radius': 12, 
       'circle-stroke-width': 1,
       'circle-stroke-color': '#FFFFFF'
@@ -136,8 +139,6 @@ export const layers = [
         '#FFC527', 
         'toxic release inventory', 
         '#006fbe', 
-        'hazardous waste',
-        "#d2202f",
         /*other*/ "#000"
       ],
       'circle-radius': 3,
@@ -172,7 +173,7 @@ export const legends = {
     {
       type: 'circle',
       radius: 12,
-      label: 'Sites & Facilities Cluster',
+      label: 'Sites Cluster. Zoom in to see the sites.',
       color: '#000000',
       borderColor: '#FFF',
       borderWidth: 1,
@@ -184,15 +185,7 @@ export const legends = {
       {
         type: 'circle',
         radius: 12,
-        label: 'Hazardous Waste Site',
-        color: '#d2202f',
-        borderColor: '#FFF',
-        borderWidth: 1,
-      },
-      {
-        type: 'circle',
-        radius: 12,
-        label: 'Industrial TRI Facility',
+        label: 'Industrial TRI Site',
         color: '#006fbe',
         borderColor: '#FFF',
         borderWidth: 1,

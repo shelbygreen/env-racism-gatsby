@@ -112,7 +112,7 @@ Entry.propTypes = {
 const Legend = ({ title, entries }) => {
   if (!entries.length) return null
 
-  const [isClosed, setIsClosed] = useState(true)
+  const [isClosed, setIsClosed] = useState(false)
   const toggle = () => setIsClosed(prevIsClosed => !prevIsClosed)
 
   const cols = []
