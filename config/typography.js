@@ -1,12 +1,11 @@
 import Typography from 'typography'
-// import theme from 'typography-theme-noriega'
 import { theme as style } from '../util/style'
 
 const theme = {
   baseFontSize: '18px',
   baseLineHeight: 1.4,
-  headerFontFamily: ['Oswald', 'sans-serif'], // per PMEP branding guidelines
-  bodyFontFamily: ['Open Sans', 'sans-serif'], // per PMEP branding guidelines
+  headerFontFamily: ['Oswald', 'sans-serif'],
+  bodyFontFamily: ['Open Sans', 'sans-serif'], 
   bodyWeight: 400,
   headerWeight: 700,
   boldWeight: 700,
@@ -46,7 +45,7 @@ const theme = {
       textDecoration: 'none',
     },
     'h1,h2,h3,h4': {
-      textTransform: 'uppercase', // per PMEP branding guidelines
+      textTransform: 'uppercase',
     },
   }),
 }

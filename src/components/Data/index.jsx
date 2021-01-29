@@ -9,32 +9,35 @@ import { isDebug } from '../../../util/dom'
 export const useData = () => {
     const data = useStaticQuery(graphql`
       query {
-        allCountiesJson {
+        allRegionsJson {
           edges {
             node {
-                id
-                name
-                cmlscore
-                population
-                bounds
-                pollution_score
-                o3_max_pred
-                pm_mean_pred
-                SFcount
-                TRIcount
-                population_score
-                nwpopulation_p
-                poverty_p
-                educational_attainment_p
-                housing_burden_p
-                age_0to9
-                age_65
-                age_0to9_p
-                age_65_p
-                cardiovascular_disease
-                low_birth_weight
-                o3_max_pred
-                pm_mean_pred
+              id 
+              bounds
+              type
+              name
+              county
+              total_pop
+              lead_score
+              chem_score
+              hazw_score
+              cln_score
+              wat_score
+              ozn_score
+              pm25_score
+              dsl_score
+              traf_score
+              txcs_score
+              pbn_score
+              hbrd_score
+              nohs_score
+              liso_score
+              unem_score
+              poc_score
+              pov_score
+              pop_score
+              final_score
+              final_rank
             }
           }
         }
@@ -46,14 +49,13 @@ export const useData = () => {
       return {
         ...node,
   
-        // convert id back to integer
+        // convert id to integer
         id: parseInt(id, 10)
       }
     })
   
-    // Create index of data by ID
+    // Create index of data by id
     const index = data.reduce((result, item) => {
-      /* eslint-disable no-param-reassign */
       result[item.id] = item
       return result
     }, {})

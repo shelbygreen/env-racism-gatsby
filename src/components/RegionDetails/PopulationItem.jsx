@@ -141,15 +141,13 @@ ${Tooltip}:hover & {
 `
 
 const PopulationListItem = ({ 
-    population_score,
-    poverty_p,
-    nwpopulation_p, 
-    educational_attainment_p,
-    housing_burden_p,
-    age_0to9_p,
-    age_65_p,
-    cardiovascular_disease,
-    low_birth_weight,
+  hbrd_score,
+	nohs_score,
+	liso_score,
+	unem_score,
+	poc_score,
+	pov_score,
+	pop_score
  }) => {
   const [isOpen, setIsOpen] = useState(false)
   const toggle = () => setIsOpen(prevIsOpen => !prevIsOpen)
@@ -162,75 +160,63 @@ const PopulationListItem = ({
           {isOpen ? <CaretDown /> : <CaretRight />}
           <div>Population Characteristics Score</div>
         </Title>
-        <Score>{population_score}</Score>
+        <Score>{pop_score}</Score>
       </Header>
       <Content>
         {isOpen && (
             <Wrapper>
             <HelpText>
             {/* Young and Old Population */}
-            <Labels>
+            {/* <Labels>
               <Column>Presence of Children and the Elderly <Tooltip><TooltipText>The percentage of the population who are children (10 years old or younger) and the elderly (65 years old or older)</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0}>{(age_0to9_p+age_65_p).toFixed(1)}%</Column>
             </Labels>
             <IndicatorWrapper>
                 <Indicator width={age_0to9_p+age_65_p}/>
                     <Filler width={100-(age_0to9_p+age_65_p)} />
-            </IndicatorWrapper>
+            </IndicatorWrapper> */}
             {/* nonwhite population */}
-            <Labels>
-              <Column>Nonwhite Population <Tooltip><TooltipText>The percentage of the population who don't identify as white. Nonwhite populations are more likely to be affected, and burdened by, toxic environmental conditions.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{nwpopulation_p.toFixed(1)}%</Column>
-            </Labels>
-            <IndicatorWrapper>
-                <Indicator width={nwpopulation_p}/>
-                    <Filler width={100-nwpopulation_p} />
-            </IndicatorWrapper>
             {/* Low Birth Weight */}
-            <Labels>
+            {/* <Labels>
               <Column>Infants with Low Birth Weight <Tooltip><TooltipText>Infants born early or underweight, weighing 5 lbs and 8 oz or less.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0}>{low_birth_weight.toFixed(1)}%</Column>
+            </Labels> */}
+            {/* Cardiovascular Rate */}
+            {/* <Labels>
+              <Column>Cardiovascular Disease Mortality Rate <Tooltip><TooltipText>The annual number of deaths from cardiovascular disease per 100,000 people.</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0}>{cardiovascular_disease.toFixed(1)}</Column>
+            </Labels> */}
+            {/* Under Age 5 Population */}
+            {/* Over Age 64 Population */}
+            <Labels>
+              <Column>Minority Population <Tooltip><TooltipText>The percentage of the population who don't identify as white. Nonwhite populations are more likely to be affected, and burdened by, toxic environmental conditions.</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0}>{poc_score.toFixed(1)}%</Column>
             </Labels>
-            <IndicatorWrapper>
-                <Indicator width={low_birth_weight}/>
-                    <Filler width={100-low_birth_weight} />
-            </IndicatorWrapper>
             {/* Educational Attainment */}
             <Labels>
-              <Column>Educational Attainment <Tooltip><TooltipText>The percentage of the population who are at least 25 years old and haven't graduated from high school. </TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{educational_attainment_p.toFixed(1)}%</Column>
+              <Column>Less than High School Education<Tooltip><TooltipText>The percentage of the population who are at least 25 years old and haven't graduated from high school. </TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0}>{nohs_score.toFixed(1)}%</Column>
             </Labels>
-            <IndicatorWrapper>
-                <Indicator width={educational_attainment_p}/>
-                    <Filler width={100-educational_attainment_p} />
-            </IndicatorWrapper>
             {/* Poverty */}
             <Labels>
-              <Column>Poverty <Tooltip><TooltipText>The percentage of the population with an income below the Federal poverty level.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{poverty_p.toFixed(1)}%</Column>
+              <Column>Low-income Population <Tooltip><TooltipText>The percentage of the population with a household income less than or equal to twice the federal poverty level.</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0}>{pov_score.toFixed(1)}%</Column>
             </Labels>
-            <IndicatorWrapper>
-                <Indicator width={poverty_p}/>
-                    <Filler width={100-poverty_p} />
-            </IndicatorWrapper>
             {/* Housing Burden */}
             <Labels>
               <Column>Housing Burden <Tooltip><TooltipText>The percentage of the population spending more than half of their income on rent.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{housing_burden_p.toFixed(1)}%</Column>
+              <Column flex={0}>{hbrd_score.toFixed(1)}%</Column>
             </Labels>
-            <IndicatorWrapper>
-                <Indicator width={housing_burden_p}/>
-                    <Filler width={100-housing_burden_p} />
-            </IndicatorWrapper>
-            {/* Cardiovascular Rate */}
+            {/* Linguistic Isolation */}
             <Labels>
-              <Column>Cardiovascular Disease Mortality Rate <Tooltip><TooltipText>The annual number of deaths from cardiovascular disease per 100,000 people.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{cardiovascular_disease.toFixed(1)}</Column>
+              <Column>Linguistic Isolation <Tooltip><TooltipText>TODO: add description</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0}>{liso_score.toFixed(1)}%</Column>
             </Labels>
-            <IndicatorWrapper>
-                <Indicator width={cardiovascular_disease}/>
-                    <Filler width={1000-cardiovascular_disease} />
-            </IndicatorWrapper>
+            {/* Unemployed Population */}
+            <Labels>
+              <Column>Unemployed Population <Tooltip><TooltipText>TODO: add description</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0}>{unem_score.toFixed(1)}%</Column>
+            </Labels>
             </HelpText>
             </Wrapper>
         )}
@@ -240,15 +226,13 @@ const PopulationListItem = ({
 }
 
 PopulationListItem.propTypes = {
-  population_score: PropTypes.number.isRequired,
-  age_0to9_p: PropTypes.number.isRequired,
-  age_65_p: PropTypes.number.isRequired,
-  low_birth_weight: PropTypes.number.isRequired,
-  cardiovascular_disease: PropTypes.number.isRequired,
-  educational_attainment_p: PropTypes.number.isRequired,
-  poverty_p: PropTypes.number.isRequired,
-  nwpopulation_p: PropTypes.number.isRequired,
-  housing_burden_p: PropTypes.number.isRequired
+  hbrd_score: PropTypes.number.isRequired,
+	nohs_score: PropTypes.number.isRequired,
+	liso_score: PropTypes.number.isRequired,
+	unem_score: PropTypes.number.isRequired,
+	poc_score: PropTypes.number.isRequired,
+	pov_score: PropTypes.number.isRequired,
+	pop_score: PropTypes.number.isRequired
 }
 
 export default PopulationListItem

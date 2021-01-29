@@ -1,5 +1,4 @@
 import { Map } from 'immutable'
-
 import { boundsOverlap } from '../util/map'
 
 /**

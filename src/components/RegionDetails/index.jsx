@@ -86,25 +86,30 @@ const Tab = styled(BaseTab)`
 
 const RegionDetails = ({
   id, 
+  type,
   name,
-  population,
-  nwpopulation_p,
-  poverty_p,
-  educational_attainment_p,
-  housing_burden_p,
-  age_0to9_p,
-  age_65_p,
-  age_0to9,
-  age_65,
-  cardiovascular_disease,
-  low_birth_weight,
-  o3_max_pred,
-  pm_mean_pred,
-  SFcount,
-  TRIcount,
-  population_score,
-  pollution_score,
-  cmlscore,
+  county,
+  total_pop,
+  lead_score,
+	chem_score,
+	hazw_score,
+	cln_score,
+	wat_score,
+	ozn_score,
+	pm25_score,
+	dsl_score,
+	traf_score,
+	txcs_score,
+  pbn_score,
+  hbrd_score,
+	nohs_score,
+	liso_score,
+	unem_score,
+	poc_score,
+	pov_score,
+  pop_score,
+  final_score,
+  final_rank,
   showZoom,
   onBack,
   onZoomTo
@@ -120,59 +125,52 @@ const RegionDetails = ({
         <Columns>
           <Column flex={1}>
             <Title>{name}</Title>
-            {/* Congressional District */}
+            {/* County or Census Tract */}
           </Column>
           <Column flex={0}>
             <BackIcon onClick={onBack} />
           </Column>
         </Columns>
-        {/* <Subtitle width="100%">
-          <Columns>
-            <Column>{stateNames[state]}</Column>
-            <Column>
-              <Acres>{formatNumber(acres, 0)} acres</Acres>
-            </Column>
-          </Columns>
-        </Subtitle> */}
       </Header>
 
       <Tab>
         <Section>
             <TabHeader>Background:</TabHeader>
-            The 2018 American Community Survey estimated {readibleNumber(population, 0)} people live in {name}, where {readibleNumber(age_0to9, 0)} are children 
-            and {readibleNumber(age_65, 0)} are seniors. 
+            {/* The 2018 American Community Survey estimated {readibleNumber(population, 0)} people live in {name}, where {readibleNumber(age_0to9, 0)} are children 
+            and {readibleNumber(age_65, 0)} are seniors.  */}
           </Section>
           <Section>
-            <TabHeader>Cumulative Risk Score:<Score>{cmlscore}</Score></TabHeader>
+            <TabHeader>Environmental Justice Risk Score:<Score>{final_score}</Score></TabHeader>
             <Progress done={cmlscore}/>
             <Help
                   snippet="What does this mean?  "
                 >
-                  The cumulative risk score models the spatial concentration of chemical and nonchemical environmental 
+                  The environmental justice risk score models the spatial concentration of chemical and nonchemical environmental 
                   stressors, as well as health conditions and social vulnerability factors that are assumed to exacerbate the effects of environmental stessors. This score was calculated by following the methodology
                   set by CalEnviroScreen, which involves combining the indicators that make up the Pollution Burden Score and the 
                   Population Characteristics Score into a composite cumulative risk score. 
             </Help>
-            Expand the sections below to explore the indicators used to calcuate the cumulative risk score.
+            Expand the sections below to explore the indicators used to calcuate the environmental justice risk score.
             <PopulationListItem
-            population_score={population_score}
-            age_0to9_p={age_0to9_p}
-            age_0to9={age_0to9}
-            age_65_p={age_65_p}
-            age_65={age_65}
-            nwpopulation_p={nwpopulation_p}
-            educational_attainment_p={educational_attainment_p}
-            housing_burden_p={housing_burden_p}
-            cardiovascular_disease={cardiovascular_disease}
-            low_birth_weight={low_birth_weight}
-            poverty_p={poverty_p}
-            population={population}/>
+            hbrd_score={hbrd_score}
+            nohs_score={nohs_score}
+            liso_score={liso_score}
+            unem_score={unem_score}
+            poc_score={poc_score}
+            pov_score={pov_score}
+            pop_score={pop_score}/>
             <PollutionListItem
-            pollution_score={pollution_score}
-            o3_max_pred={o3_max_pred}
-            pm_mean_pred={pm_mean_pred}
-            SFcount={SFcount}
-            TRIcount={TRIcount}/>
+            lead_score={lead_score}
+            chem_score={chem_score}
+            hazw_score={hazw_score}
+            cln_score={cln_score}
+            wat_score={wat_score}
+            ozn_score={ozn_score}
+            pm25_score={pm25_score}
+            dsl_score={dsl_score}
+            traf_score={traf_score}
+            txcs_score={txcs_score}
+            pbn_score={pbn_score}/>
           </Section>
       </Tab>
     </>
@@ -180,26 +178,31 @@ const RegionDetails = ({
 }
 
 RegionDetails.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  population: PropTypes.number.isRequired,
-  nwpopulation_p: PropTypes.number.isRequired,
-  poverty_p: PropTypes.number.isRequired,
-  educational_attainment_p: PropTypes.number.isRequired,
-  housing_burden_p: PropTypes.number.isRequired,
-  age_0to9_p: PropTypes.number.isRequired,
-  age_65_p: PropTypes.number.isRequired,
-  age_0to9: PropTypes.number.isRequired,
-  age_65: PropTypes.number.isRequired,
-  cardiovascular_disease: PropTypes.number.isRequired,
-  low_birth_weight: PropTypes.number.isRequired,
-  o3_max_pred: PropTypes.number.isRequired,
-  pm_mean_pred: PropTypes.number.isRequired,
-  SFcount: PropTypes.number.isRequired,
-  TRIcount: PropTypes.number.isRequired,
-  population_score: PropTypes.number.isRequired,
-  pollution_score: PropTypes.number.isRequired,
-  cmlscore: PropTypes.number.isRequired,
+  id:PropTypes.number.isRequired, 
+  type:PropTypes.string.isRequired,
+  name:PropTypes.string.isRequired,
+  county: PropTypes.string.isRequired,
+  total_pop:PropTypes.number.isRequired,
+  lead_score:PropTypes.number.isRequired,
+	chem_score:PropTypes.number.isRequired,
+	hazw_score:PropTypes.number.isRequired,
+	cln_score:PropTypes.number.isRequired,
+	wat_score:PropTypes.number.isRequired,
+	ozn_score:PropTypes.number.isRequired,
+	pm25_score:PropTypes.number.isRequired,
+	dsl_score:PropTypes.number.isRequired,
+	traf_score:PropTypes.number.isRequired,
+	txcs_score:PropTypes.number.isRequired,
+  pbn_score:PropTypes.number.isRequired,
+  hbrd_score:PropTypes.number.isRequired,
+	nohs_score:PropTypes.number.isRequired,
+	liso_score:PropTypes.number.isRequired,
+	unem_score:PropTypes.number.isRequired,
+	poc_score:PropTypes.number.isRequired,
+	pov_score:PropTypes.number.isRequired,
+  pop_score:PropTypes.number.isRequired,
+  final_score:PropTypes.number.isRequired,
+  final_rank:PropTypes.number.isRequired,
   showZoom: PropTypes.bool,
   onBack: PropTypes.func,
   onZoomTo: PropTypes.func

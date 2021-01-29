@@ -141,11 +141,17 @@ ${Tooltip}:hover & {
 `
 
 const PollutionListItem = ({ 
-    pollution_score,
-    o3_max_pred,
-    pm_mean_pred,
-    SFcount,
-    TRIcount
+  lead_score,
+	chem_score,
+	hazw_score,
+	cln_score,
+	wat_score,
+	ozn_score,
+	pm25_score,
+	dsl_score,
+	traf_score,
+	txcs_score,
+  pbn_score,
  }) => {
   const [isOpen, setIsOpen] = useState(false)
   const toggle = () => setIsOpen(prevIsOpen => !prevIsOpen)
@@ -158,40 +164,67 @@ const PollutionListItem = ({
           {isOpen ? <CaretDown /> : <CaretRight />}
           <div>Pollution Burden Score</div>
         </Title>
-        <Score>{pollution_score}</Score>
+        <Score>{pbn_score}</Score>
       </Header>
       <Content>
         {isOpen && (
             <Wrapper>
             <HelpText>
+            {/* Lead Risk and Exposure */}
+            <Labels>
+              <Column>Lead Risk and Exposure <Tooltip><TooltipText>The percentage of residences that may have lead-based paint</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.4}>{100*(lead_score).toFixed(1)}% Pre-1960s Housing</Column>
+            </Labels>
+            {/* Proximity to Risk Management Plan (RMP) Sites */}
+            <Labels>
+              <Column>Proximity to Risk Management Plan (RMP) Sites <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.4}>{chem_score.toFixed(1)} site count/km</Column>
+            </Labels>
+            {/* Proximity to Hazardous Waste Sites */}
+            <Labels>
+              <Column>Proximity to Hazardous Waste Sites <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.4}>{hazw_score.toFixed(1)} site count/km</Column>
+            </Labels>
+            {/* Proximity to Superfund Sites */}
+            <Labels>
+              <Column>Proximity to Superfund Sites <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.4}>{cln_score.toFixed(1)} site count/km</Column>
+            </Labels>
+            {/* Wastewater Discharge */}
+            <Labels>
+              <Column>Wastewater Discharge <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.4}>{wat_score.toFixed(1)} toxicity-weighted concentration/m</Column>
+            </Labels>
             {/* Ozone Concentration */}
             <Labels>
               <Column>Ozone Concentration <Tooltip><TooltipText>Ground-level ozone is an air pollutant and the main constituent of smog. Ozone is emitted into the atmosphere by oil refineries and plants, as well as by cars, trucks, and trains. The EPA 8-hour ozone standard is 70 ppb. Above this point, air quality becomes unhealthy and potentially hazardous. </TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.4}>{(o3_max_pred).toFixed(1)} ppb</Column>
+              <Column flex={0.4}>{(ozn_score).toFixed(1)} ppb</Column>
             </Labels>
-            <IndicatorWrapper>
-                <Indicator width={o3_max_pred}/>
-                    <Filler width={70-(o3_max_pred)} />
-            </IndicatorWrapper>
             {/* PM2.5 concentration */}
             <Labels>
               <Column>PM2.5 Concentration <Tooltip><TooltipText>Fine particulate matter, or PM2.5, are microscopic, inhalable particles. PM2.5 is an air pollutant that is emitted into the atmosphere from sources like vehicles, power plants, and operations involving the burning of fuels. The EPA annual average PM2.5 standard is 12 micrograms/cubic meters.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.6}>{pm_mean_pred.toFixed(1)} ug/m3</Column>
+              <Column flex={0.6}>{pm25_score.toFixed(1)} ug/m3</Column>
             </Labels>
-            <IndicatorWrapper>
-                <Indicator width={pm_mean_pred}/>
-                    <Filler width={12-pm_mean_pred} />
-            </IndicatorWrapper>
+            {/* Diesel PM */}
+            <Labels>
+              <Column>Diesel PM (Particulate Matter) <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.6}>{dsl_score.toFixed(1)} ug/m3</Column>
+            </Labels>
+            {/* Traffic Proximity and Volume */}
+            <Labels>
+              <Column>Traffic Density <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.6}>{traf_score.toFixed(1)} daily traffic count/distance to road</Column>
+            </Labels>
+            {/* Traffic Proximity and Volume */}
+            <Labels>
+              <Column>Air Toxics Cancer Risk <Tooltip><TooltipText>Lifetime cancer risk from inhalation of air toxics </TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.6}>{txcs_score.toFixed(1)} daily traffic count/distance to road</Column>
+            </Labels>
+            {/* <IndicatorWrapper>
+              <Indicator width={pm_mean_pred}/>
+              <Filler width={12-pm_mean_pred} />
+            </IndicatorWrapper> */}
             {/* SF sites */}
-            <Labels>
-              <Column>Superfund Sites <Tooltip><TooltipText>Superfund sites are contaminated sites such as manufacturing facilities, processing plants, landfills, and mining sites that are in the process of being remediated by the EPA.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{SFcount}</Column>
-            </Labels>
-            {/* TRI sites */}
-            <Labels>
-              <Column>Toxic Release Inventory Facilities <Tooltip><TooltipText>Toxic Release Facilities (TRI) are industrial facilities that release chemicals into the air, waster, and land.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{TRIcount}</Column>
-            </Labels>
             </HelpText>
             </Wrapper>
         )}
@@ -202,11 +235,17 @@ const PollutionListItem = ({
 
 
 PollutionListItem.propTypes = {
-    score_y: PropTypes.number.isRequired,
-    o3_max_pred: PropTypes.number.isRequired,
-    pm_mean_pred: PropTypes.number.isRequired,
-    SFcount: PropTypes.number.isRequired,
-    TRIcount: PropTypes.number.isRequired
+  lead_score: PropTypes.number.isRequired,
+	chem_score: PropTypes.number.isRequired,
+	hazw_score: PropTypes.number.isRequired,
+	cln_score: PropTypes.number.isRequired,
+	wat_score: PropTypes.number.isRequired,
+	ozn_score: PropTypes.number.isRequired,
+	pm25_score: PropTypes.number.isRequired,
+	dsl_score: PropTypes.number.isRequired,
+	traf_score: PropTypes.number.isRequired,
+	txcs_score: PropTypes.number.isRequired,
+  pbn_score: PropTypes.number.isRequired,
 }
   
 export default PollutionListItem

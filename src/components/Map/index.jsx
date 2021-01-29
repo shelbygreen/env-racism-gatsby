@@ -54,7 +54,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     
     const index = useMemo(() => indexBy(data.toJS(), 'id'), [data])
 
-    // const [activeLayer, setActiveLayer] = useState('counties')
+    const [activeLayer, setActiveLayer] = useState('counties')
 
     useEffect(() => {
         const { padding, bounds: initBounds } = config
@@ -125,7 +125,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             map.resize();
         })
 
-        // not sure what this does?
+        // get id of feature on click
         map.on('click', e => {
             const [feature] = map.queryRenderedFeatures(e.point, {
                 layers: ['counties-fill', 'clusters', 'points'],
@@ -188,11 +188,12 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         })
 
         // show tooltip for points
-        map.on('click', 'points', function (e) {
+        map.on('mousemove', 'points', function (e) {
             map.getCanvas().style.cursor = 'pointer'
             
             // contents of the tooltip
             const name = e.features[0].properties.name
+            const url = e.features[0].properties.url
     
             tooltip
                 .setLngLat(e.lngLat)
@@ -343,25 +344,25 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     }
 
     // layer toggle button for counties and census tracts
-    // const handleLayerToggle = newLayer => {
-    //     const { current: map } = mapRef
+    const handleLayerToggle = newLayer => {
+        const { current: map } = mapRef
 
-    //     if (!(map && map.isStyleLoaded)) return
+        if (!(map && map.isStyleLoaded)) return
 
-    //     setActiveLayer(newLayer)
+        setActiveLayer(newLayer)
 
-    //     const isCounty = newLayer === 'counties'
-    //     map.setLayoutProperty(
-    //         'counties-fill',
-    //         'visibility',
-    //         isCounty ? 'visible' : 'none'
-    //     )
-    //     map.setLayoutProperty(
-    //         'tracts-fill',
-    //         'visibility',
-    //         isCounty ? 'none' : 'visible'
-    //     )
-    // }
+        const isCounty = newLayer === 'counties'
+        map.setLayoutProperty(
+            'counties-fill',
+            'visibility',
+            isCounty ? 'visible' : 'none'
+        )
+        map.setLayoutProperty(
+            'tracts-fill',
+            'visibility',
+            isCounty ? 'none' : 'visible'
+        )
+    }
 
     return (
         <Wrapper>
@@ -369,14 +370,14 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             <Legend entries={legendEntries} />
             {mapRef.current && mapRef.current.isStyleLoaded && (
                 <>
-                    {/* <LayerToggle
+                    <LayerToggle
                         value={activeLayer}
                         options={[
                             {value:'counties', label: 'Counties'},
                             {value:'tracts', label:'Tracts'},
                         ]}
                         onChange={handleLayerToggle}
-                    /> */}
+                    />
                     <StyleSelector
                         styles={styles}
                         // token={accessToken}

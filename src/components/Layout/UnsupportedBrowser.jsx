@@ -32,8 +32,7 @@ const UnsupportedBrowser = () => (
         <StyledIcon />
       </IconHeader>
       <h1>
-        Unfortunately, you are using an unsupported version of Internet
-        Explorer.
+        Unfortunately, you are using an unsupported version of Internet Explorer.
         <br />
         <br />
         Please use a modern browser such as Google Chrome, Firefox, or Microsoft
