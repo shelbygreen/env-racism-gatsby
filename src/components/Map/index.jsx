@@ -112,15 +112,15 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             baseStyleRef.current = fromJS(map.getStyle())
             window.baseStyle = baseStyleRef.current
 
-            // add every source
-            Object.entries(sources).forEach(([id, source]) => {
-                map.addSource(id, source)
-            })
+            // // add every source
+            // Object.entries(sources).forEach(([id, source]) => {
+            //     map.addSource(id, source)
+            // })
 
-            // add every layer
-            layers.forEach(layer => {
-                map.addLayer(layer)
-            })
+            // // add every layer
+            // layers.forEach(layer => {
+            //     map.addLayer(layer)
+            // })
             
             map.resize();
         })

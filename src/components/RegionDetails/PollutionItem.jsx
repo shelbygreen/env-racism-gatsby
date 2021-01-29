@@ -164,7 +164,7 @@ const PollutionListItem = ({
           {isOpen ? <CaretDown /> : <CaretRight />}
           <div>Pollution Burden Score</div>
         </Title>
-        <Score>{pbn_score}</Score>
+        <Score>{pbn_score.toFixed(1)}</Score>
       </Header>
       <Content>
         {isOpen && (
@@ -173,12 +173,12 @@ const PollutionListItem = ({
             {/* Lead Risk and Exposure */}
             <Labels>
               <Column>Lead Risk and Exposure <Tooltip><TooltipText>The percentage of residences that may have lead-based paint</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.4}>{100*(lead_score).toFixed(1)}% Pre-1960s Housing</Column>
+              <Column flex={5}>{100*(lead_score).toFixed(1)}% Pre-1960s Housing</Column>
             </Labels>
-            {/* Proximity to Risk Management Plan (RMP) Sites */}
+            {/* Proximity to RMP Sites */}
             <Labels>
-              <Column>Proximity to Risk Management Plan (RMP) Sites <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.4}>{chem_score.toFixed(1)} site count/km</Column>
+              <Column>Proximity to Risk Management Plan Sites <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={1}>{chem_score.toFixed(1)} site count/km</Column>
             </Labels>
             {/* Proximity to Hazardous Waste Sites */}
             <Labels>
@@ -193,7 +193,7 @@ const PollutionListItem = ({
             {/* Wastewater Discharge */}
             <Labels>
               <Column>Wastewater Discharge <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.4}>{wat_score.toFixed(1)} toxicity-weighted concentration/m</Column>
+              <Column flex={4}>{wat_score.toFixed(1)} toxicity-weighted concentration/m</Column>
             </Labels>
             {/* Ozone Concentration */}
             <Labels>
@@ -203,22 +203,22 @@ const PollutionListItem = ({
             {/* PM2.5 concentration */}
             <Labels>
               <Column>PM2.5 Concentration <Tooltip><TooltipText>Fine particulate matter, or PM2.5, are microscopic, inhalable particles. PM2.5 is an air pollutant that is emitted into the atmosphere from sources like vehicles, power plants, and operations involving the burning of fuels. The EPA annual average PM2.5 standard is 12 micrograms/cubic meters.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.6}>{pm25_score.toFixed(1)} ug/m3</Column>
+              <Column flex={0.5}>{pm25_score.toFixed(1)} ug/m3</Column>
             </Labels>
             {/* Diesel PM */}
             <Labels>
               <Column>Diesel PM (Particulate Matter) <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.6}>{dsl_score.toFixed(1)} ug/m3</Column>
+              <Column flex={0.8}>{dsl_score.toFixed(1)} ug/m3</Column>
             </Labels>
             {/* Traffic Proximity and Volume */}
             <Labels>
               <Column>Traffic Density <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.6}>{traf_score.toFixed(1)} daily traffic count/distance to road</Column>
+              <Column flex={0.4}>{traf_score.toFixed(1)} daily traffic count/km to road</Column>
             </Labels>
             {/* Traffic Proximity and Volume */}
             <Labels>
-              <Column>Air Toxics Cancer Risk <Tooltip><TooltipText>Lifetime cancer risk from inhalation of air toxics </TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.6}>{txcs_score.toFixed(1)} daily traffic count/distance to road</Column>
+              <Column>Air Toxics Cancer Risk Index<Tooltip><TooltipText>Lifetime cancer risk from inhalation of air toxics </TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0}>{txcs_score.toFixed(1)}</Column>
             </Labels>
             {/* <IndicatorWrapper>
               <Indicator width={pm_mean_pred}/>

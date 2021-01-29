@@ -54,7 +54,7 @@ const Progress = ({ done }) => {
 	
 	setTimeout(() => {
 		const newStyle = {
-			width: `${done - 2.8}%`
+			width: `${done}%`
 		}
 		
 		setStyle(newStyle);

@@ -31,19 +31,16 @@ const Name = styled.div`
     font-weight: normal;
 `
   
-const ListItem = ({ name, cmlscore, population, ...props }) => (
+const ListItem = ({ name, final_score, total_pop, ...props }) => (
     <Wrapper {...props}>
       <Columns>
         <Column>
-        {/* Add CD numbers to each county/tract */}
           <Name>{name}</Name>
-          {/* Congressional District */}
+          {readibleNumber(total_pop, 0)} residents
         </Column>
         <Column>
           <Text textAlign="right">
-          Risk Score: {cmlscore}
-          <br />
-          {readibleNumber(population, 0)} residents
+          Risk Score: {final_score.toFixed(1)}
           </Text>
         </Column>
       </Columns>
@@ -52,9 +49,9 @@ const ListItem = ({ name, cmlscore, population, ...props }) => (
   
 ListItem.propTypes = {
     id: PropTypes.number.isRequired,
-    cmlscore: PropTypes.number.isRequired,
+    final_score: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    population: PropTypes.number.isRequired,
+    total_pop: PropTypes.number.isRequired,
 }
   
 // only rerender on ID change

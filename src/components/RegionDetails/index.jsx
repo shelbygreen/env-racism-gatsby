@@ -140,8 +140,8 @@ const RegionDetails = ({
             and {readibleNumber(age_65, 0)} are seniors.  */}
           </Section>
           <Section>
-            <TabHeader>Environmental Justice Risk Score:<Score>{final_score}</Score></TabHeader>
-            <Progress done={cmlscore}/>
+            <TabHeader>Environmental Justice Risk Score:<Score>{(final_score).toFixed(1)}</Score></TabHeader>
+            <Progress done={final_score}/>
             <Help
                   snippet="What does this mean?  "
                 >

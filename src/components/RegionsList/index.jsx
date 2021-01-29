@@ -20,7 +20,7 @@ const sortOptions = [
       sortFunc: (a, b) => (a.get("name") > b.get("name") ? 1 : -1)
     },
     { label: "population", sortFunc: (a, b) => b.get("total_pop") - a.get("total_pop") },
-    { label: "risk score", sortFunc: (a, b) => b.get("final_rank") - a.get("final_rank") } // TODO: change to final_score
+    { label: "risk score", sortFunc: (a, b) => b.get("final_score") - a.get("final_score") }
 ]
   
 export const Wrapper = styled(Flex).attrs({
@@ -79,7 +79,7 @@ const RegionsList = ({ onSelect }) => {
       <Wrapper>
         <Columns px="1rem" alignItems="baseline">
           <Column>
-            <Count>{data.size} currently visible</Count>
+            <Count>{data.size} regions visible</Count>
           </Column>
           <Column>
             <SortBar

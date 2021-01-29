@@ -28,6 +28,10 @@ const Title = styled.h1`
   & * {
     text-decoration: none;
   }
+
+  & > * {
+    flex-grow: 1;
+  }
 `
 
 // const Logo = styled(Image).attrs({
