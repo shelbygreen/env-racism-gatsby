@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box } from '@rebass/grid'
+import { Flex, Box } from 'reflexbox'
 
 export const Columns = props => (
   <Flex

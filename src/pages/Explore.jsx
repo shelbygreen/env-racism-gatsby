@@ -9,7 +9,7 @@ import SEO from "../components/seo"
 import Layout from "../components/Layout/index"
 import { Flex } from '../components/Grid'
 import Sidebar, { SidebarHeader } from '../components/Sidebar'
-import ExpandableParagraph from '../components/Elements/ExpandableParagraph'
+import { Text } from 'rebass'
 import styled, { themeGet } from '../../util/style'
 import Map from '../components/Map/index'
 import RegionsList from '../components/RegionsList'
@@ -20,7 +20,7 @@ const Wrapper = styled(Flex)`
   height: 100%;
 `
 
-const Help = styled(ExpandableParagraph)`
+const Help = styled(Text)`
   font-size: 0.8rem;
   margin: 0 1rem 1rem;
   color: ${themeGet('colors.grey.700')};
@@ -67,10 +67,6 @@ const Explore = () => {
     boundsRef.current = bounds
   }
 
-  const handleClickTo = () => {
-    setFactsheet(() => index.get(selectedId.toString()).get('county'))
-  }
-
   return (
     <CrossfilterProvider data={data} filters={filters}>
     <Layout>
@@ -83,19 +79,12 @@ const Explore = () => {
                   showZoom={showZoom}
                   onBack={handleBack}
                   onZoomTo={handleZoomTo}
-                  onClickTo={handleClickTo}
                 />
               ) : (
                 <>
                   <SidebarHeader title="Explore Environmental Justice Hotspots" icon="map" />
-                      <Help
-                      snippet="Click on a region in the list below or on the map to learn more about the environmental indicators contributing to the region's cumulative EJ score."
-                      >
-                      Click on a region in the list below or on the map for more
-                      detailed information. Use the buttons to toggle between displaying 
-                      counties and census tracts. The list below only shows
-                      regions visible on the map. Zoom out if you want to see more regions, 
-                      and zoom in if you want to less.
+                      <Help>
+                      Click on a region in the list below or on the map to learn more about the environmental indicators contributing to the region's cumulative EJ score.
                       </Help>
                       <RegionsList onSelect={handleSelectFromList} />
                 </>

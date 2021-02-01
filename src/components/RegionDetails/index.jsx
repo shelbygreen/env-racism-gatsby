@@ -103,14 +103,8 @@ const RegionDetails = ({
   final_rank,
   showZoom,
   onBack,
-  onZoomTo,
-  onClickTo
+  onZoomTo
 }) => {
-
-  // Factsheet navigation
-  const handleClick = () => {
-    onClickTo() // function defined on Explore page
-  }
 
   return (
     <>
@@ -206,14 +200,12 @@ RegionDetails.propTypes = {
   final_rank:PropTypes.number.isRequired,
   showZoom: PropTypes.bool,
   onBack: PropTypes.func,
-  onZoomTo: PropTypes.func,
-  onClickTo: PropTypes.func
+  onZoomTo: PropTypes.func
 }
 
 RegionDetails.defaultProps = {
   showZoom: true,
   onBack: () => {},
-  onZoomTo: () => {},
-  onClickTo: () => {}
+  onZoomTo: () => {}
 }
 export default RegionDetails
