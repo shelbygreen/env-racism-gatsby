@@ -1,4 +1,4 @@
-import { Flex, Box } from 'reflexbox'
+import { Flex, Box } from 'reflexbox/styled-components'
 import Container from './Container'
 import { Columns, Column } from './Columns'
 

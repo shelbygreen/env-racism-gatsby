@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from '../../../util/style'
-import { Box } from 'reflexbox'
+import { Box } from 'reflexbox/styled-components'
 
 const Container = styled(Box)`
   max-width: ${props => props.maxWidth};

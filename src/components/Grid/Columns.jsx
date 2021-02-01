@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box } from 'reflexbox'
+import { Flex, Box } from 'reflexbox/styled-components'
 
 export const Columns = props => (
   <Flex
