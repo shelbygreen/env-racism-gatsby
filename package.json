@@ -39,8 +39,10 @@
   },
   "devDependencies": {
     "@types/react": "^16.14.2",
+    "babel-plugin-styled-components": "^1.12.0",
     "immutable": "^3.8.2",
     "prettier": "2.1.2",
+    "react-is": "^17.0.1",
     "typescript": "^3.9.7"
   },
   "keywords": [
