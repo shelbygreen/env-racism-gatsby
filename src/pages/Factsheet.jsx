@@ -3,16 +3,11 @@ import { graphql } from 'gatsby'
 import PropTypes from "prop-types"
 import SEO from "../components/seo"
 import Layout from "../components/Layout"
+import { Flex } from '../components/Grid'
 import styled, { themeGet } from '../../util/style'
 
-const Wrapper = styled.div`
-  margin: 3rem auto;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid ${themeGet('colors.grey.900')}
+const Wrapper = styled(Flex)`
+  height: 100%;
 `
 
 // const Factsheet = ({county, onClick }) => (
@@ -53,29 +48,31 @@ export const query = graphql`
     return (
       <Layout>
           <SEO title="Factsheet" />
-        <h1>Name of County!</h1>
-        <table>
-        <thead>
-          <tr>
-            <th>Census Tract</th>
-            <th>Total Population</th>
-            <th>Texas County</th>
-            <th>EJ Risk Score</th>
-            <th>EJ Risk Score Percentile</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredQueryNodes.map(node => (
-            <tr key={node.id}>
-              <th>{node.name}</th>
-              <th>{node.total_pop}</th>
-              <th>{node.county}</th>
-              <th>{node.final_score.toFixed(2)}</th>
-              <th>{node.final_rank.toFixed(0)}%</th>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <Wrapper>
+            <h1>Name of County!</h1>
+            <table>
+            <thead>
+              <tr>
+                <th>Census Tract</th>
+                <th>Total Population</th>
+                <th>Texas County</th>
+                <th>EJ Risk Score</th>
+                <th>EJ Risk Score Percentile</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredQueryNodes.map(node => (
+                <tr key={node.id}>
+                  <th>{node.name}</th>
+                  <th>{node.total_pop}</th>
+                  <th>{node.county}</th>
+                  <th>{node.final_score.toFixed(2)}</th>
+                  <th>{node.final_rank.toFixed(0)}%</th>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </Wrapper>
       </Layout>
     );
 };
