@@ -128,7 +128,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         // get id of feature on click
         map.on('click', e => {
             const [feature] = map.queryRenderedFeatures(e.point, {
-                layers: ['counties-fill', 'clusters', 'points'],
+                layers: ['clusters', 'points'], //TODO: add 'counties-fill' layer
             })
     
             if (!feature) return
@@ -137,11 +137,12 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
                 properties,
             } = feature
     
-            if (layerId === 'counties-fill') {
-                onSelectFeature(properties.id)
-            } else {
-                onSelectFeature(properties.geoid)
-            }
+            onSelectFeature(properties.geoid)
+            // if (layerId === 'counties-fill') {
+            //     onSelectFeature(properties.id)
+            // } else {
+            //     onSelectFeature(properties.geoid)
+            // }
         })
 
         // clicking on clusters zooms in
