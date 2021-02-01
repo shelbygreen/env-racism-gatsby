@@ -234,7 +234,8 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     // updating layer hightlighting and legends
     const getLegendEntries = () => {
         const { current: map } = mapRef
-        if (!(map && map.isStyleLoaded())) return []
+        // if (!(map && map.isStyleLoaded())) return []
+        if (!(map)) return []
 
         const queryLayers = [
             'clusters',
