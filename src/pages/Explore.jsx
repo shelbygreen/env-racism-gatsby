@@ -34,6 +34,7 @@ const Explore = () => {
     prevBounds: List([-106.645646,25.837377,-93.508292,36.500704]),
   })
   const [showZoom, setShowZoom] = useState(true)
+  const [showFactsheet, setFactsheet] = useState(true)
 
   const handleSelect = id => {
     console.log('onSelect', id)
@@ -66,6 +67,10 @@ const Explore = () => {
     boundsRef.current = bounds
   }
 
+  const handleClickTo = () => {
+    setFactsheet(() => index.get(selectedId.toString()).get('county'))
+  }
+
   return (
     <CrossfilterProvider data={data} filters={filters}>
     <Layout>
@@ -78,6 +83,7 @@ const Explore = () => {
                   showZoom={showZoom}
                   onBack={handleBack}
                   onZoomTo={handleZoomTo}
+                  onClickTo={handleClickTo}
                 />
               ) : (
                 <>

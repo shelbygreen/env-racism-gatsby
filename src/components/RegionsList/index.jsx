@@ -92,7 +92,7 @@ const RegionsList = ({ onSelect }) => {
   
         <SearchBar
           value={state.get("filters", Map()).get("name", "")}
-          placeholder="Enter the name of a region"
+          placeholder="Enter the name of a county or census tract"
           onChange={handleQueryChange}
         />
   
@@ -121,7 +121,7 @@ const RegionsList = ({ onSelect }) => {
             ) : null}
           </ListWrapper>
         ) : (
-          <NoResults>No visible regions...</NoResults>
+          <NoResults>No visible counties or census tracts...</NoResults>
         )}
       </Wrapper>
     )

@@ -25,7 +25,7 @@ const Layout = ({ children }) => (
     <Wrapper>
       <Header siteTitle={config.siteTitle} />
       {isUnsupported ? <UnsupportedBrowser /> : <Content>{children}</Content>}
-      <Footer />
+      {/* <Footer /> */}
     </Wrapper>
   </ThemeProvider>
 )

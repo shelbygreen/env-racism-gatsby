@@ -19,6 +19,10 @@ const Wrapper = styled(Flex).attrs({
   border-bottom: 1px solid ${themeGet('colors.grey.900')};
 `
 
+// & > * {
+//   flex-grow: 1;
+// }
+
 const Title = styled.h1`
   margin: 0;
   font-weight: normal;
@@ -27,10 +31,6 @@ const Title = styled.h1`
 
   & * {
     text-decoration: none;
-  }
-
-  & > * {
-    flex-grow: 1;
   }
 `
 

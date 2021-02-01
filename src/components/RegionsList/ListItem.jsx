@@ -16,7 +16,7 @@ const Wrapper = styled(Text).attrs({
     font-weight: 100;
 
     &:hover {
-        background-color: ${theme.colors.primary[100]}50;
+        background-color: ${theme.colors.primary[100]};
     }
 
     &:not(:first-child) {

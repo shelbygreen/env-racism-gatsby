@@ -4,7 +4,7 @@ import { List, fromJS } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import 'mapbox-gl/dist/mapbox-gl.js'
+// import 'mapbox-gl/dist/mapbox-gl.js'
 import styled from '../../../util/style'
 import { indexBy } from '../../../util/data'
 import { getCenterAndZoom, groupByLayer } from '../../../util/map'
@@ -36,7 +36,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         return null
     }
 
-    // importing styles
+    // importing mapbox styles for the style selector
     const { styles } = config
 
     // this ref holds the map DOM node so that we can pass it into Mapbox GL
@@ -112,15 +112,15 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             baseStyleRef.current = fromJS(map.getStyle())
             window.baseStyle = baseStyleRef.current
 
-            // // add every source
-            // Object.entries(sources).forEach(([id, source]) => {
-            //     map.addSource(id, source)
-            // })
+            // add every source
+            Object.entries(sources).forEach(([id, source]) => {
+                map.addSource(id, source)
+            })
 
-            // // add every layer
-            // layers.forEach(layer => {
-            //     map.addLayer(layer)
-            // })
+            // add every layer
+            layers.forEach(layer => {
+                map.addLayer(layer)
+            })
             
             map.resize();
         })
@@ -166,68 +166,35 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
 
         // styling for tooltip
         const tooltip = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false,
+            closeButton: true,
+            closeOnClick: true,
             anchor: 'left',
             offset: 20,
         })
 
-        // show tooltip for counties
-        map.on('mousemove', 'counties-fill', function (e) {
-            map.getCanvas().style.cursor = 'pointer'
-            
-            // contents of the tooltip
-            const name = e.features[0].properties.name
-            const score = e.features[0].properties.final_score
-    
-            tooltip
-                .setLngLat(e.lngLat)
-                .setHTML(`<b>${name}</b><br /><b>Cumulative Risk Score: </b>${score}`)
-                .addTo(map)
-    
-        })
-
-        // show tooltip for points
-        map.on('mousemove', 'points', function (e) {
-            map.getCanvas().style.cursor = 'pointer'
-            
+        // show tooltip for points on click
+        map.on('click', 'points', function (e) {
             // contents of the tooltip
             const name = e.features[0].properties.name
             const url = e.features[0].properties.url
     
             tooltip
                 .setLngLat(e.lngLat)
-                .setHTML(`<b>${name}</b><br/><b>Click <a href="'${url}'">here</a> to navigate to the EPA Database for more information about the site.</b>`)
+                .setHTML(`<h4>${name}</h4>Click <a href="${url}">here</a> to navigate to the EPA Database for more information about this site.`)
                 .addTo(map)
         })
 
-        // remove tooltip
-        map.on('mouseleave', 'counties-fill', () => {
-            map.getCanvas().style.cursor = ''
-            tooltip.remove()
+        // change cursor to pointer when mouse is over a facility point
+        map.on('mouseenter', 'points', function () {
+            map.getCanvas().style.cursor = 'pointer';
         })
 
-        map.on('mouseleave', 'points', () => {
-            map.getCanvas().style.cursor = ''
-            tooltip.remove()
-        })
-    
-        // on click, highlight and zoom in for counties
-        map.on('click', 'counties-fill', function (e) {
-            map.getCanvas().style.cursor = 'pointer'
-
-            // highlight on click
-            map.setFilter('counties-outline-highlight', [
-                'in', 
-                'name', 
-                e.features[0].properties.name
-            ])
-            
-            // zoom on click
-            map.fitBounds(e.features[0].properties.bounds.split(','), {padding:20, maxZoom: 14, duration: 2000 })
+        // change cursor back when the mouse leaves the facility point
+        map.on('mouseleave', 'places', function() {
+            map.getCanvas().style.cursor = '';
         })
 
-        // updates the list to show what regions are visible
+        // updates the list to show the visible regions
         map.on('moveend', () => {
             const [lowerLeft, upperRight] = map.getBounds().toArray()
             onBoundsChange(lowerLeft.concat(upperRight))

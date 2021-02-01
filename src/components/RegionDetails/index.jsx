@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Text } from 'rebass'
 import { FaRegTimesCircle } from 'react-icons/fa'
-
+import { Link } from 'gatsby'
 import { Columns, Column, Flex } from '../Grid'
 import ExpandableParagraph from '../Elements/ExpandableParagraph'
 import Tabs, { Tab as BaseTab } from '../Tabs'
 import styled, { themeGet } from '../../../util/style'
 import { readibleNumber } from '../../../util/format'
-
+// import { useData } from '../Data'
 import { Button } from '../Button'
 import Progress from './ProgressBar'
 import PopulationListItem from "./PopulationItem"
 import PollutionListItem from "./PollutionItem"
+import Factsheet from "../../pages/Factsheet"
 
 const Header = styled.div`
   padding: 0.5rem 1rem;
@@ -23,10 +24,6 @@ const Header = styled.div`
 
 const Title = styled(Text).attrs({
   fontSize: ["1rem", "1rem", "1.5rem"]
-})``
-
-const Subtitle = styled(Text).attrs({
-  fontSize: ["0.8rem", "0.8rem", "1rem"]
 })``
 
 const Help = styled(ExpandableParagraph)`
@@ -49,7 +46,7 @@ const Score = styled(Text).attrs({ textAlign: "right" })`
   font-size: 1.25rem;
 `
 
-const ZoomButton = styled(Button)`
+const FactsheetButton = styled(Button)`
   font-size: 0.8rem;
   margin-bottom: 1rem;
   padding: 0.1rem 0.5rem;
@@ -60,12 +57,6 @@ const TabHeader = styled(Flex).attrs({
 })`
   font-size: 1.25rem;
 `
-
-const Value = styled.div`
-  padding-left: 0rem;
-  color: ${themeGet("colors.grey.900")};
-`
-
 const Section = styled.section`
   &:not(:first-child) {
     padding-top: 0.5rem;
@@ -112,11 +103,13 @@ const RegionDetails = ({
   final_rank,
   showZoom,
   onBack,
-  onZoomTo
+  onZoomTo,
+  onClickTo
 }) => {
 
-  const handleZoom = () => {
-    onZoomTo()
+  // Factsheet navigation
+  const handleClick = () => {
+    onClickTo() // function defined on Explore page
   }
 
   return (
@@ -134,11 +127,11 @@ const RegionDetails = ({
       </Header>
 
       <Tab>
-        <Section>
-            <TabHeader>Background:</TabHeader>
+        {/* <Section> */}
+            {/* <TabHeader>Background:</TabHeader> */}
             {/* The 2018 American Community Survey estimated {readibleNumber(population, 0)} people live in {name}, where {readibleNumber(age_0to9, 0)} are children 
             and {readibleNumber(age_65, 0)} are seniors.  */}
-          </Section>
+          {/* </Section> */}
           <Section>
             <TabHeader>Environmental Justice Risk Score:<Score>{(final_score).toFixed(1)}</Score></TabHeader>
             <Progress done={final_score}/>
@@ -171,6 +164,14 @@ const RegionDetails = ({
             traf_score={traf_score}
             txcs_score={txcs_score}
             pbn_score={pbn_score}/>
+          </Section>
+          <Section>
+            {/* View Factsheet Button */}
+            <center>
+              <FactsheetButton>
+                <Link county={county} to="/Factsheet">View {county} Factsheet</Link>
+              </FactsheetButton>
+            </center>
           </Section>
       </Tab>
     </>
@@ -205,12 +206,14 @@ RegionDetails.propTypes = {
   final_rank:PropTypes.number.isRequired,
   showZoom: PropTypes.bool,
   onBack: PropTypes.func,
-  onZoomTo: PropTypes.func
+  onZoomTo: PropTypes.func,
+  onClickTo: PropTypes.func
 }
 
 RegionDetails.defaultProps = {
   showZoom: true,
   onBack: () => {},
-  onZoomTo: () => {}
+  onZoomTo: () => {},
+  onClickTo: () => {}
 }
 export default RegionDetails
