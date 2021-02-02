@@ -190,32 +190,32 @@ const PopulationListItem = ({
             {/* Over Age 64 Population */}
             <Labels>
               <Column>Minority Population <Tooltip><TooltipText>The percentage of the population who don't identify as white. Nonwhite populations are more likely to be affected, and burdened by, toxic environmental conditions.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{poc_score.toFixed(1)}%</Column>
+              <Column flex={0.23}>{poc_score.toFixed(1)}%</Column>
             </Labels>
             {/* Educational Attainment */}
             <Labels>
               <Column>Less than High School Education<Tooltip><TooltipText>The percentage of the population who are at least 25 years old and haven't graduated from high school. </TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{nohs_score.toFixed(1)}%</Column>
+              <Column flex={0.4}>{nohs_score.toFixed(1)}%</Column>
             </Labels>
             {/* Poverty */}
             <Labels>
               <Column>Low-income Population <Tooltip><TooltipText>The percentage of the population with a household income less than or equal to twice the federal poverty level.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{pov_score.toFixed(1)}%</Column>
+              <Column flex={0.27}>{pov_score.toFixed(1)}%</Column>
             </Labels>
             {/* Housing Burden */}
             <Labels>
               <Column>Housing Burden <Tooltip><TooltipText>The percentage of the population spending more than half of their income on rent.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{hbrd_score.toFixed(1)}%</Column>
+              <Column flex={0.17}>{hbrd_score.toFixed(1)}%</Column>
             </Labels>
             {/* Linguistic Isolation */}
             <Labels>
               <Column>Linguistic Isolation <Tooltip><TooltipText>TODO: add description</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{liso_score.toFixed(1)}%</Column>
+              <Column flex={0.23}>{liso_score.toFixed(1)}%</Column>
             </Labels>
             {/* Unemployed Population */}
             <Labels>
               <Column>Unemployed Population <Tooltip><TooltipText>TODO: add description</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{unem_score.toFixed(1)}%</Column>
+              <Column flex={0.28}>{unem_score.toFixed(1)}%</Column>
             </Labels>
             </HelpText>
             </Wrapper>

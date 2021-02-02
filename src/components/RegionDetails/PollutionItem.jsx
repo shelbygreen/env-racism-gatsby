@@ -173,7 +173,7 @@ const PollutionListItem = ({
             {/* Lead Risk and Exposure */}
             <Labels>
               <Column>Lead Risk and Exposure <Tooltip><TooltipText>The percentage of residences that may have lead-based paint.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.1}>{100*(lead_score).toFixed(1)}%</Column>
+              <Column flex={0.2}>{100*(lead_score).toFixed(1)}%</Column>
             </Labels>
             {/* Ozone Concentration */}
             <Labels>
@@ -193,12 +193,12 @@ const PollutionListItem = ({
             {/* air Toxics */}
             <Labels>
               <Column>Air Toxics Cancer Risk Index  <Tooltip><TooltipText>Lifetime cancer risk from inhalation of air toxics </TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0}>{txcs_score.toFixed(1)}</Column>
+              <Column flex={0.15}>{txcs_score.toFixed(1)}</Column>
             </Labels>
             {/* Traffic Proximity and Volume */}
             <Labels>
               <Column>Traffic Density  <Tooltip><TooltipText>TODO: add description for indicator. unit: daily traffic count/km to road</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.1}>{traf_score.toFixed(1)}</Column>
+              <Column flex={0.23}>{traf_score.toFixed(1)}</Column>
             </Labels>
             {/* Proximity to Superfund Sites */}
             <Labels>
@@ -218,7 +218,7 @@ const PollutionListItem = ({
             {/* Wastewater Discharge */}
             <Labels>
               <Column>Wastewater Discharge <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={7}>{wat_score.toFixed(1)} toxicity-weighted concentration/m</Column>
+              <Column flex={2.2}>{wat_score.toFixed(1)} toxicity-weighted concentration/m</Column>
             </Labels>
             {/* <IndicatorWrapper>
               <Indicator width={pm_mean_pred}/>

@@ -114,7 +114,7 @@ const RegionDetails = ({
             <Title>{name}</Title>
             {/* County or Census Tract */}
           </Column>
-          <Column flex={0}>
+          <Column flex={0.1}>
             <BackIcon onClick={onBack} />
           </Column>
         </Columns>
