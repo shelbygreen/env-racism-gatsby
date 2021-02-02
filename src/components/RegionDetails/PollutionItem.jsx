@@ -172,7 +172,7 @@ const PollutionListItem = ({
             <HelpText>
             {/* Lead Risk and Exposure */}
             <Labels>
-              <Column>Lead Risk and Exposure <Tooltip><TooltipText>The percentage of residences that may have lead-based paint</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column>Lead Risk and Exposure <Tooltip><TooltipText>The percentage of residences that may have lead-based paint.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.1}>{100*(lead_score).toFixed(1)}%</Column>
             </Labels>
             {/* Ozone Concentration */}

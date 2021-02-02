@@ -137,12 +137,12 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
                 properties,
             } = feature
     
-            onSelectFeature(properties.geoid)
-            // if (layerId === 'counties-fill') {
-            //     onSelectFeature(properties.id)
-            // } else {
-            //     onSelectFeature(properties.geoid)
-            // }
+            // onSelectFeature(properties.geoid)
+            if (layerId === 'counties-fill') {
+                onSelectFeature(properties.id)
+            } else {
+                onSelectFeature(properties.geoid)
+            }
         })
 
         // clicking on clusters zooms in

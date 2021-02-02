@@ -36,33 +36,34 @@ export const sources = {
 
 // styled layers
 export const layers = [
-  // {
-  //   id: "counties-fill",
-  //   source: "counties",
-  //   type: 'fill',
-  //   layout: {
-  //     visibility: 'visible',
-  //   },
-  //   filter: ["==", "type", "county"],
-  //   paint: {
-  //     "fill-color": {
-  //       property: 'final_score', // colors coded by the 'score' attribute
-  //         stops: [
-  //           [1, "rgb(253,231,37)"],
-  //           [10, "rgb(180,222,44)"],
-  //           [20, "rgb(109,205,89)"],
-  //           [30, "rgb(53,183,121)"],
-  //           [40, "rgb(31,158,137)"],
-  //           [50, "rgb(38,130,142)"],
-  //           [60, "rgb(49,104,142)"],
-  //           [70, "rgb(62,74,137)"],
-  //           [80, "rgb(72,40,120)"],
-  //           [90, "rgb(68,1,84)"]
-  //         ]
-  //       },
-  //     'fill-opacity': 0.75
-  //   }, 
-  // },
+  {
+    id: "counties-fill",
+    source: "counties",
+    type: 'fill',
+    maxzoom: 18,
+    layout: {
+      visibility: 'visible',
+    },
+    filter: ["==", "type", "county"],
+    paint: {
+      "fill-color": {
+        property: 'final_score', // colors coded by the 'score' attribute
+          stops: [
+            [1, "rgb(253,231,37)"],
+            [10, "rgb(180,222,44)"],
+            [20, "rgb(109,205,89)"],
+            [30, "rgb(53,183,121)"],
+            [40, "rgb(31,158,137)"],
+            [50, "rgb(38,130,142)"],
+            [60, "rgb(49,104,142)"],
+            [70, "rgb(62,74,137)"],
+            [80, "rgb(72,40,120)"],
+            [90, "rgb(68,1,84)"]
+          ]
+        },
+      'fill-opacity': 0.75
+    }, 
+  },
   // {
   //   id: 'counties-outline-highlight',
   //   source: 'counties',
@@ -75,35 +76,35 @@ export const layers = [
   //     'line-width': 2
   //   },
   // },
-  // {
-  //   id: "tracts-fill",
-  //   source: "tracts",
-  //   // 'source-layer': 'txej_ct',
-  //   type: 'fill',
-  //   // minzoom: 8,
-  //   layout: {
-  //     visibility: 'none',
-  //   },
-  //   filter: ["==", "type", "tract"],
-  //   paint: {
-  //     "fill-color": {
-  //       property: 'final_score', // colors coded by the EJ score 
-  //         stops: [
-  //           [1, "rgb(253,231,37)"],
-  //           [10, "rgb(180,222,44)"],
-  //           [20, "rgb(109,205,89)"],
-  //           [30, "rgb(53,183,121)"],
-  //           [40, "rgb(31,158,137)"],
-  //           [50, "rgb(38,130,142)"],
-  //           [60, "rgb(49,104,142)"],
-  //           [70, "rgb(62,74,137)"],
-  //           [80, "rgb(72,40,120)"],
-  //           [90, "rgb(68,1,84)"]
-  //         ]
-  //       },
-  //     'fill-opacity': 0.75
-  //   }, 
-  // },
+  {
+    id: "tracts-fill",
+    source: "tracts",
+    // 'source-layer': 'txej_ct',
+    type: 'fill',
+    maxzoom: 18,
+    layout: {
+      visibility: 'none',
+    },
+    filter: ["==", "type", "tract"],
+    paint: {
+      "fill-color": {
+        property: 'final_score', // colors coded by the EJ score 
+          stops: [
+            [1, "rgb(253,231,37)"],
+            [10, "rgb(180,222,44)"],
+            [20, "rgb(109,205,89)"],
+            [30, "rgb(53,183,121)"],
+            [40, "rgb(31,158,137)"],
+            [50, "rgb(38,130,142)"],
+            [60, "rgb(49,104,142)"],
+            [70, "rgb(62,74,137)"],
+            [80, "rgb(72,40,120)"],
+            [90, "rgb(68,1,84)"]
+          ]
+        },
+      'fill-opacity': 0.75
+    }, 
+  },
   {
     id: 'clusters', // clustered facilities
     source: 'facilities', 
