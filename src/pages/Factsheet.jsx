@@ -49,7 +49,7 @@ export const query = graphql`
       <Layout>
           <SEO title="Factsheet" />
           <Wrapper>
-            <h1>Name of County!</h1>
+            {/* <h1>Name of County!</h1> */}
             <table>
             <thead>
               <tr>

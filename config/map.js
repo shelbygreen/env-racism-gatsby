@@ -14,14 +14,14 @@ export const sources = {
   counties: {
     type: 'geojson',
     data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-gatsby/master/data/georegions.geojson',
-    generateId: true
+    // generateId: true
   },
   tracts: {
     // type: 'vector',
     // url: 'mapbox://shelby-green.txejtracts'
     type: 'geojson',
     data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-gatsby/master/data/georegions.geojson',
-    generateId: true
+    // generateId: true
   },
   facilities: {
     type: 'geojson', 
@@ -64,18 +64,18 @@ export const layers = [
       'fill-opacity': 0.75
     }, 
   },
-  // {
-  //   id: 'counties-outline-highlight',
-  //   source: 'counties',
-  //   // minzoom: 4,
-  //   // maxzoom: 22,
-  //   type: 'line',
-  //   filter: ['in', 'name', ''],
-  //   paint: {
-  //     'line-color': '#ffffff', 
-  //     'line-width': 2
-  //   },
-  // },
+  {
+    id: 'counties-outline-highlight',
+    source: 'counties',
+    // minzoom: 4,
+    maxzoom: 18,
+    type: 'line',
+    filter: ['in', 'name', ''],
+    paint: {
+      'line-color': '#ffffff', 
+      'line-width': 2
+    },
+  },
   {
     id: "tracts-fill",
     source: "tracts",

@@ -193,12 +193,12 @@ const PollutionListItem = ({
             {/* air Toxics */}
             <Labels>
               <Column>Air Toxics Cancer Risk Index  <Tooltip><TooltipText>Lifetime cancer risk from inhalation of air toxics </TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.15}>{txcs_score.toFixed(1)}</Column>
+              <Column flex={0.15}>{100*(txcs_score.toFixed(2))}</Column>
             </Labels>
             {/* Traffic Proximity and Volume */}
             <Labels>
-              <Column>Traffic Density  <Tooltip><TooltipText>TODO: add description for indicator. unit: daily traffic count/km to road</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.23}>{traf_score.toFixed(1)}</Column>
+              <Column>Traffic Density (daily vehicles/meter)  <Tooltip><TooltipText>TODO: add description for indicator. unit: daily traffic count/km to road</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.7}>{traf_score.toFixed(1)}</Column>
             </Labels>
             {/* Proximity to Superfund Sites */}
             <Labels>

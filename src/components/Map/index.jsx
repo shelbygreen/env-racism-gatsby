@@ -128,7 +128,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         // get id of feature on click
         map.on('click', e => {
             const [feature] = map.queryRenderedFeatures(e.point, {
-                layers: ['clusters', 'points'], //TODO: add 'counties-fill' layer
+                layers: ['counties-fill'], 
             })
     
             if (!feature) return
@@ -137,7 +137,6 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
                 properties,
             } = feature
     
-            // onSelectFeature(properties.geoid)
             if (layerId === 'counties-fill') {
                 onSelectFeature(properties.id)
             } else {
@@ -145,13 +144,13 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             }
         })
 
-        // clicking on clusters zooms in
-        map.on('click', 'clusters', e => {
+        // clicking on counties-fill layer zooms in
+        map.on('click', 'counties-fill', e => {
             const [feature] = map.queryRenderedFeatures(e.point, {
-                layers: ['clusters'],
+                layers: ['counties-fill'],
             })
             map
-                .getSource('facilities')
+                .getSource('counties')
                 .getClusterExpansionZoom(
                     feature.properties.cluster_id,
                     (err, targetZoom) => {
@@ -218,7 +217,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         const { current: map } = mapRef
         if (!(map && map.isStyleLoaded())) return
 
-        map.setFilter('counties-outline-highlight', ['==', 'id', selectedFeature || Infinity])
+        map.setFilter('counties-outline-highlight', ['==', 'id', selectedFeature || Infinity]) // include zoom into when clicking
     }, [selectedFeature])
 
     // update bounds to match incoming bounds
