@@ -164,7 +164,7 @@ const PollutionListItem = ({
           {isOpen ? <CaretDown /> : <CaretRight />}
           <div>Pollution Burden Score</div>
         </Title>
-        <Score>{pbn_score.toFixed(1)}</Score>
+        <Score>{(pbn_score/10).toFixed(1)}</Score>
       </Header>
       <Content>
         {isOpen && (
