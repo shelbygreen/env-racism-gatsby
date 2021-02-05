@@ -24,6 +24,7 @@ const theme = {
     html: {
       'overflow-y': 'hidden !important',
       height: '100%',
+      weight: '100%'
     },
     body: {
       height: '100%',
@@ -35,6 +36,10 @@ const theme = {
     },
     '#___gatsby > *': {
       height: '100%',
+    },
+    '.eUgDnc': {
+      height: '100%',
+      weight: '100%'
     },
     button: {
       outline: 'none',

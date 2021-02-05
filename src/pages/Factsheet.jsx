@@ -49,8 +49,8 @@ export const query = graphql`
       <Layout>
           <SEO title="Factsheet" />
           <Wrapper>
-            {/* <h1>Name of County!</h1> */}
-            <table>
+            <h1>Name of County: {selectedCounty}</h1>
+            {/* <table>
             <thead>
               <tr>
                 <th>Census Tract</th>
@@ -71,7 +71,7 @@ export const query = graphql`
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> */}
           </Wrapper>
       </Layout>
     );
