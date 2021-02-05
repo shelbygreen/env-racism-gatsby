@@ -42,7 +42,7 @@ export const query = graphql`
   
   export default ({ data, county }) => {
     const queryNodes = data.allRegionsJson.nodes
-    const selectedCounty = {county}
+    const selectedCounty = 'Dallas County'
     const filteredQueryNodes = queryNodes.filter(node => node.county == selectedCounty)
 
     return (
