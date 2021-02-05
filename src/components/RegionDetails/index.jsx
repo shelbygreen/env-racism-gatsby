@@ -13,7 +13,6 @@ import { Button } from '../Button'
 import Progress from './ProgressBar'
 import PopulationListItem from "./PopulationItem"
 import PollutionListItem from "./PollutionItem"
-import Factsheet from "../../pages/Factsheet"
 
 const Header = styled.div`
   padding: 0.5rem 1rem;
@@ -44,6 +43,12 @@ const BackIcon = styled(FaRegTimesCircle).attrs({ size: "1.5rem" })`
 
 const Score = styled(Text).attrs({ textAlign: "right" })`
   font-size: 1.25rem;
+`
+
+const ZoomButton = styled(Button)`
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  padding: 0.1rem 0.5rem;
 `
 
 const FactsheetButton = styled(Button)`
@@ -101,10 +106,14 @@ const RegionDetails = ({
   pop_score,
   final_score,
   final_rank,
-  showZoom,
   onBack,
-  onZoomTo
+  onZoomTo,
+  showZoom
 }) => {
+
+  const handleZoom = () => {
+    onZoomTo()
+  }
 
   return (
     <>
@@ -126,6 +135,17 @@ const RegionDetails = ({
             {/* The 2018 American Community Survey estimated {readibleNumber(population, 0)} people live in {name}, where {readibleNumber(age_0to9, 0)} are children 
             and {readibleNumber(age_65, 0)} are seniors.  */}
           {/* </Section> */}
+
+          {/* <Section>
+            {showZoom && (
+              <Text textAlign="center">
+                <ZoomButton primary onClick={handleZoom}>
+                  Zoom To Estuary
+                </ZoomButton>
+              </Text>
+            )}
+          </Section> */}
+
           <Section>
             <TabHeader>Environmental Justice Risk Score:<Score>{(final_score).toFixed(1)}</Score></TabHeader>
             <Progress done={final_score}/>
@@ -163,7 +183,7 @@ const RegionDetails = ({
             {/* View Factsheet Button */}
             <center>
               <FactsheetButton>
-                <Link county={county} to="/Factsheet">View {county} Factsheet</Link>
+                <Link to={`/Factsheet/${county}`}>View {county} Factsheet</Link>
               </FactsheetButton>
             </center>
           </Section>
@@ -198,14 +218,14 @@ RegionDetails.propTypes = {
   pop_score:PropTypes.number.isRequired,
   final_score:PropTypes.number.isRequired,
   final_rank:PropTypes.number.isRequired,
-  showZoom: PropTypes.bool,
   onBack: PropTypes.func,
-  onZoomTo: PropTypes.func
+  onZoomTo: PropTypes.func,
+  showZoom: PropTypes.bool
 }
 
 RegionDetails.defaultProps = {
-  showZoom: true,
   onBack: () => {},
-  onZoomTo: () => {}
+  onZoomTo: () => {},
+  showZoom: true
 }
 export default RegionDetails

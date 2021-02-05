@@ -27,7 +27,7 @@ const Icon = styled(FaExternalLinkAlt)`
 `
 
 const FullExtentButton = ({ onClick }) => (
-  <Wrapper onClick={onClick} title="Zoom to full extent">
+  <Wrapper onClick={onClick} title="Reset View">
     <Icon />
   </Wrapper>
 )

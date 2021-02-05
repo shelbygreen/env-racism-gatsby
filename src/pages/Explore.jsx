@@ -34,7 +34,6 @@ const Explore = () => {
     prevBounds: List([-106.645646,25.837377,-93.508292,36.500704]),
   })
   const [showZoom, setShowZoom] = useState(true)
-  const [showFactsheet, setFactsheet] = useState(true)
 
   const handleSelect = id => {
     console.log('onSelect', id)
@@ -50,17 +49,21 @@ const Explore = () => {
     setShowZoom(false)
   }
 
+  // const handleZoomTo = () => {
+  //   setBounds({
+  //     prevBounds: List(boundsRef.current),
+  //     nextBounds: index.get(selectedId.toString()).get('bounds'),
+  //   })
+  // }
+
   const handleZoomTo = () => {
-    setBounds({
-      prevBounds: List(boundsRef.current),
-      nextBounds: index.get(selectedId.toString()).get('bounds'),
-    })
+    setBounds(() => index.get(selectedId.toString()).get('bounds'))
   }
 
   const handleBack = () => {
     setSelectedId(null)
-    setBounds({ nextBounds: List(prevBounds), prevBounds: List() })
-    setShowZoom(true)
+    // setBounds({ nextBounds: List(prevBounds), prevBounds: List() })
+    // setShowZoom(true)
   }
 
   const handleBoundsChange = bounds => {
