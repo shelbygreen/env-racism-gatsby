@@ -1,14 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Text, Image } from 'rebass'
-import { FaMarker, FaBinoculars } from 'react-icons/fa'
-
+import ShareIcon from './ShareIcon'
+import ExploreIcon from './ExploreIcon'
 import { Link } from 'gatsby'
-
 import { Flex } from '../Grid'
 import styled, { themeGet } from '../../../util/style'
-
-// import SiteLogo from 'images/...'
 
 const Wrapper = styled(Flex).attrs({
   alignItems: 'center',
@@ -18,10 +15,6 @@ const Wrapper = styled(Flex).attrs({
   flex: 0 0 auto;
   border-bottom: 1px solid ${themeGet('colors.grey.900')};
 `
-
-// & > * {
-//   flex-grow: 1;
-// }
 
 const Title = styled.h1`
   margin: 0;
@@ -33,14 +26,6 @@ const Title = styled.h1`
     text-decoration: none;
   }
 `
-
-// const Logo = styled(Image).attrs({
-//   src: SiteLogo,
-//   as: 'img',
-//   width: ['3rem'],
-//   my: '-0.5rem',
-//   mr: '0.25rem',
-// })``
 
 const NavLink = styled(Link)`
   text-decoration: none;
@@ -55,20 +40,6 @@ const NavItem = styled(Flex).attrs({
   alignItems: 'center',
   px: ['0.5em', '0.5rem', '1rem'],
 })``
-
-const ExploreIcon = styled(FaBinoculars)`
-  width: 1em;
-  height: 1em;
-  margin-right: 0.25em;
-  opacity: 0.6;
-`
-
-const ShareIcon = styled(FaMarker)`
-  width: 1em;
-  height: 1em;
-  margin-right: 0.25em;
-  opacity: 0.6;
-`
 
 const Header = ({ siteTitle }) => (
   <Wrapper as="header">
@@ -85,7 +56,7 @@ const Header = ({ siteTitle }) => (
       <NavLink to="/Explore">
           <NavItem>
             <ExploreIcon />
-            <div>Explore</div>
+            Explore
           </NavItem>
         </NavLink>
         <NavLink to="/Share">
