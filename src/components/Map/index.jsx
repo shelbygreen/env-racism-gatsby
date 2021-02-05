@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   flex: 1 0 auto;
   z-index: 1;
 `
-const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange }) => {
+const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange}) => {
     const { mapboxToken } = siteMetadata
 
     if (!mapboxToken) {
@@ -128,29 +128,31 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         // get id of feature on click
         map.on('click', e => {
             const [feature] = map.queryRenderedFeatures(e.point, {
-                layers: ['counties-fill'], 
+                layers: ['counties-fill', 'tracts-fill'], 
             })
-    
+            
             if (!feature) return
             const {
                 layer: { id: layerId },
                 properties,
             } = feature
-    
-            if (layerId === 'counties-fill') {
+            console.log(feature)
+            
+            if (layerId === 'counties-fill' || 'tracts-fill') {
                 onSelectFeature(properties.id)
+                // show highlight here?
             } else {
                 onSelectFeature(properties.geoid)
             }
         })
 
-        // clicking on counties-fill layer zooms in
-        map.on('click', 'counties-fill', e => {
+        // clicking on clusters layer zooms in
+        map.on('click', 'clusters', e => {
             const [feature] = map.queryRenderedFeatures(e.point, {
-                layers: ['counties-fill'],
+                layers: ['clusters'],
             })
             map
-                .getSource('counties')
+                .getSource('facilities')
                 .getClusterExpansionZoom(
                     feature.properties.cluster_id,
                     (err, targetZoom) => {
@@ -167,7 +169,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         // styling for tooltip
         const tooltip = new mapboxgl.Popup({
             closeButton: true,
-            closeOnClick: true,
+            closeOnClick: false,
             anchor: 'left',
             offset: 20,
         })
@@ -190,7 +192,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         })
 
         // change cursor back when the mouse leaves the facility point
-        map.on('mouseleave', 'places', function() {
+        map.on('mouseleave', 'points', function() {
             map.getCanvas().style.cursor = '';
         })
 
@@ -217,7 +219,9 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         const { current: map } = mapRef
         if (!(map && map.isStyleLoaded())) return
 
-        map.setFilter('counties-outline-highlight', ['==', 'id', selectedFeature || Infinity]) // include zoom into when clicking
+        // put counties highlight here?
+
+        // map.setFilter('counties-outline-highlight', ['==', 'id', selectedFeature || Infinity]) // highlight border
     }, [selectedFeature])
 
     // update bounds to match incoming bounds

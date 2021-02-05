@@ -65,7 +65,7 @@ export const layers = [
     }, 
   },
   {
-    id: 'counties-outline-highlight',
+    id: 'counties-highlight',
     source: 'counties',
     // minzoom: 4,
     maxzoom: 18,

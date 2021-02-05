@@ -177,48 +177,48 @@ const PollutionListItem = ({
             </Labels>
             {/* Ozone Concentration */}
             <Labels>
-              <Column>Ozone Concentration <Tooltip><TooltipText>Ground-level ozone is an air pollutant and the main constituent of smog. Ozone is emitted into the atmosphere by oil refineries and plants, as well as by cars, trucks, and trains. The EPA 8-hour ozone standard is 70 ppb. Above this point, air quality becomes unhealthy and potentially hazardous. </TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.4}>{(ozn_score).toFixed(1)} ppb</Column>
+              <Column>Ozone Concentration (ppb)  <Tooltip><TooltipText>Ground-level ozone is an air pollutant and the main constituent of smog. Ozone is emitted into the atmosphere by oil refineries and plants, as well as by cars, trucks, and trains. The EPA 8-hour ozone standard is 70 ppb. Above this point, air quality becomes unhealthy and potentially hazardous. </TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.4}>{(ozn_score).toFixed(1)}</Column>
             </Labels>
             {/* PM2.5 concentration */}
             <Labels>
-              <Column>PM2.5 Concentration <Tooltip><TooltipText>Fine particulate matter, or PM2.5, are microscopic, inhalable particles. PM2.5 is an air pollutant that is emitted into the atmosphere from sources like vehicles, power plants, and operations involving the burning of fuels. The EPA annual average PM2.5 standard is 12 micrograms/cubic meters.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.47}>{pm25_score.toFixed(1)} ug/m3</Column>
+              <Column>PM2.5 Concentration (micrograms/cubic meters)  <Tooltip><TooltipText>Fine particulate matter, or PM2.5, are microscopic, inhalable particles. PM2.5 is an air pollutant that is emitted into the atmosphere from sources like vehicles, power plants, and operations involving the burning of fuels. The EPA annual average PM2.5 standard is 12 micrograms/cubic meters.</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.4}>{pm25_score.toFixed(1)}</Column>
             </Labels>
             {/* Diesel PM */}
             <Labels>
-              <Column>Diesel PM  <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.31}>{dsl_score.toFixed(1)} ug/m3</Column>
+              <Column>Diesel PM (micrograms/cubic meters)  <Tooltip><TooltipText>Particles that are released from diesel exhaust.</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={0.31}>{dsl_score.toFixed(1)}</Column>
             </Labels>
             {/* air Toxics */}
             <Labels>
-              <Column>Air Toxics Cancer Risk Index  <Tooltip><TooltipText>Lifetime cancer risk from inhalation of air toxics </TooltipText><InfoIcon/></Tooltip></Column>
+              <Column>Air Toxics Cancer Risk Index  <Tooltip><TooltipText>Lifetime cancer risk from inhalation of air toxics.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.15}>{100*(txcs_score.toFixed(2))}</Column>
             </Labels>
             {/* Traffic Proximity and Volume */}
             <Labels>
-              <Column>Traffic Density (daily vehicles/meter)  <Tooltip><TooltipText>TODO: add description for indicator. unit: daily traffic count/km to road</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column>Traffic Density (daily vehicles/meter)  <Tooltip><TooltipText>The sum of traffic volume divided by total road length.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.7}>{traf_score.toFixed(1)}</Column>
             </Labels>
             {/* Proximity to Superfund Sites */}
             <Labels>
-              <Column>Proximity to Superfund Sites <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={2.4}>{cln_score.toFixed(1)} site count/km</Column>
+              <Column>Superfund Sites (sites/km)  <Tooltip><TooltipText>Superfund sites, also referred to as Federal Cleanup sites, are abandoned hazardous sites that are awaiting cleanup. This indicator represents the number of these sites per kilometer (0.62 mi) within a census tract or county.</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={2.4}>{cln_score.toFixed(1)}</Column>
             </Labels>
             {/* Proximity to RMP Sites */}
             <Labels>
-              <Column>Proximity to Risk Management Plan Sites <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column>Risk Management Plan Sites (sites/km)  <Tooltip><TooltipText>Risk Management Plan sites store highly toxic, flammable, or explosive substances. This indicator represents the number of these sites per kilometer (0.62 mi) within a census tract or county.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.4}>{chem_score.toFixed(1)}</Column>
             </Labels>
             {/* Proximity to Hazardous Waste Sites */}
             <Labels>
-              <Column>Proximity to Hazardous Waste Sites <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column>Hazardous Waste Sites (sites/km)  <Tooltip><TooltipText>Hazardous waste sites treat, store, or dispose of hazardous waste. This indicator represents the number of these sites per kilometer (0.62 mi) within a census tract or county.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.25}>{hazw_score.toFixed(1)}</Column>
             </Labels>
             {/* Wastewater Discharge */}
             <Labels>
-              <Column>Wastewater Discharge <Tooltip><TooltipText>TODO: add description for indicator</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={2.2}>{wat_score.toFixed(1)} toxicity-weighted concentration/m</Column>
+              <Column>Wastewater Discharge (concentration/meter)  <Tooltip><TooltipText>This indicator represents the toxicity-weight concentration of pollutants discharged into streams, divided by the stream length.</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column flex={2.2}>{wat_score.toFixed(1)}</Column>
             </Labels>
             {/* <IndicatorWrapper>
               <Indicator width={pm_mean_pred}/>

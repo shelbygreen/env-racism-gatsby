@@ -209,12 +209,12 @@ const PopulationListItem = ({
             </Labels>
             {/* Linguistic Isolation */}
             <Labels>
-              <Column>Linguistic Isolation <Tooltip><TooltipText>TODO: add description</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column>Linguistic Isolation <Tooltip><TooltipText>This indicator measures households where all members 14 years of age or above have at least some difficulty speaking English.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.23}>{liso_score.toFixed(1)}%</Column>
             </Labels>
             {/* Unemployed Population */}
             <Labels>
-              <Column>Unemployed Population <Tooltip><TooltipText>TODO: add description</TooltipText><InfoIcon/></Tooltip></Column>
+              <Column>Unemployed Population <Tooltip><TooltipText>The population over the age of 16 that is unemployed and eligible for the labor force.</TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.28}>{unem_score.toFixed(1)}%</Column>
             </Labels>
             </HelpText>
