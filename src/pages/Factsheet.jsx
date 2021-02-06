@@ -42,7 +42,7 @@ export const query = graphql`
   
   export default ({ data, county }) => {
     const queryNodes = data.allRegionsJson.nodes
-    const selectedCounty = 'Dallas County'
+    const selectedCounty = 'Rockwall County'
     const filteredQueryNodes = queryNodes.filter(node => node.county == selectedCounty)
 
     return (
@@ -50,7 +50,7 @@ export const query = graphql`
           <SEO title="Factsheet" />
           <Wrapper>
             <h1>Name of County: {selectedCounty}</h1>
-            {/* <table>
+            <table>
             <thead>
               <tr>
                 <th>Census Tract</th>
@@ -71,7 +71,7 @@ export const query = graphql`
                 </tr>
               ))}
             </tbody>
-          </table> */}
+          </table>
           </Wrapper>
       </Layout>
     );
