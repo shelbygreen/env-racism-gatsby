@@ -160,7 +160,7 @@ const PopulationListItem = ({
           {isOpen ? <CaretDown /> : <CaretRight />}
           <div>Population Characteristics Score</div>
         </Title>
-        <Score>{(pop_score/10).toFixed(1)}</Score>
+        <Score>{(pop_score).toFixed(1)}</Score>
       </Header>
       <Content>
         {isOpen && (

@@ -164,7 +164,7 @@ const PollutionListItem = ({
           {isOpen ? <CaretDown /> : <CaretRight />}
           <div>Pollution Burden Score</div>
         </Title>
-        <Score>{(pbn_score/10).toFixed(1)}</Score>
+        <Score>{(pbn_score).toFixed(1)}</Score>
       </Header>
       <Content>
         {isOpen && (
@@ -177,7 +177,7 @@ const PollutionListItem = ({
             </Labels>
             {/* Ozone Concentration */}
             <Labels>
-              <Column>Ozone Concentration (ppb)  <Tooltip><TooltipText>Ground-level ozone is an air pollutant and the main constituent of smog. Ozone is emitted into the atmosphere by oil refineries and plants, as well as by cars, trucks, and trains. The EPA 8-hour ozone standard is 70 ppb. Above this point, air quality becomes unhealthy and potentially hazardous. </TooltipText><InfoIcon/></Tooltip></Column>
+              <Column>Ozone Concentration (ppb)  <Tooltip><TooltipText>Ozone is an air pollutant and the main constituent of smog. Ozone is emitted into the atmosphere by oil refineries and plants, as well as by cars, trucks, and trains. The EPA 8-hour ozone standard is 70 ppb. Above this point, air quality becomes unhealthy and potentially hazardous. </TooltipText><InfoIcon/></Tooltip></Column>
               <Column flex={0.4}>{(ozn_score).toFixed(1)}</Column>
             </Labels>
             {/* PM2.5 concentration */}

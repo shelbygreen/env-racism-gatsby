@@ -41,37 +41,15 @@ export const query = graphql`
   `;
   
   export default ({ data, county }) => {
-    const queryNodes = data.allRegionsJson.nodes
-    const selectedCounty = 'Rockwall County'
-    const filteredQueryNodes = queryNodes.filter(node => node.county == selectedCounty)
+    // const queryNodes = data.allRegionsJson.nodes
+    // const selectedCounty = 'Rockwall County'
+    // const filteredQueryNodes = queryNodes.filter(node => node.county == selectedCounty)
 
     return (
       <Layout>
           <SEO title="Factsheet" />
           <Wrapper>
-            <h1>Name of County: {selectedCounty}</h1>
-            <table>
-            <thead>
-              <tr>
-                <th>Census Tract</th>
-                <th>Total Population</th>
-                <th>Texas County</th>
-                <th>EJ Risk Score</th>
-                <th>EJ Risk Score Percentile</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredQueryNodes.map(node => (
-                <tr key={node.id}>
-                  <th>{node.name}</th>
-                  <th>{node.total_pop}</th>
-                  <th>{node.county}</th>
-                  <th>{node.final_score.toFixed(2)}</th>
-                  <th>{node.final_rank.toFixed(0)}%</th>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            <h1>TODO: dropdown navigation here to county factsheets</h1>
           </Wrapper>
       </Layout>
     );
