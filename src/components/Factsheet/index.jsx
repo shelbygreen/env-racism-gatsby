@@ -6,6 +6,7 @@ import SEO from "../seo"
 import Layout from "../Layout"
 import { Flex } from '../Grid'
 import styled from '../../../util/style'
+import { OutboundLink } from '../Link'
 
 const Wrapper = styled(Flex)`
   height: 100%;
@@ -33,6 +34,10 @@ const FactsheetTemplate = (props) => {
             <center><h1>Name of County:{countyData.county}</h1></center>
             <br/>
             <h2><i>Texas Environmental Justice Explorer Summary</i></h2>
+            <br/>
+            <span>
+                For moe information and references, check out the Texas Environmental Justice Explorer Glossary <OutboundLink to="https://docs.google.com/document/d/1RdFjZC61mV77UqVFZtXbMO0x5ApVmX_AeLH7_Mnu9Yc/edit?usp=sharing">here</OutboundLink>.
+            </span>
         </div>
     </Wrapper>
     )
