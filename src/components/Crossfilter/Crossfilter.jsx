@@ -10,7 +10,7 @@ import { countByDimension, countFiltered } from './util'
 export const RESET_FILTERS = 'RESET_FILTERS'
 export const SET_FILTER = 'SET_FILTER' // payload is {field, filterValue}
 
-// Incoming data is an immutableJS List of Maps
+// Incoming data is an immutableJS List of Maps (data from useData() hook)
 export const useCrossfilter = (data, filters) => {
   const crossfilterRef = useRef(null)
   const dimensionsRef = useRef(null)
