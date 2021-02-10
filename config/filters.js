@@ -54,13 +54,21 @@ export const filters = [
   {
     field: "name",
     internal: true,
-    getValue: record => record.get("name"),
-    filterFunc: value => name => name.includes(value)
+    getValue: record => record.get("name").toLowerCase(),
+    filterFunc: value => name => name.includes(value.toLowerCase())
   },
   {
     field: 'bounds',
     internal: true,
     filterFunc: mapBounds => Bounds =>
       boundsOverlap(mapBounds, Bounds),
+  },
+  {
+    field: 'type',
+    internal: true,
+    values: ["county", "tract"],
+    labels: ["County", "Census Tract"],
+    getValue: record => record.get("type"),
+    filterFunc: hasValue,
   },
 ]

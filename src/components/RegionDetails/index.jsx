@@ -13,6 +13,7 @@ import { Button } from '../Button'
 import Progress from './ProgressBar'
 import PopulationListItem from "./PopulationItem"
 import PollutionListItem from "./PollutionItem"
+import FactsheetTemplate from "../Factsheet"
 
 const Header = styled.div`
   padding: 0.5rem 1rem;
@@ -79,7 +80,8 @@ const Tab = styled(BaseTab)`
   flex: 1 1 auto;
   overflow-y: auto;
 `
-
+// component for the details of the listed region
+// get fields from the index variable for the selectedId
 const RegionDetails = ({
   id, 
   type,
@@ -107,13 +109,7 @@ const RegionDetails = ({
   final_score,
   final_rank,
   onBack,
-  onZoomTo,
-  showZoom
 }) => {
-
-  const handleZoom = () => {
-    onZoomTo()
-  }
 
   return (
     <>
@@ -121,9 +117,10 @@ const RegionDetails = ({
         <Columns>
           <Column flex={1}>
             <Title>{name}</Title>
-            {/* County or Census Tract */}
+            {readibleNumber(total_pop, 0)} residents
           </Column>
           <Column flex={0.1}>
+            {/* show the back icon */}
             <BackIcon onClick={onBack} />
           </Column>
         </Columns>
@@ -140,7 +137,7 @@ const RegionDetails = ({
             {showZoom && (
               <Text textAlign="center">
                 <ZoomButton primary onClick={handleZoom}>
-                  Zoom To Estuary
+                  Zoom To Region
                 </ZoomButton>
               </Text>
             )}
@@ -183,7 +180,7 @@ const RegionDetails = ({
             {/* View Factsheet Button */}
             <center>
               <FactsheetButton>
-                <Link to={`/Factsheet/${county.replace(/\s+/g, '-')}`}>View {county} Factsheet</Link>
+                <Link to={`/Factsheet/${county.replace(/\s+/g, '-')}`}>Print {county}'s Factsheet</Link>
               </FactsheetButton>
             </center>
           </Section>
@@ -219,13 +216,9 @@ RegionDetails.propTypes = {
   final_score:PropTypes.number.isRequired,
   final_rank:PropTypes.number.isRequired,
   onBack: PropTypes.func,
-  onZoomTo: PropTypes.func,
-  showZoom: PropTypes.bool
 }
 
 RegionDetails.defaultProps = {
   onBack: () => {},
-  onZoomTo: () => {},
-  showZoom: true
 }
 export default RegionDetails

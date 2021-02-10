@@ -1,12 +1,14 @@
 import React from "react"
 
 import SEO from "../components/seo"
-import AboutSection from "./About"
+import About from "./About"
 
+// home page
 const IndexPage = () => (
   <div>
     <SEO title="Home" />
-    <AboutSection />
+    {/* The About component: home page's content and link to go to the main page */}
+    <About />
   </div>
 )
 

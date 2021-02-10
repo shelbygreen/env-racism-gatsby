@@ -17,9 +17,11 @@ const InactiveButton = styled(DefaultButton)`
 `
 
 const ToggleButton = ({ value, options, onChange, ...props }) => {
+  // when clicking, change the value if it's a new value
+  // don't do anything if it's the same value
   const handleClick = newValue => {
     if (newValue === value) return
-
+    
     onChange(newValue)
   }
 

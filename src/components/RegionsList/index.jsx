@@ -14,11 +14,14 @@ import SearchBar from './SearchBar'
 import SortBar from './SortBar'
 import ListItem from './ListItem'
 
+// options for sorting the data
+// type(county to tract), population(big to small), and risk score(big to small)
 const sortOptions = [
-    {
-      label: "name",
-      sortFunc: (a, b) => (a.get("name") > b.get("name") ? 1 : -1)
-    },
+    // {
+    //   label: "name",
+    //   sortFunc: (a, b) => (a.get("name") > b.get("name") ? 1 : -1)
+    // },
+    { label: "tract", sortFunc: (a, b) => b.get("type") - a.get("type") },
     { label: "population", sortFunc: (a, b) => b.get("total_pop") - a.get("total_pop") },
     { label: "risk score", sortFunc: (a, b) => b.get("final_score") - a.get("final_score") }
 ]
@@ -43,13 +46,16 @@ export const NoResults = styled(Box)`
     margin-top: 2rem;
     text-align: center;
 `
-
+// component for the list of regions
 const RegionsList = ({ onSelect }) => {
+    // initializing the state variable (createContext())
     const { state, dispatch: filterDispatch } = useContext(CrossfilterContext)
-  
+    // initializing the list Ref (null)
     const listRef = useRef(null)
+    // defining the width and height of the container for the list
     const [listWrapperRef, { height: listHeight }] = useDimensions()
-    const [sortIdx, setSortIdx] = useState(2) // default: high to low 
+    // use sort option 0 as the initial sortIdx
+    const [sortIdx, setSortIdx] = useState(0) // default: county or tract view
   
     const handleQueryChange = value => {
       filterDispatch({
@@ -71,9 +77,13 @@ const RegionsList = ({ onSelect }) => {
         listRef.current.scrollTo(0)
       }
     }
-  
+    // data from Crossfilter
     const data = state.get('data')
+    console.log('regionsListData', data)
+    // sortedData based on the options
+    // is this where I should sort the list instead???
     const sortedData = data.sort(sortOptions[sortIdx].sortFunc)
+    console.log('searchValue/Type', state.get("filters", Map()).get("type"))
   
     return (
       <Wrapper>

@@ -11,7 +11,6 @@ import { Flex } from '../components/Grid'
 import Sidebar, { SidebarHeader } from '../components/Sidebar'
 import { Text } from 'rebass'
 import styled, { themeGet } from '../../util/style'
-import Map from '../components/Map/index'
 import RegionsList from '../components/RegionsList'
 import RegionDetails from '../components/RegionDetails'
 import { filters } from '../../config/filters'
@@ -27,68 +26,102 @@ const Help = styled(Text)`
 `
 
 const Explore = () => {
+  // graphql data stored here as data and index
+  // index is the data, but indexed by ccid
   const [data, index] = useData()
+  // new state variable called selectedId
+  // initially selectedId is null
   const [selectedId, setSelectedId] = useState(null)
-  const boundsRef = useRef([-106.645646,25.837377,-93.508292,36.500704]) // store bounds so they are updated without rerendering
+  // Ref for the bounds (initial view on map load)
+  // bounds are stored so they are updated without rerendering
+  const boundsRef = useRef([-106.645646,25.837377,-93.508292,36.500704])
+  // new state variables for prevBounds and nextBounds
+  // initially the prevBounds are the same ones in boundsRef
   const [{ prevBounds, nextBounds }, setBounds] = useState({
     prevBounds: List([-106.645646,25.837377,-93.508292,36.500704]),
   })
+  // ref for showing the zoom Extent button
+  // initially yes
   const [showZoom, setShowZoom] = useState(true)
 
+  // get the id and update the selectedId state using setSelectedId
+  // when user clicks on map
+  // also set the new Bounds (zooms in)
   const handleSelect = id => {
     console.log('onSelect', id)
     setSelectedId(id)
+    setBounds({
+      prevBounds: List(boundsRef.current),
+      nextBounds: index.get(id.toString()).get('bounds'),
+    })
   }
-
+  // get the id and set the Bounds based on the id
+  // when user clicks on item in the list
   const handleSelectFromList = id => {
     handleSelect(id)
+    console.log('onhandleSelect', id)
     setBounds({
       prevBounds: List(boundsRef.current),
       nextBounds: index.get(id.toString()).get('bounds'),
     })
     setShowZoom(false)
   }
-
-  // const handleZoomTo = () => {
-  //   setBounds({
-  //     prevBounds: List(boundsRef.current),
-  //     nextBounds: index.get(selectedId.toString()).get('bounds'),
-  //   })
-  // }
-
+  // set the Bounds to the bounds of the selectedId
   const handleZoomTo = () => {
     setBounds(() => index.get(selectedId.toString()).get('bounds'))
   }
-
+  // when going back, the selectedId becomes null 
+  // the Bounds become the previous bounds before clicking
+  // and they zoom back
   const handleBack = () => {
     setSelectedId(null)
-    // setBounds({ nextBounds: List(prevBounds), prevBounds: List() })
-    // setShowZoom(true)
+    setBounds({ nextBounds: List(prevBounds), prevBounds: List() })
+    setShowZoom(true)
   }
-
+  // the current view of the Bounds Ref is the bounds
   const handleBoundsChange = bounds => {
     boundsRef.current = bounds
+    console.log('current bounds ref', bounds)
   }
 
+  // const handleToggleChange = () => {
+  //   console.log(index.get(selectedId.toString()).get('type'))
+  // }
+
   return (
+    // filtered data 
     <CrossfilterProvider data={data} filters={filters}>
+    {/* header */}
     <Layout>
+      {/* name of the page */}
         <SEO title="Explore" />
+        {/* component to wrap all content below the header into it */}
         <Wrapper>
+          {/* sidebar */}
             <Sidebar allowScroll={false}>
+              {/* if the selectedId isn't null, use it to access the details of every listed region  */}
               {selectedId !== null ? (
                 <RegionDetails
+                  // referencing the data to use
                   {...index.get(selectedId.toString()).toJS()}
-                  showZoom={showZoom}
+                  // showZoom={showZoom} for the defunct Zoom to Region button
+                  // supplying onBack functionality w/ handleBack
+                  // onBack, the selectedId is null
+                  // which returns you back to the listed items view
                   onBack={handleBack}
-                  onZoomTo={handleZoomTo}
+                  // supplying onZoomTo functionality w/ handleZoomTo
+                  // which is now defunct
+                  // onZoomTo={handleZoomTo}
                 />
+                // if the selectedId is null
+                // no access to view details of the listed item
               ) : (
                 <>
                   <SidebarHeader title="Explore Environmental Justice Hotspots" icon="map" />
                       <Help>
                       Click on a region in the list below or on the map to learn more about the environmental indicators contributing to the region's cumulative EJ score.
                       </Help>
+                      {/* show list of regions */}
                       <RegionsList onSelect={handleSelectFromList} />
                 </>
               )}
@@ -98,6 +131,7 @@ const Explore = () => {
               selectedFeature={selectedId}
               onSelectFeature={handleSelect}
               onBoundsChange={handleBoundsChange}
+              // onToggleChange={handleToggleChange}
             />
         </Wrapper>
     </Layout>

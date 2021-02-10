@@ -5,13 +5,6 @@ import { Form, Field } from 'react-final-form'
 import styled, { themeGet } from "../../../util/style"
 import { Flex, Box } from "../Grid"
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-const onSubmit = async values => {
-  await sleep(300)
-  window.alert(JSON.stringify(values, 0, 2))
-}
-
 const Wrapper = styled(Flex)`
   height: 100%;
 `
@@ -64,6 +57,14 @@ const Select = styled.label`
   color: ${themeGet("colors.grey.800")};
 }
 `
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const onSubmit = async values => {
+  await sleep(300)
+  // window.alert(JSON.stringify(values, 0, 2))
+  window.alert("Thank you for sharing your story! We’ll moderate then post your story, first name, and rough location publicly alongside others.")
+}
 
 const Feedback = () => (
     <Wrapper>

@@ -24,7 +24,7 @@ const Button = styled.div`
   background-color: #fff !important;
   border: 1px solid ${themeGet('colors.grey.900')}
 `
-
+// About component, contains purpose of the map and link to the Explore page
 const About = () => (
   <center>
   <Section>

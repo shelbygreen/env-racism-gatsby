@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   flex: 1 0 auto;
   z-index: 1;
 `
-const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange}) => {
+const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange }) => {
     const { mapboxToken } = siteMetadata
 
     if (!mapboxToken) {
@@ -315,25 +315,41 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange}) 
         map.fitBounds(config.bounds, { padding: 20, duration: 1000 })
     }
 
-    // layer toggle button for counties and census tracts
+    // functionality for the layer toggle button
+    // the component handleLayerToggle is newLayer
+    // newLayer relates to the layer that should be visible on the map when the toggle button is clicked
     const handleLayerToggle = newLayer => {
+        // the current view of the map was renamed to map
+        // and equals the map object
         const { current: map } = mapRef
-
+        // if the map and map style hasn't loaded, don't continue
         if (!(map && map.isStyleLoaded)) return
-
+        // the active layer is now the newLayer
         setActiveLayer(newLayer)
-
+        
+        // isCounty a boolean
+        // if the newLayer is counties, T
+        // if the newLayer is tracts, F
         const isCounty = newLayer === 'counties'
+        
+        // change type in RegionsList to counties here !!! ??
+
+        // change the visibility of the counties-fill layer to none if the newLayer is counties
         map.setLayoutProperty(
             'counties-fill',
             'visibility',
             isCounty ? 'visible' : 'none'
         )
+        // change the visibility of the tracts-fill layer to visible if the newLayer is not counties
         map.setLayoutProperty(
             'tracts-fill',
             'visibility',
             isCounty ? 'none' : 'visible'
         )
+        // also, only show regions in Dallas County
+        map.setFilter('counties-fill', ['==', 'id', '48113'])
+
+        // onToggleChange()
     }
 
     return (
@@ -371,7 +387,7 @@ Map.propTypes = {
     })
   ).isRequired,
   bounds: ImmutablePropTypes.listOf(PropTypes.number),
-  selectedFeature: PropTypes.number,
+  selectedFeature: PropTypes.string,
   onSelectFeature: PropTypes.func,
   onBoundsChange: PropTypes.func,
 }
