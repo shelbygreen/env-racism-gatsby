@@ -46,7 +46,6 @@ const Header = ({ siteTitle }) => (
     <Title>
       <Link to="/">
         <Flex alignItems="center" flexWrap="wrap">
-          {/* <Logo /> */}
           <Text fontSize={['1.5rem', '1.5rem', '1.75rem']}>{siteTitle}</Text>
         </Flex>
       </Link>

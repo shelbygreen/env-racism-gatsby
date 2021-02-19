@@ -1,18 +1,15 @@
 import React from "react"
+import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
-//import query from './Query'
-// import PropTypes from "prop-types"
-import SEO from "../seo"
-import Layout from "../Layout"
-import { Flex } from '../Grid'
-import styled from '../../../util/style'
-import { Text } from 'rebass'
 import { OutboundLink } from '../Link'
 import { readibleNumber } from '../../../util/format'
+import styled from '../../../util/style'
+import './styles.css'
 
-const Wrapper = styled(Flex)`
-  height: 100%;
-`
+
+// const Wrapper = styled.div`
+//     overflow-y: hidden;
+// `
 
 export const query = graphql`
     query($pagePath: String!) {
@@ -36,9 +33,9 @@ export const query = graphql`
 
 const FactsheetTemplate = (props) => {
     const countyData = props.data.regionsJson
-    // window.print()
+    // window.print() -- figure out why the dialog box is coming up before loading the page
     return (
-    <Wrapper>
+    <div className="Wrapper">
         <div>
             <br/>
             <center><b>{countyData.county}</b></center>
@@ -59,8 +56,8 @@ const FactsheetTemplate = (props) => {
                 <b><u>Air Quality</u></b>
                 <br/>
                 <ul>
-                    <li>{100*countyData.total_pop/countyData.total_pop.toFixed(2)}% of residents live in a census tract where the air Ozone concentration is above the EPA’s 8-hour standard (70 parts per billion).</li>
-                    <li>{100*countyData.total_pop/countyData.total_pop.toFixed(2)}% of residents live in a census tract where the PM 2.5 concentration is above the EPA’s annual average standard (12 parts per billion).</li>
+                    <li>{100*countyData.total_pop/countyData.total_pop.toFixed(2)}% of residents live in a census tract where the air Ozone concentration is below the EPA’s 8-hour standard (70 parts per billion).</li>
+                    <li>{100*countyData.total_pop/countyData.total_pop.toFixed(2)}% of residents live in a census tract where the PM 2.5 concentration is below the EPA’s annual average standard (12 parts per billion).</li>
                 </ul>
                 <b><u>Housing</u></b>
                 <br/>
@@ -71,9 +68,9 @@ const FactsheetTemplate = (props) => {
                 <b><u>Economy</u></b>
                 <br/>
                 <ul>
-                    <li>{countyData.hbrd_score.toFixed(2)}% are spending more than half of their income on rent.</li>
-                    <li>{countyData.pov_score.toFixed(2)}% live in households with an income below double the Federal poverty line ($52,400 for a family of four).</li>
-                    <li>{countyData.unem_score.toFixed(2)}% are unemployed.</li>
+                    <li>{countyData.hbrd_score.toFixed(2)}% of residents are spending more than half of their income on rent.</li>
+                    <li>{countyData.pov_score.toFixed(2)}% of resients live in households with an income below double the Federal poverty line ($52,400 for a family of four).</li>
+                    <li>{countyData.unem_score.toFixed(2)}% of residents are unemployed.</li>
                 </ul>
             </span>
             <br/>
@@ -96,7 +93,7 @@ const FactsheetTemplate = (props) => {
                 This score reflects the combined environmental and social burdens faced by people living in a given county or census tract. Higher scores indicate higher cumulative burdens from environmental and social factors. 
                 <br/>
                 <br/>
-                <b>How it was calculated:</b> The Cumulative Environmental Justice Score combines the Population Characteristics Score and the Pollution Burden Score. See methodology <OutboundLink from="/" to="/">here</OutboundLink>.
+                <b>How it was calculated:</b> The Cumulative Environmental Justice Score combines the Population Characteristics Score and the Pollution Burden Score. See methodology <OutboundLink from="/" to="https://docs.google.com/document/d/1bMsI1HZU71_HtmHxKGRBpkEU31ghP6vNvuXfKyo2wvM/edit?usp=sharing">here</OutboundLink>.
                 <br/>
                 <br/>
                 <b><u>Population Characteristics Score:</u></b>
@@ -104,7 +101,7 @@ const FactsheetTemplate = (props) => {
                 This score combines the prevalence of sensitive populations, socioeconomic factors, and other vulnerabilities that compound the environmental hazards facing a community. Higher scores indicate more vulnerable populations.
                 <br/>
                 <br/>
-                <b>How it was calculated:</b> The following indicators make up the Population Characteristics Score. See methodology <OutboundLink from="/" to="/">here</OutboundLink>.
+                <b>How it was calculated:</b> The following indicators make up the Population Characteristics Score. See methodology <OutboundLink from="/" to="https://docs.google.com/document/d/1bMsI1HZU71_HtmHxKGRBpkEU31ghP6vNvuXfKyo2wvM/edit?usp=sharing">here</OutboundLink>.
                 <ul>
                     <li><b>Minority Population</b> - The percentage of the population who don't identify as white. Nonwhite populations are more likely to be affected, and burdened by, toxic environmental conditions.</li>
                     <li><b>Less than High School Education</b> - The percentage of the population who are at least 25 years old and haven't graduated from high school.</li>
@@ -120,7 +117,7 @@ const FactsheetTemplate = (props) => {
                 This score assesses the presence of environmental hazards in a given location. Higher scores indicate more exposure to environmental hazards, which can lead to a wide range of health impacts.
                 <br/>
                 <br/>
-                <b>How it was calculated:</b> The following indicators make up the Pollution Burden Score. See methodology <OutboundLink from="/" to="/">here</OutboundLink>.
+                <b>How it was calculated:</b> The following indicators make up the Pollution Burden Score. See methodology <OutboundLink from="/" to="https://docs.google.com/document/d/1bMsI1HZU71_HtmHxKGRBpkEU31ghP6vNvuXfKyo2wvM/edit?usp=sharing">here</OutboundLink>.
                 <ul>
                     <li><b>Lead Risk and Exposure</b> - The percentage of residences that may have lead-based paint. Lead is a toxin that affects the brain and body; it can be breathed in, swallowed, or absorbed.</li>
                         <ul>
@@ -169,9 +166,17 @@ const FactsheetTemplate = (props) => {
                 </ul>
             </span>
         </div>
-    </Wrapper>
+    </div>
     )
 };
+
+// FactsheetTemplate.propTypes = {
+//     allowScroll: PropTypes.bool,
+// }
+  
+// FactsheetTemplate.defaultProps = {
+//     allowScroll: true,
+// }
 
 export default FactsheetTemplate
 

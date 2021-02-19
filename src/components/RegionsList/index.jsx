@@ -14,24 +14,12 @@ import SearchBar from './SearchBar'
 import SortBar from './SortBar'
 import ListItem from './ListItem'
 
-// options for sorting the data
-// type(county to tract), population(big to small), and risk score(big to small)
-const sortOptions = [
-    // {
-    //   label: "name",
-    //   sortFunc: (a, b) => (a.get("name") > b.get("name") ? 1 : -1)
-    // },
-    { label: "tract", sortFunc: (a, b) => b.get("type") - a.get("type") },
-    { label: "population", sortFunc: (a, b) => b.get("total_pop") - a.get("total_pop") },
-    { label: "risk score", sortFunc: (a, b) => b.get("final_score") - a.get("final_score") }
-]
-  
 export const Wrapper = styled(Flex).attrs({
     flex: '1 1 auto',
     flexDirection: 'column',
 })``
   
-export const Count = styled.span`
+export const FilterView = styled.span`
     color: ${themeGet('colors.grey.600')};
     font-size: 0.8em;
     line-height: 1.2;
@@ -46,6 +34,15 @@ export const NoResults = styled(Box)`
     margin-top: 2rem;
     text-align: center;
 `
+
+// options for sorting the data
+// name(alphabetical order), population(big to small), and risk score(big to small)
+const sortOptions = [
+  { label: "name", sortFunc: (a, b) => (a.get("name") > b.get("name") ? 1 : -1) },
+  { label: "population", sortFunc: (a, b) => b.get("total_pop") - a.get("total_pop") },
+  { label: "risk score", sortFunc: (a, b) => b.get("final_score") - a.get("final_score") }
+]
+
 // component for the list of regions
 const RegionsList = ({ onSelect }) => {
     // initializing the state variable (createContext())
@@ -55,7 +52,7 @@ const RegionsList = ({ onSelect }) => {
     // defining the width and height of the container for the list
     const [listWrapperRef, { height: listHeight }] = useDimensions()
     // use sort option 0 as the initial sortIdx
-    const [sortIdx, setSortIdx] = useState(0) // default: county or tract view
+    const [sortIdx, setSortIdx] = useState(0) // default: name in alphabetical order
   
     const handleQueryChange = value => {
       filterDispatch({
@@ -77,19 +74,19 @@ const RegionsList = ({ onSelect }) => {
         listRef.current.scrollTo(0)
       }
     }
+
     // data from Crossfilter
     const data = state.get('data')
-    console.log('regionsListData', data)
     // sortedData based on the options
-    // is this where I should sort the list instead???
     const sortedData = data.sort(sortOptions[sortIdx].sortFunc)
-    console.log('searchValue/Type', state.get("filters", Map()).get("type"))
   
     return (
       <Wrapper>
         <Columns px="1rem" alignItems="baseline">
           <Column>
-            <Count>{data.size} regions visible</Count>
+            <FilterView>
+                view: county | tract
+            </FilterView>
           </Column>
           <Column>
             <SortBar

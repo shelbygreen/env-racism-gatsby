@@ -13,7 +13,7 @@ import { Button } from '../Button'
 import Progress from './ProgressBar'
 import PopulationListItem from "./PopulationItem"
 import PollutionListItem from "./PollutionItem"
-import FactsheetTemplate from "../Factsheet"
+import { OutboundLink } from '../Link'
 
 const Header = styled.div`
   padding: 0.5rem 1rem;
@@ -149,12 +149,11 @@ const RegionDetails = ({
             <Help
                   snippet="What does this mean?  "
                 >
-                  The environmental justice risk score models the spatial concentration of chemical and nonchemical environmental 
-                  stressors, as well as health conditions and social vulnerability factors that are assumed to exacerbate the effects of environmental stessors. This score was calculated by following the methodology
-                  set by CalEnviroScreen, which involves combining the indicators that make up the Pollution Burden Score and the 
-                  Population Characteristics Score into a composite cumulative risk score. 
+                  This score reflects the combined environmental and social burdens faced by people living in a given county or census tract. Higher scores indicate higher cumulative burdens from environmental and social factors. 
+                  <br/><br/>
+                  The Cumulative Environmental Justice Score combines the Population Characteristics Score and the Pollution Burden Score. See methodology <OutboundLink from="/" to="https://docs.google.com/document/d/1bMsI1HZU71_HtmHxKGRBpkEU31ghP6vNvuXfKyo2wvM/edit?usp=sharing">here</OutboundLink>.
             </Help>
-            Expand the sections below to explore the indicators used to calcuate the environmental justice risk score.
+            Expand the sections below to explore the indicators used to calcuate the environmental justice risk score.<br/><br/>
             <PopulationListItem
             hbrd_score={hbrd_score}
             nohs_score={nohs_score}

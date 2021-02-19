@@ -158,7 +158,7 @@ const PopulationListItem = ({
       <Header onClick={toggle}>
         <Title>
           {isOpen ? <CaretDown /> : <CaretRight />}
-          <div>Population Characteristics Score</div>
+          <div>Population Characteristics Score <Tooltip><TooltipText>This score combines the prevalence of sensitive populations, socioeconomic factors, and other vulnerabilities that compound the environmental hazards facing a community. Higher scores indicate more vulnerable populations.</TooltipText><InfoIcon/></Tooltip></div>
         </Title>
         <Score>{(pop_score).toFixed(1)}</Score>
       </Header>
@@ -190,7 +190,7 @@ const PopulationListItem = ({
             {/* Over Age 64 Population */}
             <Labels>
               <Column>Minority Population <Tooltip><TooltipText>The percentage of the population who don't identify as white. Nonwhite populations are more likely to be affected, and burdened by, toxic environmental conditions.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.23}>{poc_score.toFixed(1)}%</Column>
+              <Column flex={0.3}>{poc_score.toFixed(1)}%</Column>
             </Labels>
             {/* Educational Attainment */}
             <Labels>
@@ -205,17 +205,17 @@ const PopulationListItem = ({
             {/* Housing Burden */}
             <Labels>
               <Column>Housing Burden <Tooltip><TooltipText>The percentage of the population spending more than half of their income on rent.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.17}>{hbrd_score.toFixed(1)}%</Column>
+              <Column flex={0.2}>{hbrd_score.toFixed(1)}%</Column>
             </Labels>
             {/* Linguistic Isolation */}
             <Labels>
               <Column>Linguistic Isolation <Tooltip><TooltipText>This indicator measures households where all members 14 years of age or above have at least some difficulty speaking English.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.23}>{liso_score.toFixed(1)}%</Column>
+              <Column flex={0.21}>{liso_score.toFixed(1)}%</Column>
             </Labels>
             {/* Unemployed Population */}
             <Labels>
               <Column>Unemployed Population <Tooltip><TooltipText>The population over the age of 16 that is unemployed and eligible for the labor force.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.28}>{unem_score.toFixed(1)}%</Column>
+              <Column flex={0.26}>{unem_score.toFixed(1)}%</Column>
             </Labels>
             </HelpText>
             </Wrapper>

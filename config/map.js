@@ -185,7 +185,7 @@ export const legends = {
       {
         type: 'circle',
         radius: 12,
-        label: 'Industrial TRI Site',
+        label: 'Toxic Release Inventory Site',
         color: '#006fbe',
         borderColor: '#FFF',
         borderWidth: 1,
