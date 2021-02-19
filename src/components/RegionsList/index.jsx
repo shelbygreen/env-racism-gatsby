@@ -83,11 +83,11 @@ const RegionsList = ({ onSelect }) => {
     return (
       <Wrapper>
         <Columns px="1rem" alignItems="baseline">
-          <Column>
+          {/* <Column>
             <FilterView>
                 view: county | tract
             </FilterView>
-          </Column>
+          </Column> */}
           <Column>
             <SortBar
               index={sortIdx}
