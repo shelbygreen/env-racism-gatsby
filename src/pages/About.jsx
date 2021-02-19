@@ -1,12 +1,13 @@
 import React from 'react'
-
 import SEO from '../components/seo'
 import { Box, Flex } from '../components/Grid'
-// import { Button } from '../components/Button'
-import { Text } from 'rebass'
+import { Text, Image } from 'rebass'
 import { Link } from 'gatsby'
+import { OutboundLink } from '../components/Link'
 import styled, { themeGet } from '../../util/style'
 import { Section, Title } from '../../util/style/styles'
+import TRLogo from '../images/primary_txr_logo.png'
+import CCLogo from '../images/cce_logo.jpg'
 
 const Wrapper = styled(Box).attrs({
   alignItems: 'center',
@@ -14,16 +15,35 @@ const Wrapper = styled(Box).attrs({
 })`
   padding: 0.75rem 0.5rem;
   flex: 0 0 auto;
-  width: 400px;
-  border: 1px solid ${themeGet('colors.grey.900')};
+  width: 500px;
+  border: 1px solid ${themeGet('colors.highlight.100')};
 `
 
 const Button = styled.div`
-  color: ${themeGet('colors.grey.900')};
-  border-bottom-color: transparent;
-  background-color: #fff !important;
-  border: 1px solid ${themeGet('colors.grey.900')}
+  font-size: 22px;
+  background-color: #030303 !important;
+  height: 30px;
+  width: 500px;
 `
+
+const TXLogo = styled(Image).attrs({
+  src: TRLogo,
+  as: 'img',
+  width: '100rem',
+  height: '60rem',
+  my: '-0.5rem',
+  mr: '0.25rem',
+})``
+
+const CCELogo = styled(Image).attrs({
+  src: CCLogo,
+  as: 'img',
+  width: '100rem',
+  height: '60rem',
+  my: '-0.5rem',
+  mr: '0.25rem',
+})``
+
 // About component, contains purpose of the map and link to the Explore page
 const About = () => (
   <center>
@@ -32,22 +52,27 @@ const About = () => (
     <Wrapper>
     <Title><center>The Texas Environmental Justice Explorer</center></Title>
       <Text fontSize={'0.8rem'}>
-        <i>Which communities in Texas are disproportionately exposed to, and burdened by, environmental pollutants and hazards?</i>
+        Everyone deserves clean air to breathe, clean water to drink, and a healthy environment to live in. Unfortunately, Texans are negatively impacted by pollution and climate change every single day -- and these impacts are not distributed evenly.
         <br/>
         <br/>
-        The <b>Texas Environmental Justice Explorer</b> answers this question by aggregating data on pollution, demographics, and health to estimate environmental inequality.
-        Using that data, we've made our own cumulative risk score to capture how unequal the polluation impacts are across Texas communities.
+        The data is clear: the most vulnerable communities are also the most likely to be exposed to polluted air and water. Across the state, <b>pollution hotspots are concentrated around the places that low-income and minority populations call home.</b>
         <br/>
         <br/>
-        With evidence of the gap between light and dark, upper and lower, valuable and disposable, we can work together to bridge the divide and bring resources to the communities that need it most.
+        This map allows you to <b>explore the uneven social and environmental burdens faced by every county in Texas</b>. Click on a county to <b>see its “cumulative risk score”</b> (based on local pollution, demographic data, and health indicators). And <b>use the “Share your Story” feature to add your personal experience to the map</b>. 
+        <br/>
+        <br/>
+        Built by <OutboundLink to='https://wwww.climatecabineteducation.org' from='/'>Climate Cabinet Education</OutboundLink> in partnership with <OutboundLink to='https://www.txrising.org' from='/'>Texas Rising</OutboundLink>.
       </Text>
-      <br/>
         <center>
-        <Button>
-          <Link to="/Explore">BEGIN EXPLORING</Link>
-        </Button>
+          <br/>
+          <OutboundLink to='https://www.climatecabineteducation.org' from='/'><CCELogo/></OutboundLink>
+          <OutboundLink to='https://www.txrising.org' from='/'><TXLogo/></OutboundLink>
         </center>
     </Wrapper>
+    <br/>
+    <Button>
+      <Title><Link to="/Explore">BEGIN EXPLORING</Link></Title>
+    </Button>
   </Section>
   </center>
 )

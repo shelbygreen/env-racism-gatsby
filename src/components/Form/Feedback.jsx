@@ -58,6 +58,11 @@ const Select = styled.label`
 }
 `
 
+const Test = styled(Field)`
+  width: 425px;
+`
+
+const text = "Click a point on the map for your story's location"
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const onSubmit = async values => {
@@ -72,8 +77,6 @@ const Feedback = () => (
         onSubmit={onSubmit}
         render={({ handleSubmit, form, submitting, pristine, values }) => (
           <form onSubmit={handleSubmit}>
-            <Question>How has environmental injustice affected your community?</Question>
-            <Input name="ej" component="textarea" placeholder="" />
             <Question>What environmental concerns do you have about your community?</Question>
                 <Select>
                   <Field
@@ -126,12 +129,12 @@ const Feedback = () => (
                   <br/>
                 </Select>
                 <br/>
-              <Question>Has your community voiced these concerns? If so, to whom and what was the result?</Question>
-              <Input name="voice" component="textarea" placeholder="" />
-              <Question>What visions do you have for your community and its environment?</Question>
-              <Input name="visions" component="textarea" placeholder="" />
-              <Question>What programs or structures would you like to see in your community?</Question>
-              <Input name="programs" component="textarea" placeholder="" />
+              <Question>How has environmental hazards affected your community?</Question>
+                <Input name="ej" component="textarea" placeholder="" />
+              <Question>What changes would you like to see to address this problem? Are you aware of efforts to make this change - and if so, what has been the response?</Question>
+                <Input name="visions" component="textarea" placeholder="" />
+              <Question>What was it like experiencing Winter Storm Uri?</Question>
+                <Input name="storm" component="textarea" placeholder="" />
             <SubmitBox>
             <Info>
             <Field
@@ -139,7 +142,7 @@ const Feedback = () => (
               component="input"
               type="text"
               placeholder="First Name"
-              />
+              /><br/><br/>
             <Field
               name="lastName"
               component="input"
@@ -147,24 +150,29 @@ const Feedback = () => (
               placeholder="Last Name"
             />
             </Info>
-              <Field
+            <br/>
+              <Test
                   name="email"
                   component="input"
                   type="text"
                   placeholder="Email"
                 /> 
-              <Field
+              <br/><br/>
+              <Test
                 name="zipcode"
                 component="input"
                 type="text"
-                placeholder="Zipcode"
+                placeholder={text}
               />
             <br /> <br />
             <Field name="post" component="input" type="checkbox" /> Post my story <br />
             <Field name="cta" component="input" type="checkbox" /> Email me about advocacy efforts happening in my area <br />
             </SubmitBox>
             <center><div className="buttons">
-              <button type="submit" disabled={submitting || pristine}>
+              <button 
+                type="submit"
+                disabled={submitting || pristine}
+              >
                 Submit
               </button>
               <button

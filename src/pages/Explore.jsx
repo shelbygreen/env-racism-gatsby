@@ -17,9 +17,10 @@ import { filters } from '../../config/filters'
 
 const Wrapper = styled(Flex)`
   height: 100%;
+  overflow-y: hidden;
 `
 
-const Help = styled(Text)`
+const Help = styled(Flex)`
   font-size: 0.8rem;
   margin: 0 1rem 1rem;
   color: ${themeGet('colors.grey.700')};
@@ -48,7 +49,6 @@ const Explore = () => {
   // when user clicks on map
   // also set the new Bounds (zooms in)
   const handleSelect = id => {
-    console.log('onSelect', id)
     setSelectedId(id)
     setBounds({
       prevBounds: List(boundsRef.current),
@@ -59,7 +59,6 @@ const Explore = () => {
   // when user clicks on item in the list
   const handleSelectFromList = id => {
     handleSelect(id)
-    console.log('onhandleSelect', id)
     setBounds({
       prevBounds: List(boundsRef.current),
       nextBounds: index.get(id.toString()).get('bounds'),
@@ -83,10 +82,6 @@ const Explore = () => {
     boundsRef.current = bounds
     console.log('current bounds ref', bounds)
   }
-
-  // const handleToggleChange = () => {
-  //   console.log(index.get(selectedId.toString()).get('type'))
-  // }
 
   return (
     // filtered data 
@@ -119,7 +114,7 @@ const Explore = () => {
                 <>
                   <SidebarHeader title="Explore Environmental Justice Hotspots" icon="map" />
                       <Help>
-                      Click on a region in the list below or on the map to learn more about the environmental indicators contributing to the region's cumulative EJ score.
+                      Click on a county or census tract in the list below or on the map to explore (...)
                       </Help>
                       {/* show list of regions */}
                       <RegionsList onSelect={handleSelectFromList} />
@@ -131,7 +126,6 @@ const Explore = () => {
               selectedFeature={selectedId}
               onSelectFeature={handleSelect}
               onBoundsChange={handleBoundsChange}
-              // onToggleChange={handleToggleChange}
             />
         </Wrapper>
     </Layout>

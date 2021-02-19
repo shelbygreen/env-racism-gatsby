@@ -136,7 +136,6 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
                 layer: { id: layerId },
                 properties,
             } = feature
-            console.log(feature)
             
             if (layerId === 'counties-fill' || 'tracts-fill') {
                 onSelectFeature(properties.id)
@@ -175,7 +174,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         })
 
         // show tooltip for points on click
-        map.on('click', 'points', function (e) {
+        map.on('mouseenter', 'points', function (e) {
             // contents of the tooltip
             const name = e.features[0].properties.name
             const url = e.features[0].properties.url
@@ -346,18 +345,14 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             'visibility',
             isCounty ? 'none' : 'visible'
         )
-        // also, only show regions in Dallas County
-        map.setFilter('counties-fill', ['==', 'id', '48113'])
-
-        // onToggleChange()
     }
 
     return (
         <Wrapper>
             <div ref={mapNode} style={{ width: '100%', height: '100%' }}/>
-            <Legend entries={legendEntries} />
             {mapRef.current && mapRef.current.isStyleLoaded && (
                 <>
+                    <Legend entries={legendEntries} />
                     <LayerToggle
                         value={activeLayer}
                         options={[
