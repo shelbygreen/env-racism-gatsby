@@ -114,7 +114,7 @@ const Explore = () => {
                 <>
                   <SidebarHeader title="Explore Environmental Justice Hotspots" icon="map" />
                       <Help>
-                      Click on a county or census tract in the list below or on the map to explore (...)
+                      Click on a county or census tract in the list below. Or use the map to navigate and explore data used to calculate the environmental justice risk score.
                       </Help>
                       {/* show list of regions */}
                       <RegionsList onSelect={handleSelectFromList} />

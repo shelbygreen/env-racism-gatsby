@@ -62,7 +62,7 @@ const Test = styled(Field)`
   width: 425px;
 `
 
-const text = "Click a point on the map for your story's location"
+const text = "Enter a zipcode for your story's location"
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const onSubmit = async values => {
