@@ -38,7 +38,8 @@ export const NoResults = styled(Box)`
 // options for sorting the data
 // name(alphabetical order), population(big to small), and risk score(big to small)
 const sortOptions = [
-  { label: "name", sortFunc: (a, b) => (a.get("name") > b.get("name") ? 1 : -1) },
+  { label: "county", sortFunc: (a, b) => (a.getIn(["name", "type"]) < b.getIn(["name", "type"]) ? -1 : 1) },
+  { label: "census tract", sortFunc: (a, b) => (a.getIn(["name", "type"]) > b.getIn(["name", "type"]) ? 1 : -1) },
   { label: "population", sortFunc: (a, b) => b.get("total_pop") - a.get("total_pop") },
   { label: "risk score", sortFunc: (a, b) => b.get("final_score") - a.get("final_score") }
 ]
@@ -53,6 +54,7 @@ const RegionsList = ({ onSelect }) => {
     const [listWrapperRef, { height: listHeight }] = useDimensions()
     // use sort option 0 as the initial sortIdx
     const [sortIdx, setSortIdx] = useState(0) // default: name in alphabetical order
+    const [filterIdx, setFilterIdx] = useState(0) // default: county
   
     const handleQueryChange = value => {
       filterDispatch({
@@ -85,7 +87,6 @@ const RegionsList = ({ onSelect }) => {
         <Columns px="1rem" alignItems="baseline">
           {/* <Column>
             <FilterView>
-                view: county | tract
             </FilterView>
           </Column> */}
           <Column>

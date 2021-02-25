@@ -65,18 +65,6 @@ export const layers = [
     }, 
   },
   {
-    id: 'counties-highlight',
-    source: 'counties',
-    // minzoom: 4,
-    maxzoom: 18,
-    type: 'line',
-    filter: ['in', 'name', ''],
-    paint: {
-      'line-color': '#ffffff', 
-      'line-width': 2
-    },
-  },
-  {
     id: "tracts-fill",
     source: "tracts",
     // 'source-layer': 'txej_ct',
@@ -104,6 +92,18 @@ export const layers = [
         },
       'fill-opacity': 0.75
     }, 
+  },
+  {
+    id: 'tracts-highlight',
+    source: 'tracts',
+    // minzoom: 4,
+    maxzoom: 18,
+    type: 'line',
+    filter: ['in', 'name', ''],
+    paint: {
+      'line-color': '#ffffff', 
+      'line-width': 2
+    },
   },
   {
     id: 'clusters', // clustered facilities
@@ -163,6 +163,18 @@ export const layers = [
       'text-halo-blur': 1,
       'text-halo-width': 0.5,
     }
+  },
+  {
+    id: 'counties-highlight',
+    source: 'counties',
+    // minzoom: 4,
+    maxzoom: 18,
+    type: 'line',
+    filter: ['in', 'name', ''],
+    paint: {
+      'line-color': '#ffffff', 
+      'line-width': 2
+    },
   },
 ]
 

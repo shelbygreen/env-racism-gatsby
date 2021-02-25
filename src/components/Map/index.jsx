@@ -146,24 +146,24 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         })
 
         // clicking on clusters layer zooms in
-        map.on('click', 'clusters', e => {
-            const [feature] = map.queryRenderedFeatures(e.point, {
-                layers: ['clusters'],
-            })
-            map
-                .getSource('facilities')
-                .getClusterExpansionZoom(
-                    feature.properties.cluster_id,
-                    (err, targetZoom) => {
-                        if (err) return
+        // map.on('click', 'clusters', e => {
+        //     const [feature] = map.queryRenderedFeatures(e.point, {
+        //         layers: ['clusters'],
+        //     })
+        //     map
+        //         .getSource('facilities')
+        //         .getClusterExpansionZoom(
+        //             feature.properties.cluster_id,
+        //             (err, targetZoom) => {
+        //                 if (err) return
   
-                        map.easeTo({
-                            center: feature.geometry.coordinates,
-                            zoom: targetZoom + 1,
-                        })
-                    }
-                )
-        })
+        //                 map.easeTo({
+        //                     center: feature.geometry.coordinates,
+        //                     zoom: targetZoom + 1,
+        //                 })
+        //             }
+        //         )
+        // })
 
         // styling for tooltip
         const tooltip = new mapboxgl.Popup({
@@ -214,13 +214,13 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     // Update selected point / polygon
     useEffect(() => {
         selectedFeatureRef.current = selectedFeature
+        // console.log(selectedFeature)
 
         const { current: map } = mapRef
         if (!(map && map.isStyleLoaded())) return
 
-        // put counties highlight here?
-
-        // map.setFilter('counties-outline-highlight', ['==', 'id', selectedFeature || Infinity]) // highlight border
+        map.setFilter('counties-highlight', ['==', 'id', selectedFeature])
+        map.setFilter('tracts-highlight', ['==', 'id', selectedFeature])
     }, [selectedFeature])
 
     // update bounds to match incoming bounds
@@ -330,8 +330,6 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
         // if the newLayer is counties, T
         // if the newLayer is tracts, F
         const isCounty = newLayer === 'counties'
-        
-        // change type in RegionsList to counties here !!! ??
 
         // change the visibility of the counties-fill layer to none if the newLayer is counties
         map.setLayoutProperty(
