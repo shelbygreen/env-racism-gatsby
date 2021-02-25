@@ -165,7 +165,7 @@ const Feedback = () => (
                 placeholder={text}
               />
             <br /> <br />
-            <Field name="post" component="input" type="checkbox" /> Post my story <br />
+            <Field name="post" component="input" type="checkbox" /> Post my story publicly <br />
             <Field name="cta" component="input" type="checkbox" /> Email me about advocacy efforts happening in my area <br />
             </SubmitBox>
             <center><div className="buttons">

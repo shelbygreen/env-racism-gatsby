@@ -32,6 +32,7 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^3.11.0",
     "react-immutable-proptypes": "^2.2.0",
+    "react-spinners": "^0.10.6",
     "react-typography": "^0.16.19",
     "react-use-dimensions": "^1.2.1",
     "react-window": "^1.8.5",
