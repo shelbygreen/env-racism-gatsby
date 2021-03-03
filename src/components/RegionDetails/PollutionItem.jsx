@@ -171,12 +171,12 @@ const PollutionListItem = ({
             {/* Lead Risk and Exposure */}
             <Labels>
               <Column>Lead Risk and Exposure <Tooltip><TooltipText>The percentage of residences that may have lead-based paint. There is no safe level of exposure to lead.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.3}>{100*(lead_score).toFixed(1)}%</Column>
+              <Column>{100*(lead_score).toFixed(1)}%</Column>
             </Labels>
             {/* Ozone Concentration */}
             <Labels>
               <Column>Ozone Concentration (ppb) <Tooltip><TooltipText>Ozone is a type of air pollution, and is more commonly known as “smog.” Ozone is emitted into the atmosphere by oil refineries and plants, as well as by cars, trucks, and trains. The EPA 8-hour ozone standard is 70 ppb.</TooltipText><InfoIcon/></Tooltip></Column>
-              <Column flex={0.3}>{(ozn_score).toFixed(1)}</Column>
+              <Column>{(ozn_score).toFixed(1)}</Column>
             </Labels>
             {/* PM2.5 concentration */}
             <Labels>

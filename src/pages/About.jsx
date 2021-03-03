@@ -61,7 +61,7 @@ const About = () => (
         This map allows you to <b>explore the uneven social and environmental burdens faced by every county in Texas</b>. Click on a county to <b>see its “cumulative risk score”</b> (based on local pollution, demographic data, and health indicators). And <b>use the “Share your Story” feature to add your personal experience to the map</b>. 
         <br/>
         <br/>
-        Built by <OutboundLink to='https://wwww.climatecabineteducation.org' from='/'>Climate Cabinet Education</OutboundLink> in partnership with <OutboundLink to='https://www.txrising.org' from='/'>Texas Rising</OutboundLink>.
+        Built by <OutboundLink to='https://www.climatecabineteducation.org' from='/'>Climate Cabinet Education</OutboundLink> in partnership with <OutboundLink to='https://www.txrising.org' from='/'>Texas Rising</OutboundLink>.
       </Text>
         <center>
           <br/>

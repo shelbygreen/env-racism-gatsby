@@ -179,7 +179,7 @@ const RegionDetails = ({
             {/* View Factsheet Button */}
             <center>
               <FactsheetButton>
-                <Link to={`/Factsheet/${county.replace(/\s+/g, '-')}`}>Print {county}'s Factsheet</Link>
+                <Link to={`/Factsheet/${county.replace(/\s+/g, '-')}`}>View {county}'s Factsheet</Link>
               </FactsheetButton>
             </center>
           </Section>
