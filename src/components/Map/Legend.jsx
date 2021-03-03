@@ -61,7 +61,7 @@ const Circle = ({ radius, color, borderColor, borderWidth, scale }) => {
       <circle
         cx={center}
         cy={center}
-        r={radius * scale}
+        r={radius * 0.75 * scale}
         fill={color}
         stroke={borderColor}
         strokeWidth={borderWidth}

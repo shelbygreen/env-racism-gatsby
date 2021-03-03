@@ -5,6 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 // import 'mapbox-gl/dist/mapbox-gl.js'
+import PropagateLoader from 'react-spinners/PropagateLoader'
 import styled from '../../../util/style'
 import { indexBy } from '../../../util/data'
 import { getCenterAndZoom, groupByLayer } from '../../../util/map'
@@ -22,6 +23,13 @@ const Wrapper = styled.div`
   flex: 1 0 auto;
   z-index: 1;
 `
+// styling for the map loader icon
+const override = styled.div`
+    position: absolute;
+    right: 10px;
+    bottom: 24px;
+`;
+
 const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange }) => {
     const { mapboxToken } = siteMetadata
 
@@ -121,7 +129,7 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
             layers.forEach(layer => {
                 map.addLayer(layer)
             })
-            
+
             map.resize();
         })
 
@@ -214,7 +222,6 @@ const Map = ({ data, selectedFeature, bounds, onSelectFeature, onBoundsChange })
     // Update selected point / polygon
     useEffect(() => {
         selectedFeatureRef.current = selectedFeature
-        // console.log(selectedFeature)
 
         const { current: map } = mapRef
         if (!(map && map.isStyleLoaded())) return
