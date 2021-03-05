@@ -42,35 +42,36 @@ const FactsheetTemplate = (props) => {
             <center>Texas Environmental Justice Explorer - Summary</center>
             <br/>
             <span>
-                <b>Cumulative Environmental Justice Risk Score: </b>{countyData.final_score.toFixed(2)}/100
+                <b>Cumulative Environmental Justice Risk Score: </b>{countyData.final_score_state}/100
                 <br/>
-                {countyData.county}’s risk score is higher than {countyData.final_rank.toFixed(2)}% of all other counties in Texas.
+                {countyData.name}’s risk score is higher than {countyData.final_rank_state.toFixed(2)}% of all other counties in Texas.
                 <br/>
                 <br/>
-                <b>Population: </b>{readibleNumber(countyData.total_pop, 0)} residents, where {countyData.poc_score.toFixed(2)}% identify as a person of color.
+                <b>Population: </b>{readibleNumber(countyData.total_pop, 0)} residents, where {countyData.poc_score}% identify as a person of color.
                 <br/>
                 <ul>
-                    <li>{countyData.nohs_score.toFixed(2)}% are at least 25 years old and don't have a high school degree.</li>
-                    <li>{countyData.liso_score.toFixed(2)}% live in households where no one over the age of 5 speaks English “very well.”</li>
+                    <li>{countyData.nohs_score}% are at least 25 years old and don't have a high school degree.</li>
+                    <li>{countyData.liso_score}% live in households where no one over the age of 5 speaks English “very well.”</li>
                 </ul>
                 <b><u>Air Quality</u></b>
                 <br/>
                 <ul>
-                    <li>{100*countyData.total_pop/countyData.total_pop.toFixed(2)}% of residents live in a census tract where the air Ozone concentration is below the EPA’s 8-hour standard (70 parts per billion).</li>
-                    <li>{100*countyData.total_pop/countyData.total_pop.toFixed(2)}% of residents live in a census tract where the PM 2.5 concentration is below the EPA’s annual average standard (12 parts per billion).</li>
+                    <li>{100*countyData.total_pop/countyData.total_pop}% of residents live in a census tract where the air Ozone concentration is below the EPA’s 8-hour standard (70 parts per billion).</li>
+                    <li>{100*countyData.total_pop/countyData.total_pop}% of residents live in a census tract where the PM 2.5 concentration is below the EPA’s annual average standard (12 parts per billion).</li>
                 </ul>
                 <b><u>Housing</u></b>
                 <br/>
                 <ul>
-                    <li>{countyData.lead_score.toFixed(2)}% of homes were built before 1980, and may contain lead paint.</li>
-                    <li>There are count(tri_sites) toxic release inventory facilities and count(sf_sites) in {countyData.county}. true_tri_sites_score% of these facilities are located in census tracts where the minority population is higher than 50%.</li>
+                    <li>{countyData.lead_score}% of homes were built before 1980, and may contain lead paint.</li>
+                    <li>There are {countyData.tri_sites} toxic release inventory facilities and {countyData.sf_sites} in {countyData.name}.</li>
+                    {/* % of these facilities are located in census tracts where the minority population is higher than 50%. */}
                 </ul>
                 <b><u>Economy</u></b>
                 <br/>
                 <ul>
-                    <li>{countyData.hbrd_score.toFixed(2)}% of residents are spending more than half of their income on rent.</li>
-                    <li>{countyData.pov_score.toFixed(2)}% of resients live in households with an income below double the Federal poverty line ($52,400 for a family of four).</li>
-                    <li>{countyData.unem_score.toFixed(2)}% of residents are unemployed.</li>
+                    <li>{countyData.hbrd_score}% of residents are spending more than half of their income on rent.</li>
+                    <li>{countyData.pov_score}% of resients live in households with an income below double the Federal poverty line ($52,400 for a family of four).</li>
+                    <li>{countyData.unem_score}% of residents are unemployed.</li>
                 </ul>
             </span>
             <br/>
