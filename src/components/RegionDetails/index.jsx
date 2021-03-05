@@ -98,14 +98,14 @@ const RegionDetails = ({
 	dsl_score,
 	traf_score,
 	txcs_score,
-  pbn_score,
+  pbn_score_state,
   hbrd_score,
 	nohs_score,
 	liso_score,
 	unem_score,
 	poc_score,
 	pov_score,
-  pop_score,
+  pop_score_state,
   final_score_state,
   onBack,
 }) => {
@@ -160,7 +160,7 @@ const RegionDetails = ({
             unem_score={unem_score}
             poc_score={poc_score}
             pov_score={pov_score}
-            pop_score={pop_score}/>
+            pop_score_state={pop_score_state}/>
             <PollutionListItem
             lead_score={lead_score}
             chem_score={chem_score}
@@ -172,7 +172,7 @@ const RegionDetails = ({
             dsl_score={dsl_score}
             traf_score={traf_score}
             txcs_score={txcs_score}
-            pbn_score={pbn_score}/>
+            pbn_score_state={pbn_score_state}/>
           </Section>
           <Section>
             {/* View Factsheet Button */}
