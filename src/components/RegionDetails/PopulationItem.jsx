@@ -147,7 +147,7 @@ const PopulationListItem = ({
 	unem_score,
 	poc_score,
 	pov_score,
-	pop_score
+	pop_score_state
  }) => {
   const [isOpen, setIsOpen] = useState(false)
   const toggle = () => setIsOpen(prevIsOpen => !prevIsOpen)
@@ -160,7 +160,7 @@ const PopulationListItem = ({
           {isOpen ? <CaretDown /> : <CaretRight />}
           <div>Population Characteristics Score <Tooltip><TooltipText>This score combines the prevalence of sensitive populations, socioeconomic factors, and other vulnerabilities that compound the environmental hazards facing a community. Higher scores indicate more vulnerable populations.</TooltipText><InfoIcon/></Tooltip></div>
         </Title>
-        <Score>{(pop_score).toFixed(1)}</Score>
+        <Score>{(pop_score_state).toFixed(1)/10}</Score>
       </Header>
       <Content>
         {isOpen && (
@@ -232,7 +232,7 @@ PopulationListItem.propTypes = {
 	unem_score: PropTypes.number.isRequired,
 	poc_score: PropTypes.number.isRequired,
 	pov_score: PropTypes.number.isRequired,
-	pop_score: PropTypes.number.isRequired
+	pop_score_state: PropTypes.number.isRequired
 }
 
 export default PopulationListItem
