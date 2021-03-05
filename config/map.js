@@ -47,7 +47,7 @@ export const layers = [
     filter: ["==", "type", "county"],
     paint: {
       "fill-color": {
-        property: 'final_score_state', // colors coded by the 'score' attribute
+        property: 'final_score', // colors coded by the 'score' attribute
           stops: [
             [1, "rgb(253,231,37)"],
             [10, "rgb(180,222,44)"],
@@ -76,7 +76,7 @@ export const layers = [
     filter: ["==", "type", "tract"],
     paint: {
       "fill-color": {
-        property: 'final_score_state', // colors coded by the EJ score 
+        property: 'final_score', // colors coded by the EJ score 
           stops: [
             [1, "rgb(253,231,37)"],
             [10, "rgb(180,222,44)"],

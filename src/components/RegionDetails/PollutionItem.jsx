@@ -149,7 +149,7 @@ const PollutionListItem = ({
 	dsl_score,
 	traf_score,
 	txcs_score,
-  pbn_score_state,
+  pbn_score,
  }) => {
   const [isOpen, setIsOpen] = useState(false)
   const toggle = () => setIsOpen(prevIsOpen => !prevIsOpen)
@@ -162,7 +162,7 @@ const PollutionListItem = ({
           {isOpen ? <CaretDown /> : <CaretRight />}
           <div>Pollution Burden Score <Tooltip><TooltipText>This score assesses the presence of environmental hazards in a given location. Higher scores indicate more exposure to environmental hazards, which can lead to a wide range of health impacts.</TooltipText><InfoIcon/></Tooltip></div>
         </Title>
-        <Score>{(pbn_score_state).toFixed(1)/10}</Score>
+        <Score>{(pbn_score).toFixed(1)}</Score>
       </Header>
       <Content>
         {isOpen && (
@@ -243,7 +243,7 @@ PollutionListItem.propTypes = {
 	dsl_score: PropTypes.number.isRequired,
 	traf_score: PropTypes.number.isRequired,
 	txcs_score: PropTypes.number.isRequired,
-  pbn_score_state: PropTypes.number.isRequired,
+  pbn_score: PropTypes.number.isRequired,
 }
   
 export default PollutionListItem
