@@ -28,16 +28,19 @@ export const useData = () => {
               dsl_score
               traf_score
               txcs_score
-              pbn_score
+              pbn_score_state
               hbrd_score
               nohs_score
               liso_score
               unem_score
               poc_score
               pov_score
-              pop_score
-              final_score
-              final_rank
+              pop_score_state
+              final_score_state
+              final_rank_state
+              tri_sites
+              sf_sites
+              
             }
           }
         }
