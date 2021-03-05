@@ -30,6 +30,10 @@ export const sources = {
     clusterMaxZoom: 10,
     clusterRadius: 45,
     generateId: true
+  },
+  austin: {
+    type: 'geojson', 
+    data: 'https://raw.githubusercontent.com/shelbygreen/env-racism-map/master/redlining_austin.geojson'
   }
 
 }
@@ -104,6 +108,27 @@ export const layers = [
       'line-color': '#ffffff', 
       'line-width': 2
     },
+  },
+  {
+    id: 'austin-fill',
+    source: 'austin',
+    type: 'fill',
+    maxzoom: 18,
+    layout: {
+      visibility: 'visible',
+    },
+    paint: {
+      "fill-color": {
+        property: 'holc_grade', // colors coded by the HOLC grade
+          stops: [
+            ['A', "#85C200"],
+            ['B', "#008AC2"],
+            ['C', "#FCF644"],
+            ['D', "#FC446E"],
+          ]
+        },
+      'fill-opacity': 0.75
+    }
   },
   {
     id: 'clusters', // clustered facilities
