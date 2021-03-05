@@ -98,15 +98,16 @@ const RegionDetails = ({
 	dsl_score,
 	traf_score,
 	txcs_score,
-  pbn_score_state,
+  pbn_score,
   hbrd_score,
 	nohs_score,
 	liso_score,
 	unem_score,
 	poc_score,
 	pov_score,
-  pop_score_state,
-  final_score_state,
+  pop_score,
+  final_score,
+  final_rank,
   onBack,
 }) => {
 
@@ -143,8 +144,8 @@ const RegionDetails = ({
           </Section> */}
 
           <Section>
-            <TabHeader>Environmental Justice Risk Score:<Score>{(final_score_state).toFixed(1)}</Score></TabHeader>
-            <Progress done={final_score_state}/>
+            <TabHeader>Environmental Justice Risk Score:<Score>{(final_score).toFixed(1)}</Score></TabHeader>
+            <Progress done={final_score}/>
             <Help
                   snippet="What does this mean?  "
                 >
@@ -160,7 +161,7 @@ const RegionDetails = ({
             unem_score={unem_score}
             poc_score={poc_score}
             pov_score={pov_score}
-            pop_score_state={pop_score_state}/>
+            pop_score={pop_score}/>
             <PollutionListItem
             lead_score={lead_score}
             chem_score={chem_score}
@@ -172,7 +173,7 @@ const RegionDetails = ({
             dsl_score={dsl_score}
             traf_score={traf_score}
             txcs_score={txcs_score}
-            pbn_score_state={pbn_score_state}/>
+            pbn_score={pbn_score}/>
           </Section>
           <Section>
             {/* View Factsheet Button */}
@@ -211,7 +212,7 @@ RegionDetails.propTypes = {
 	poc_score:PropTypes.number.isRequired,
 	pov_score:PropTypes.number.isRequired,
   pop_score:PropTypes.number.isRequired,
-  final_score_state:PropTypes.number.isRequired,
+  final_score:PropTypes.number.isRequired,
   final_rank:PropTypes.number.isRequired,
   onBack: PropTypes.func,
 }
