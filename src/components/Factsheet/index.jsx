@@ -18,8 +18,8 @@ export const query = graphql`
             name
             total_pop
             county
-            final_score
-            final_rank
+            final_score_state
+            final_rank_state
             poc_score
             pov_score
             nohs_score
@@ -27,6 +27,8 @@ export const query = graphql`
             lead_score
             hbrd_score
             unem_score
+            tri_sites
+            sf_sites
         }
     }
 `;

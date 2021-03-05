@@ -40,7 +40,6 @@ export const useData = () => {
               final_rank_state
               tri_sites
               sf_sites
-              
             }
           }
         }

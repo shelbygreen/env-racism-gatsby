@@ -31,7 +31,7 @@ const Name = styled.div`
     font-weight: normal;
 `
   
-const ListItem = ({ name, final_score, total_pop, ...props }) => (
+const ListItem = ({ name, final_score_state, total_pop, ...props }) => (
     <Wrapper {...props}>
       <Columns>
         <Column>
@@ -40,7 +40,7 @@ const ListItem = ({ name, final_score, total_pop, ...props }) => (
         </Column>
         <Column>
           <Text textAlign="right">
-          Risk Score: {final_score.toFixed(1)}
+          Risk Score: {final_score_state.toFixed(1)}
           </Text>
         </Column>
       </Columns>
@@ -49,7 +49,7 @@ const ListItem = ({ name, final_score, total_pop, ...props }) => (
   
 ListItem.propTypes = {
     id: PropTypes.number.isRequired,
-    final_score: PropTypes.number.isRequired,
+    final_score_state: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     total_pop: PropTypes.number.isRequired,
 }

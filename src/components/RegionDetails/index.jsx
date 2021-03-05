@@ -106,8 +106,7 @@ const RegionDetails = ({
 	poc_score,
 	pov_score,
   pop_score,
-  final_score,
-  final_rank,
+  final_score_state,
   onBack,
 }) => {
 
@@ -144,8 +143,8 @@ const RegionDetails = ({
           </Section> */}
 
           <Section>
-            <TabHeader>Environmental Justice Risk Score:<Score>{(final_score).toFixed(1)}</Score></TabHeader>
-            <Progress done={final_score}/>
+            <TabHeader>Environmental Justice Risk Score:<Score>{(final_score_state).toFixed(1)}</Score></TabHeader>
+            <Progress done={final_score_state}/>
             <Help
                   snippet="What does this mean?  "
                 >
@@ -212,7 +211,7 @@ RegionDetails.propTypes = {
 	poc_score:PropTypes.number.isRequired,
 	pov_score:PropTypes.number.isRequired,
   pop_score:PropTypes.number.isRequired,
-  final_score:PropTypes.number.isRequired,
+  final_score_state:PropTypes.number.isRequired,
   final_rank:PropTypes.number.isRequired,
   onBack: PropTypes.func,
 }

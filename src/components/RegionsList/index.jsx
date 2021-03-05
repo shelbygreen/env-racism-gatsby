@@ -40,7 +40,7 @@ export const NoResults = styled(Box)`
 const sortOptions = [
   { label: "name", sortFunc: (a, b) => (a.get("name") > b.get("name") ? 1 : -1) },
   { label: "population", sortFunc: (a, b) => b.get("total_pop") - a.get("total_pop") },
-  { label: "risk score", sortFunc: (a, b) => b.get("final_score") - a.get("final_score") }
+  { label: "risk score", sortFunc: (a, b) => b.get("final_score_state") - a.get("final_score_state") }
 ]
 
 // component for the list of regions
